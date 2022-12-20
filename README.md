@@ -1,2 +1,2 @@
 # KangSooHan.github-io
-Blog for Getjy
+Getjy's Blog
