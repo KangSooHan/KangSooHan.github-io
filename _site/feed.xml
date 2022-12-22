@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 22 Dec 2022 17:53:51 +0900</pubDate>
-    <lastBuildDate>Thu, 22 Dec 2022 17:53:51 +0900</lastBuildDate>
+    <pubDate>Thu, 22 Dec 2022 18:04:19 +0900</pubDate>
+    <lastBuildDate>Thu, 22 Dec 2022 18:04:19 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
@@ -30,7 +30,7 @@ sed(streamlined editor) : Vim이랑 유사하게 생각할 것
     &lt;pre&gt;&lt;code class=&quot;language-vi&quot;&gt;:[a-z]\{1, 3\}
 &lt;/code&gt;&lt;/pre&gt;
   &lt;/li&gt;
-  &lt;li&gt;[] : 각 문자별로 OR [a-z] : a-z사이에 or \{ \} : 횟수지정 \{1, 3\} 1-3회&lt;/li&gt;
+  &lt;li&gt;[] : 각 문자별로 OR [a-z] : a-z사이에 or \{ \} : 횟수지정 \{1, 3\} 1-3회, [A-Z] [a-zA-Z] 도 가능&lt;/li&gt;
   &lt;li&gt;실행 결과 [a, b, c, … , z, aa, ab, ac, …, zx, zy, zz, …, aaa, aab, aac, …, zzx, zzy, zzz]
 &lt;br /&gt;&lt;br /&gt;
     &lt;pre&gt;&lt;code class=&quot;language-vi&quot;&gt;:\&amp;lt;abd\&amp;gt;
