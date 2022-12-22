@@ -1,6 +1,6 @@
 ---
 title: 센서 퓨전이란?
-category: ss
+category: sensorfusion
 layout: post
 ---
 

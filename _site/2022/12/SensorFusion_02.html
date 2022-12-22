@@ -58,82 +58,66 @@
             <div class="post-container">
     <center>
         <span class="date">
-            20 Dec 2022 
+            22 Dec 2022 
              
                 in <i>sensorfusion</i>
              
         </span>
-        <h1 class="post-title">센서 퓨전이란?</h1>
+        <h1 class="post-title">Lidar?</h1>
     </center>
     <div class="ui divider"></div>
-    <h3 id="센서-퓨전은-왜-필요한가">센서 퓨전은 왜 필요한가?</h3>
-<p>로봇은 환경을 이해하고 만들기 위해서 다양한 종류의 센서를 씁니다. 센서는 각각 자신의 장단점을 가지고 있습니다. 센서 퓨전은 이런 센서 정보들을 종합하여 더 나은 환경을 제공하게 해줍니다.</p>
+    <h3 id="lidar란">Lidar란?</h3>
+<p>라이다는 빛을 감지하고 거리를 측정하는 센서입니다. beam 을 쏴서 돌아오는데 까지 걸린 시간을 측정하여 물체까지의 거리를 결정합니다. 레이저는 매우 짧은 파장을 쏴 돌아오는데 까지 걸리는 시간을 계산합니다. Laser 빔은 적외선 스펙트럼으로 다른 방향으로 쏩니다(일반적으로 360). 가장 잘 알려지고 사용되는 선구 제품은 Velodyne입니다.</p>
 
-<h3 id="뭘-배울까요">뭘 배울까요??</h3>
-<p>우리는 Lidar, Camera, Rader, kalman Filters에 대해 학습합니다.</p>
+<p align="center"><img src="/assets/img/sensorfusion/velodyne-hdl-64e.jpg" width="30%" height="30%" /></p>
 
-<h3 id="lidar란">Lidar란?</h3>
-<p>Light + Rader의 합성어로 레이저 빔을 쏴서 물체에 반사되어 돌아오는 빔을 측정하는 센서입니다.</p>
 <ul>
-  <li>장점
-    <ul>
-      <li>거리를 측정하는데 용이</li>
-      <li>Point Cloud Data(XYZ)형태를 제공</li>
-    </ul>
-  </li>
-  <li>단점
-    <ul>
-      <li>비싼 가격</li>
-    </ul>
-  </li>
+  <li>64 lasers/detectors</li>
+  <li>360 degree field of view</li>
+  <li>0.08 degree angular resolution(360 * 0.08 개의 포인트를 획득)</li>
+  <li>26.8 degree vertical field of view +2 up to -24.8 down<br />
+with 64 equally spaced angular subdivisions(approximately 0.4, 0.4*64 = 25.8)</li>
+  <li>&lt;2 cm distance accuracy</li>
+  <li>5-15 Hz field of view update</li>
+  <li>&gt;1.3 M points per second</li>
 </ul>
 
-<h3 id="camera란">Camera란?</h3>
-<p>Camera는 빛에서 이미지를 생성하는 Passive Sensor입니다.</p>
-<ul>
-  <li>장점
-    <ul>
-      <li>높은 Resolution.(신호등 같은 정보를 파악하기 용이함)</li>
-      <li>가격이 적당</li>
-    </ul>
-  </li>
-  <li>단점
-    <ul>
-      <li>거리 측정 불가.</li>
-    </ul>
-  </li>
-</ul>
+<h3 id="point-cloud-data">Point Cloud Data?</h3>
+<p>(x1, y1, z1, I1)<br />
+(x2, y2, z2, I2)<br />
+(x3, y3, z3, I3)<br />
+포인트 클라우드는 위와 같이 X좌표 Y좌표 Z좌표 그리고 Intensity I로 이루어진 점들의 구성으로 벨로다인은 1초에 256000(64*(360/0.8)*10)개의 PCD로 구성되어 있습니다. I는 신호의 세기로 reflective properties를 의미합니다.</p>
+<p><img src="/assets/img/sensorfusion/pcd-coordinates.jpg" width="30%" height="30%" /></p>
+<p>이러한 좌표 시스템은 자동차의 local 좌표와 동일합니다. x축에 평행한 -24.8도 각도로 도착시간이 66.7ns 인 레이져가 있을 때 ( 빛의 속도 300000000m/s ) (66.7/2 * 300000000 / 10^-9 * cos(-24.8) , 0 , 66.7/2 * 300000000 / 10^-9 * sin(-24.8)) 좌표를 얻을 수 있습니다.
+처리 툴로는 PCL(point cloud library), OpenCV를 자주 사용합니다.</p>
 
-<h3 id="rader란">Rader란?</h3>
-<p>Rader는 빛 파장을 쏴 물체에 반사되어 돌아오는 신호를 측정하는 Active Sensor입니다. Signal Processing을 Rader 파장 형태에 사용해서 Position과 Velocity를 획득할 수 있습니다.</p>
+<h3 id="pcl-library">PCL Library?</h3>
+<p>Point Cloud Library<br />
+장점</p>
 <ul>
-  <li>장점
-    <ul>
-      <li>다양한 유형의 환경에서 높은 신뢰성과 기능을 제공</li>
-      <li>가격이 쌈</li>
-    </ul>
-  </li>
-  <li>단점
-    <ul>
-      <li>낮은 해상도</li>
-    </ul>
-  </li>
+  <li>Open Source tool</li>
+  <li>로보틱스 및 자율주행에서 널리 사용되어 tutorial이 많음</li>
+  <li>Filtering, Segmentation, Clustering과 같은 내장함수</li>
+  <li>Rendering 기능</li>
 </ul>
-
-<h3 id="fusion">Fusion?</h3>
-<p>다른 Sensor 데이터를 하나로 합치는 방법을 말합니다. 수학적인 필터를 사용해서 서로 다른 타입의 데이터를 하나로 합쳐 불확신성을 줄이고 정확도를 늘립니다. Prediction -&gt; Update과정을 반복하며 정확한 환경을 만듭니다.</p>
 
 <p><br /><br /><br /><br /><br /><br /></p>
 
 <hr />
 <h3 id="단어">단어</h3>
-<p>Passive Sensor(수동센서) : 센서가 만든 신호가 아닌 다른(태양) 신호로 측정하는 센서(Camera etc..)<br />
-Active Sensor(능동센서) : 센서가 만든 신호로 측정하는 센서(Lidar, Rader etc..)<br />
-Modality : 양식<br />
-Cohesive : 결합력있는<br />
-Portmanteau : 합성어<br />
-Unscented 무향</p>
-
+<p>Coherent : 일관된
+Ranging : 거리 측정
+Contraption : 장치
+Rod : 막대
+Bunch of : 많은
+Steer : 조종하다
+Exotic : 외적인 외래의
+Emit : 방출하다
+Infrared Specturm : 적외선 스펙트럼
+Angular Resolution : 분해능 -&gt; 서로 떨어져 있는 두 물체를 서로 구별할 수 있는 능력, 분해능이 작으면 가까워 보이는 두 물체도 서로 다른 물체로 인식하고, 분해능이 크다면 멀리 있는 물체도 하나의 물체로 인식할 수 있다.
+1Hz : 헤르쯔, 1초에 한번
+Proprietary : 소유권
+Granularity : 세분성, 입도, 입자</p>
 
     <div class="ui horizontal divider">
         Thank You For Reading

@@ -58,82 +58,47 @@
             <div class="post-container">
     <center>
         <span class="date">
-            20 Dec 2022 
+            22 Dec 2022 
              
-                in <i>sensorfusion</i>
+                in <i>etc</i>
              
         </span>
-        <h1 class="post-title">센서 퓨전이란?</h1>
+        <h1 class="post-title">VIM 사용법</h1>
     </center>
     <div class="ui divider"></div>
-    <h3 id="센서-퓨전은-왜-필요한가">센서 퓨전은 왜 필요한가?</h3>
-<p>로봇은 환경을 이해하고 만들기 위해서 다양한 종류의 센서를 씁니다. 센서는 각각 자신의 장단점을 가지고 있습니다. 센서 퓨전은 이런 센서 정보들을 종합하여 더 나은 환경을 제공하게 해줍니다.</p>
+    <h3 id="자주-쓰는-vim-적어두기">자주 쓰는 VIM 적어두기</h3>
 
-<h3 id="뭘-배울까요">뭘 배울까요??</h3>
-<p>우리는 Lidar, Camera, Rader, kalman Filters에 대해 학습합니다.</p>
-
-<h3 id="lidar란">Lidar란?</h3>
-<p>Light + Rader의 합성어로 레이저 빔을 쏴서 물체에 반사되어 돌아오는 빔을 측정하는 센서입니다.</p>
 <ul>
-  <li>장점
-    <ul>
-      <li>거리를 측정하는데 용이</li>
-      <li>Point Cloud Data(XYZ)형태를 제공</li>
-    </ul>
+  <li>자주 쓰는 VIM 종류!(2022-12-22 Update)
+    <pre><code class="language-vi">:%s/&lt;바꿀 단어&gt;/&lt;바뀐 단어&gt;/g
+</code></pre>
   </li>
-  <li>단점
-    <ul>
-      <li>비싼 가격</li>
-    </ul>
+  <li>시작행,끝행(% 전체), s : switch, g,i,c : (한행에 여러번 나오면 전체 변경/대소문자 구분X/치환 시 사용자 확인)
+<br /><br />
+    <div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#zsh</span>
+<span class="nb">grep</span> <span class="nt">-rl</span> <span class="s2">"&lt;바꿀 단어&gt;"</span> <span class="nb">.</span> | xargs <span class="nb">sed</span> <span class="nt">-i</span> <span class="s2">"s/&lt;바꿀 단어&gt;/&lt;바뀔 단어&gt;/g"</span>
+</code></pre></div>    </div>
   </li>
+  <li>grep(단어 찾기) -r(recursive) -l(list) xargs : 입력된 데이터를 라인 단위로 읽어서 argument화하는 명령<br />
+sed(streamlined editor) : Vim이랑 유사하게 생각할 것
+<br /><br />
+    <pre><code class="language-vi">:[a-z]\{1, 3\}
+</code></pre>
+  </li>
+  <li>[] : 각 문자별로 OR [a-z] : a-z사이에 or \{ \} : 횟수지정 \{1, 3\} 1-3회</li>
+  <li>실행 결과 [a, b, c, … , z, aa, ab, ac, …, zx, zy, zz, …, aaa, aab, aac, …, zzx, zzy, zzz]
+<br /><br />
+    <pre><code class="language-vi">:\&lt;abd\&gt;
+</code></pre>
+  </li>
+  <li>\&lt; \&gt; : 띄어쓰기나 기호로 끊기는 문자열 (ex, zzasdzzz 는 X, @asd@는 O)
+<br /><br />
+    <pre><code class="language-vi">:%s/\(logger.*{\)\([^{}]\+\)\(}.*\)"\(.*\))/\1\3"\4, \2)
+</code></pre>
+  </li>
+  <li>\(\) : 버퍼에 저장 . : 아무 문자 반복(.. -&gt; ab ac etc..), * : 0개 이상 반복, [^{}] : {}문자 제외<br />
+\1: 1번 버퍼 \3 : 3번 버퍼 …</li>
 </ul>
-
-<h3 id="camera란">Camera란?</h3>
-<p>Camera는 빛에서 이미지를 생성하는 Passive Sensor입니다.</p>
-<ul>
-  <li>장점
-    <ul>
-      <li>높은 Resolution.(신호등 같은 정보를 파악하기 용이함)</li>
-      <li>가격이 적당</li>
-    </ul>
-  </li>
-  <li>단점
-    <ul>
-      <li>거리 측정 불가.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="rader란">Rader란?</h3>
-<p>Rader는 빛 파장을 쏴 물체에 반사되어 돌아오는 신호를 측정하는 Active Sensor입니다. Signal Processing을 Rader 파장 형태에 사용해서 Position과 Velocity를 획득할 수 있습니다.</p>
-<ul>
-  <li>장점
-    <ul>
-      <li>다양한 유형의 환경에서 높은 신뢰성과 기능을 제공</li>
-      <li>가격이 쌈</li>
-    </ul>
-  </li>
-  <li>단점
-    <ul>
-      <li>낮은 해상도</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="fusion">Fusion?</h3>
-<p>다른 Sensor 데이터를 하나로 합치는 방법을 말합니다. 수학적인 필터를 사용해서 서로 다른 타입의 데이터를 하나로 합쳐 불확신성을 줄이고 정확도를 늘립니다. Prediction -&gt; Update과정을 반복하며 정확한 환경을 만듭니다.</p>
-
-<p><br /><br /><br /><br /><br /><br /></p>
-
-<hr />
-<h3 id="단어">단어</h3>
-<p>Passive Sensor(수동센서) : 센서가 만든 신호가 아닌 다른(태양) 신호로 측정하는 센서(Camera etc..)<br />
-Active Sensor(능동센서) : 센서가 만든 신호로 측정하는 센서(Lidar, Rader etc..)<br />
-Modality : 양식<br />
-Cohesive : 결합력있는<br />
-Portmanteau : 합성어<br />
-Unscented 무향</p>
-
 
     <div class="ui horizontal divider">
         Thank You For Reading
