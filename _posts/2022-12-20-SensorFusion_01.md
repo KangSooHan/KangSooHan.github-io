@@ -45,11 +45,10 @@ Rader는 빛 파장을 쏴 물체에 반사되어 돌아오는 신호를 측정�
 
 ---
 ### 단어
-Passive Sensor(수동센서) : 센서가 만든 신호가 아닌 다른(태양) 신호로 측정하는 센서(Camera etc..)  
-Active Sensor(능동센서) : 센서가 만든 신호로 측정하는 센서(Lidar, Rader etc..)  
-Modality : 양식  
-Cohesive : 결합력있는  
-Portmanteau : 합성어  
-Unscented 무향 
-
+Passive Sensor(수동센서) : 센서가 만든 신호가 아닌 다른(태양) 신호로 측정하는 센서(Camera etc..)  \
+Active Sensor(능동센서) : 센서가 만든 신호로 측정하는 센서(Lidar, Rader etc..)  \
+Modality : 양식  \
+Cohesive : 결합력있는  \
+Portmanteau : 합성어  \
+Unscented : 무향 \
 
