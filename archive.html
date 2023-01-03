@@ -94,6 +94,25 @@ title: Archive
     {% endif %} 
 {% endfor %}
 
+<h3>Math</h3>
+{% for post in site.posts %}
+    {% if post.category contains "math" %}
+    <div class="ui middle aligned selection list">
+        <div class="item">
+            <a class="header" href="{{ BASE_PATH }}{{ post.url }}">
+                {{ post.title | strip_html | truncatewords: 15 }}
+                <small class="small-date">
+                    {{ post.date | date_to_string }}
+                </small>
+            </a>
+            {{ post.content | strip_html | truncatewords: 30 }}
+        </div>
+    </div>
+    {% endif %} 
+{% endfor %}
+
+
+
 
 
 <h3>ETC</h3>
