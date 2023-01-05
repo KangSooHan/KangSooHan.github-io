@@ -59,66 +59,37 @@
             <div class="post-container">
     <center>
         <span class="date">
-            22 Dec 2022 
+            05 Jan 2023 
              
-                in <i>sensorfusion</i>
+                in <i>etc</i>
              
         </span>
-        <h1 class="post-title">Lidar?</h1>
+        <h1 class="post-title">POST 해야할 것들?</h1>
     </center>
     <div class="ui divider"></div>
-    <h3 id="lidar란">Lidar란?</h3>
-<p>라이다는 빛을 감지하고 거리를 측정하는 센서입니다. beam 을 쏴서 돌아오는데 까지 걸린 시간을 측정하여 물체까지의 거리를 결정합니다. 레이저는 매우 짧은 파장을 쏴 돌아오는데 까지 걸리는 시간을 계산합니다. Laser 빔은 적외선 스펙트럼으로 다른 방향으로 쏩니다(일반적으로 360). 가장 잘 알려지고 사용되는 선구 제품은 Velodyne입니다.</p>
-
-<p align="center"><img src="/assets/img/sensorfusion/velodyne-hdl-64e.jpg" width="30%" height="30%" /></p>
-
-<ul>
-  <li>64 lasers/detectors</li>
-  <li>360 degree field of view</li>
-  <li>0.08 degree angular resolution(360 * 0.08 개의 포인트를 획득)</li>
-  <li>26.8 degree vertical field of view +2 up to -24.8 down<br />
-with 64 equally spaced angular subdivisions(approximately 0.4, 0.4*64 = 25.8)</li>
-  <li>&lt;2 cm distance accuracy</li>
-  <li>5-15 Hz field of view update</li>
-  <li>&gt;1.3 M points per second</li>
-</ul>
-
-<h3 id="point-cloud-data">Point Cloud Data?</h3>
-<p>(x1, y1, z1, I1)<br />
-(x2, y2, z2, I2)<br />
-(x3, y3, z3, I3)<br />
-포인트 클라우드는 위와 같이 X좌표 Y좌표 Z좌표 그리고 Intensity I로 이루어진 점들의 구성으로 벨로다인은 1초에 256000(64*(360/0.8)*10)개의 PCD로 구성되어 있습니다. I는 신호의 세기로 reflective properties를 의미합니다.</p>
-<p><img src="/assets/img/sensorfusion/pcd-coordinates.jpg" width="30%" height="30%" /></p>
-<p>이러한 좌표 시스템은 자동차의 local 좌표와 동일합니다. x축에 평행한 -24.8도 각도로 도착시간이 66.7ns 인 레이져가 있을 때 ( 빛의 속도 300000000m/s ) (66.7/2 * 300000000 / 10^-9 * cos(-24.8) , 0 , 66.7/2 * 300000000 / 10^-9 * sin(-24.8)) 좌표를 얻을 수 있습니다.
-처리 툴로는 PCL(point cloud library), OpenCV를 자주 사용합니다.</p>
-
-<h3 id="pcl-library">PCL Library?</h3>
-<p>Point Cloud Library<br />
-장점</p>
-<ul>
-  <li>Open Source tool</li>
-  <li>로보틱스 및 자율주행에서 널리 사용되어 tutorial이 많음</li>
-  <li>Filtering, Segmentation, Clustering과 같은 내장함수</li>
-  <li>Rendering 기능</li>
-</ul>
-
-<p><br /><br /><br /><br /><br /><br /></p>
-
-<hr />
-<h3 id="단어">단어</h3>
-<p>Coherent : <br />
-Ranging : 거리 <br />
-Contraption : <br />
-Rod : <br />
-Bunch of : <br />
-Steer : <br />
-Exotic : 외적인 <br />
-Emit : <br />
-Infrared Specturm : 적외선 <br />
-Angular Resolution : 분해능 -&gt; 서로 떨어져 있는 두 물체를 서로 구별할 수 있는 능력, 분해능이 작으면 가까워 보이는 두 물체도 서로 다른 물체로 인식하고, 분해능이 크다면 멀리 있는 물체도 하나의 물체로 인식할 수 <br />
-1Hz : 헤르쯔, 1초에 <br />
-Proprietary : <br />
-Granularity : 세분성, 입도, 입자 \</p>
+    <h3 id="smart-pointer">Smart Pointer</h3>
+<p><br /><br /></p>
+<h3 id="dot-product--cross-product">Dot Product &amp; Cross Product</h3>
+<p><br /><br /></p>
+<h3 id="3차원-ransac">3차원 RANSAC</h3>
+<p><br /><br /></p>
+<h3 id="data-structure-tree">Data Structure Tree</h3>
+<p><br /><br /></p>
+<h3 id="highway-simulation-ransac-부수기">HighWay Simulation RANSAC 부수기</h3>
+<p><br /><br /></p>
+<h3 id="kd-tree-clustering-code-부수기">KD-TREE clustering Code 부수기</h3>
+<p><br /><br /></p>
+<h3 id="생성자">생성자</h3>
+<p><br /><br /></p>
+<h3 id="소멸자">소멸자</h3>
+<p><br /><br /></p>
+<h3 id="복사-생성자">복사 생성자</h3>
+<p><br /><br /></p>
+<h3 id="기본-대입-연산자">기본 대입 연산자</h3>
+<p><br /><br /></p>
+<h3 id="class-default--delete">class default &amp; delete</h3>
+<p><br /><br /></p>
+<h3 id="bst">BST</h3>
 
     <div class="ui horizontal divider">
         Thank You For Reading

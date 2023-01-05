@@ -5,9 +5,247 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 03 Jan 2023 17:34:26 +0900</pubDate>
-    <lastBuildDate>Tue, 03 Jan 2023 17:34:26 +0900</lastBuildDate>
+    <pubDate>Thu, 05 Jan 2023 17:39:31 +0900</pubDate>
+    <lastBuildDate>Thu, 05 Jan 2023 17:39:31 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>Tree</title>
+        <description>&lt;h2 id=&quot;tree&quot;&gt;TREE&lt;/h2&gt;
+&lt;p&gt;Tree는 상위 원소에서 하위 원소로 내려가면서 확장되는(계층 관계를 가지는) 나무 모양의 구조를 가진 비 선형 구조의 자료구조 입니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Root
+노드 중 최상위 노드&lt;/li&gt;
+  &lt;li&gt;Node
+Tree의 원소 &lt;br /&gt;
+최상위 노드인 루트 노드가 있으며, 자식 부모 관계를 가진 부모 노드와 자식 노드 &lt;br /&gt;
+단말 노드는 차수가 0인(자식 노드가 없는) 노드&lt;/li&gt;
+  &lt;li&gt;Edge(간선)
+간선은 노드를 연결하는(자식 노드와 부모 노드를 연결하는) 선&lt;/li&gt;
+  &lt;li&gt;차수
+노드에 연결된 자식 노드의 수
+Tree의 차수는 Tree에서 가장 큰 차수를 의미&lt;/li&gt;
+  &lt;li&gt;높이
+노드의 높이 : 루트에서 노드에 이르는 간선의 수 : Level
+Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Tree.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;binary-tree&quot;&gt;Binary Tree&lt;/h3&gt;
+&lt;p&gt;Binary Tree는 Tree의 일종으로 모든 노드들이 2개의 SubTree를 갖는 특별한 형태의 Tree를 의미합니다.&lt;br /&gt;
+노드가 자식 노드를 최대한 2개까지만 가질 수 있는 Tree(left child node, right child node)형태 입니다. &lt;br /&gt;
+레벨 i에서의 노드의 최대 $2^i$, 노드의 최소 개수는 $h+1$, 노드의 최대 개수는 $2^{h+1}-1$입니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;포화 이진 트리(Full Binary Tree)
+모든 레벨의 노드가 포화 상태인 Binary Tree&lt;/li&gt;
+  &lt;li&gt;완전 이진 트리(Complete Binary Tree
+노드번호 1번부터 n번까지 빈 자리가 없는 Binary Tree&lt;/li&gt;
+  &lt;li&gt;Skewed Binary Tree(편향 이진 트리)
+한쪽 방향의 자식 노드만을 가진 Binary Tree&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;순회traversal&quot;&gt;순회(Traversal)&lt;/h3&gt;
+&lt;p&gt;순회는 Tree의 각 노드를 중복되지 않게 전부 방문(Visit)하는 방법입니다. Tree는 비선형 구조이기 때문에 선형 구조에서와 같이 선후 연결 관계를 알 수 없습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;전위 순회(Pre-order) : 루트 $\rightarrow$ 왼 $\rightarrow$ 오&lt;/li&gt;
+  &lt;li&gt;중위 순회(In-order) : 왼 $\rightarrow$ 루트 $\rightarrow$ 오&lt;/li&gt;
+  &lt;li&gt;후위 순회(Post-order) : 왼 $\rightarrow$ 오 $\rightarrow$ 루트&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Traversal.jpg&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;이진-탐색-트리binary-search-treebst&quot;&gt;이진 탐색 트리(Binary Search Tree(BST))&lt;/h3&gt;
+&lt;p&gt;이진 탐색 트리는 탐색 작업을 효율적으로 하기 위한 자료구조입니다. BST는 모든 원소가 서로 다른 유일한 키를 가지게 됩니다. 또한, 부모 노드의 값을 기준으로 왼쪽 Subtree와 오른쪽 Subtree를 구성하게 됩니다. 따라서 in-order traversal를 실행하면 오름차순으로 정렬된 값을 얻을 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST.jpg&quot; width=&quot;20%&quot; height=&quot;20%&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;BST는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.&lt;/p&gt;
+&lt;h4 id=&quot;삽입&quot;&gt;삽입&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;node = NULL인 경우
+이는 서브트리가 비어있는 경우입니다. x를 추가하면 x가 하나뿐인 서브트리가 생기므로 x 노드를 만들어 추가해주면 됩니다.&lt;/li&gt;
+  &lt;li&gt;node의 자식에 x가 들어가야 하는 경우
+자식 서브트리에 x를 삽입한 뒤 서브트리의 루트를 그 방향의 자식으로 만들면 됩니다.&lt;/li&gt;
+  &lt;li&gt;node = x 인 경우
+이미 존재하는 경우이기 때문에 return 하면 됩니다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST_insert.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;삭제&quot;&gt;삭제&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;node = NULL 인 경우
+이는 서브트리가 없는 경우임으로 return하면 됩니다.&lt;/li&gt;
+  &lt;li&gt;node = x인 경우
+node를 삭제해야 하는데 2가지 케이스가 있습니다.
+    &lt;ol&gt;
+      &lt;li&gt;Node의 한 쪽 자식이 없는 경우
+노드를 삭제 하면 됩니다. 그 이후 Subtree와 부모 노드를 연결하면 됩니다.&lt;/li&gt;
+      &lt;li&gt;Node의 양 쪽 자식이 있는 경우
+Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는 크고 오른쪽 보다는 작아야 합니다. 이를 유지하기 위해서 삭제 노드의 값을 오른쪽 Subtree에서 가장 작은 값(left$\rightarrow$left$\rightarrow$…) 혹은 왼쪽 Subtree에서 가장 큰 값(right$\rightarrow$right$\rightarrow$…)로 대체하면 됩니다.&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST_remove.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
+
+&lt;h2 id=&quot;구현&quot;&gt;구현&lt;/h2&gt;
+&lt;p&gt;Binary Tree는 배열과 리스트로 구현할 수 있습니다.
+&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;배열-구현&quot;&gt;배열 구현&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;장점 : 구현이 쉬움&lt;/li&gt;
+  &lt;li&gt;단점 : 메모리 공간 낭비, 노드가 자식 노드를 최대한 2개까지만 가질 수 있음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Binary Tree에 각 노드 번호를 다음과 같이 부여&lt;/li&gt;
+  &lt;li&gt;루트 번호를 1로함&lt;/li&gt;
+  &lt;li&gt;레벨 N에 있는 노드에 대해서 왼쪽부터 오른쪽까지 $2^n\sim2^{n+1}-1$ 번호를 차례대로 부여
+    &lt;ul&gt;
+      &lt;li&gt;노드 번호가 i인 노드의 부모 노드 : i/2&lt;/li&gt;
+      &lt;li&gt;노드 번호가 i인 노드의 왼쪽 자식 노드 : 2*i&lt;/li&gt;
+      &lt;li&gt;노드 번호가 i인 노드의 오른쪽 자식 노드 : 2*i+1&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/TreeArray.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;리스트-구현&quot;&gt;리스트 구현&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;장점 : 구현이 어려움&lt;/li&gt;
+  &lt;li&gt;단점 : 메모리 효율이 좋음, 자식 노드를 여러명 가질 수 있음&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/TreeList.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/DataStructure/Tree.cpp&quot;&gt;Tree 구현&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/DataStructure/BST.cpp&quot;&gt;BST 구현&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/Tree.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/Tree.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title>POST 해야할 것들?</title>
+        <description>&lt;h3 id=&quot;smart-pointer&quot;&gt;Smart Pointer&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;dot-product--cross-product&quot;&gt;Dot Product &amp;amp; Cross Product&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;3차원-ransac&quot;&gt;3차원 RANSAC&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;data-structure-tree&quot;&gt;Data Structure Tree&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;highway-simulation-ransac-부수기&quot;&gt;HighWay Simulation RANSAC 부수기&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;kd-tree-clustering-code-부수기&quot;&gt;KD-TREE clustering Code 부수기&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;생성자&quot;&gt;생성자&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;소멸자&quot;&gt;소멸자&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;복사-생성자&quot;&gt;복사 생성자&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;기본-대입-연산자&quot;&gt;기본 대입 연산자&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;class-default--delete&quot;&gt;class default &amp;amp; delete&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;bst&quot;&gt;BST&lt;/h3&gt;
+</description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/Need_to_Post.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/Need_to_Post.html</guid>
+        
+        
+        <category>etc</category>
+        
+      </item>
+    
+      <item>
+        <title>Class Default &amp; Delete</title>
+        <description>&lt;h2 id=&quot;가독성을-위한-default와-delete-키워드&quot;&gt;가독성을 위한 default와 delete 키워드&lt;/h2&gt;
+&lt;p&gt;클래스 작성 시 우리가 직접 작성하지 않아도 기본적으로 컴파일러가 생성해 주는 것이 있다. 그 대표적인 예로 기본 생성자, 기본 소멸자, 기본 복사생성자, 기본 대입 연사자 등이 그렇다. 컴파일러가 생성한 복사 생성자와 대입 연산자는 얕은 복사를&lt;/p&gt;
+
+&lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;ref&quot;&gt;Ref&lt;/h3&gt;
+&lt;h4 id=&quot;-생성자&quot;&gt;&lt;a href=&quot;&quot;&gt; 생성자&lt;/a&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;소멸자&quot;&gt;소멸자&lt;/h4&gt;
+&lt;h4 id=&quot;복사-생성자&quot;&gt;복사 생성자&lt;/h4&gt;
+&lt;h4 id=&quot;기본-대입-연산자&quot;&gt;기본 대입 연산자&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h3&gt;
+</description>
+        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/Class_Default_Delete.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/Class_Default_Delete.html</guid>
+        
+        
+        <category>cpp</category>
+        
+      </item>
+    
+      <item>
+        <title>Point Cloud Clustering</title>
+        <description>&lt;h2 id=&quot;point-cloud-clustering&quot;&gt;Point Cloud Clustering&lt;/h2&gt;
+&lt;p&gt;Point Cloud에서 Clustering은 보행자, 자동차 등 obstacle들을 찾아내는데 사용합니다. Udacity 강의에서는 KD-TREE를 사용한 Euclidean Clustering을 사용합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;clustering&quot;&gt;Clustering&lt;/h3&gt;
+&lt;p&gt;클러스터링(Clustering : 군집화)는 비슷한 개체끼리 한 그룹으로, 다른 개체는 다른 그룹으로 묶는 것을 의미합니다. 클러스터링은 다음과 같이 얘기할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;군집 간 분산(outer-cluster variance) 최대화&lt;/li&gt;
+  &lt;li&gt;군집 내 분산(inner-cluster variance) 최소화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;클러스터링은 정답 라벨이 없는 Unsupervised Learning(비지도 학습) 입니다. 이는 그룹 정보 없이 비슷한 개체끼리 군집화 하는 것을 의미합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;군집-타당성-평가&quot;&gt;군집 타당성 평가&lt;/h4&gt;
+&lt;p&gt;클러스터링 알고리즘은 정답 라벨이 없기 때문에 Accuracy 지표로 표현할 수 없습니다. 또한 최적의 cluster 개수를 알아내는 것은 쉽지 않습니다.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/clustering.jpg&quot; width=&quot;60%&quot; height=&quot;40%&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;이러한 문제 때문에 clustering은 평가가 어렵습니다. 그래서 군집의 유용성을 다시 말해 군집 간 분산과 군집 내 분산을 기반으로 평가하는 Clustering Validity Index(Dunn Index, Silhouette)가 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;kd-tree&quot;&gt;KD-Tree&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/KDTree.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;K-D Tree는 공간을 기반으로 partitioning하는 B-Tree(&lt;a href=&quot;/2023/01/Tree.html&quot;&gt;참조&lt;/a&gt;)로, 점들을 k-차원 공간에서 정리합니다. K-D Tree는 다음과 같이 동작합니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;k차원의 점들이 N개 존재&lt;/li&gt;
+  &lt;li&gt;X좌표를 기준으로 X의 중간값을 찾고 이진 트리화&lt;/li&gt;
+  &lt;li&gt;자식 노드들은 각각 노드마다 Y의 중간값을 찾고 이진 트리화&lt;/li&gt;
+  &lt;li&gt;손자 노드들은 각각 노드마다 Z의 중간값을 찾고 이진 트리화&lt;/li&gt;
+  &lt;li&gt;증손자 노드들은 각각 노드마다 다시 X의 중간값을 찾고 이진 트리화..&lt;/li&gt;
+  &lt;li&gt;반복&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/BinaryTree.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
+&lt;p&gt;Alternating : 교대로 &lt;br /&gt;
+Consecutive : 연이은 &lt;br /&gt;
+Dereference : 역참조 &lt;br /&gt;
+Proximity : 근접성 &lt;br /&gt;
+Negligible : 무시할 수 있는 &lt;br /&gt;
+Reap : 베다, 보상을 받다, 받다 &lt;br /&gt;
+Innermost : 가장 깊숙히 &lt;br /&gt;
+Coincide : 일치하다 \&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/SensorFusion_06.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/SensorFusion_06.html</guid>
+        
+        
+        <category>sensorfusion</category>
+        
+      </item>
     
       <item>
         <title>Dot &amp; Corss Product</title>
@@ -215,7 +453,7 @@ enum은 다음과 같은 문법을 따릅니다.\&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
 &lt;h3 id=&quot;ref&quot;&gt;Ref&lt;/h3&gt;
 &lt;h4 id=&quot;padding-bits&quot;&gt;padding bits?&lt;/h4&gt;
 &lt;p&gt;사용하지 않는 비트를 패딩 비트라고 합니다. \ 몇몇 컴파일러는 구조체의 필드를 메모리에 위치 시킬 때 CPU가 접근하기 쉬운 위치에 필드를 배치합니다.(struct에서 padding bits없이 char, int 를 읽으면 4바이트의 1바이트의 메모리를 읽고, 접근하고, int 읽고 다음 메모리 읽고 접근하고 반복이 필요. 하지만 padding bits를 사용하면 메모리는 두번 읽기만 하면됨) -&amp;gt; 이는 network 전송시 문제가 발생하기도 함(pragma pack을 사용하여 딱 맞게 변환할 수 있음)
@@ -578,324 +816,6 @@ Steepest : 가장 \&lt;/p&gt;
         
         
         <category>sensorfusion</category>
-        
-      </item>
-    
-      <item>
-        <title>Python Tutorial</title>
-        <description>&lt;h1 id=&quot;파이썬python-311-튜토리얼&quot;&gt;파이썬(Python 3.11) 튜토리얼!!&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://docs.python.org/3.11/tutorial/index.html&quot;&gt;&lt;small&gt;https://docs.python.org/3.11/tutorial/index.html&lt;/small&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;파이썬은 효율적인 고급 자료 구조와 OOP에 대한 단순하지만 효율적인 접근 방식을 가지고 있습니다. Python Interpreter는 C++로 구현된 새로운 함수 및 데이터 유형으로 쉽게 확장 가능합니다.&lt;br /&gt;
-이 튜토리얼은 Python 언어 및 시스템의 기본 개념과 기능을 비공식적으로 소개합니다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;1. 입맛 자극하기!&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;2. Python Interpreter 사용하기&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;2.1. Interpreter 호출하기&lt;/strong&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;strong&gt;2.1.1. Argument Passing&lt;/strong&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;strong&gt;2.1.2. Interactive Mode&lt;/strong&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;**2.2. Interpreter와 환경
-        &lt;ul&gt;
-          &lt;li&gt;**2.2.1. 소스코드 인코딩&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;3. Python 소개&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;3.1. 파이썬 계산기로 쓰기&lt;/strong&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;strong&gt;3.1.1. Numbers&lt;/strong&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;strong&gt;3.1.2. Strings&lt;/strong&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;strong&gt;3.1.3. Lists&lt;/strong&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;3.2. 프로그래밍 첫걸음&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;4. More Control Flow&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;4.1. If&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;4.2. For&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;4.3. range&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;4.4. break, continue, else&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;4.5. pass&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;4.6. match&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;4.7. 정의된 함수&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;Handy : 능숙한
-Informally : 비공식적으로
-Noteworthy : 주목할만한
-Whetting : 자극하다, 돋우다
-Appetite : 식욕
-Invoke : 호출하다
-Tedious : 지루한
-First-Draft : 초안&lt;/p&gt;
-</description>
-        <pubDate>Fri, 23 Dec 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2022/12/PythonTutorial.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2022/12/PythonTutorial.html</guid>
-        
-        
-        <category>Head</category>
-        
-      </item>
-    
-      <item>
-        <title>VIM 사용법</title>
-        <description>&lt;h3 id=&quot;자주-쓰는-vim-적어두기&quot;&gt;자주 쓰는 VIM 적어두기&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;자주 쓰는 VIM 종류!(2022-12-22 Update)
-    &lt;pre&gt;&lt;code class=&quot;language-vi&quot;&gt;:%s/&amp;lt;바꿀 단어&amp;gt;/&amp;lt;바뀐 단어&amp;gt;/g
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;시작행,끝행(% 전체), s : switch, g,i,c : (한행에 여러번 나오면 전체 변경/대소문자 구분X/치환 시 사용자 확인)
-&lt;br /&gt;&lt;br /&gt;
-    &lt;div class=&quot;language-zsh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#zsh&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rl&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;바꿀 단어&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; | xargs &lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;s/&amp;lt;바꿀 단어&amp;gt;/&amp;lt;바뀔 단어&amp;gt;/g&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;grep(단어 찾기) -r(recursive) -l(list) xargs : 입력된 데이터를 라인 단위로 읽어서 argument화하는 명령&lt;br /&gt;
-sed(streamlined editor) : Vim이랑 유사하게 생각할 것
-&lt;br /&gt;&lt;br /&gt;
-    &lt;pre&gt;&lt;code class=&quot;language-vi&quot;&gt;:[a-z]\{1, 3\}
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;[] : 각 문자별로 OR [a-z] : a-z사이에 or \{ \} : 횟수지정 \{1, 3\} 1-3회, [A-Z] [a-zA-Z] 도 가능&lt;/li&gt;
-  &lt;li&gt;실행 결과 [a, b, c, … , z, aa, ab, ac, …, zx, zy, zz, …, aaa, aab, aac, …, zzx, zzy, zzz]
-&lt;br /&gt;&lt;br /&gt;
-    &lt;pre&gt;&lt;code class=&quot;language-vi&quot;&gt;:\&amp;lt;abd\&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;\&amp;lt; \&amp;gt; : 띄어쓰기나 기호로 끊기는 문자열 (ex, zzasdzzz 는 X, @asd@는 O)
-&lt;br /&gt;&lt;br /&gt;
-    &lt;pre&gt;&lt;code class=&quot;language-vi&quot;&gt;:%s/\(logger.*{\)\([^{}]\+\)\(}.*\)&quot;\(.*\))/\1\3&quot;\4, \2)
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;\(\) : 버퍼에 저장 . : 아무 문자 반복(.. -&amp;gt; ab ac etc..), * : 0개 이상 반복, [^{}] : {}문자 제외&lt;br /&gt;
-\1: 1번 버퍼 \3 : 3번 버퍼 …&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 22 Dec 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2022/12/VIM.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2022/12/VIM.html</guid>
-        
-        
-        <category>etc</category>
-        
-      </item>
-    
-      <item>
-        <title>Lidar?</title>
-        <description>&lt;h3 id=&quot;lidar란&quot;&gt;Lidar란?&lt;/h3&gt;
-&lt;p&gt;라이다는 빛을 감지하고 거리를 측정하는 센서입니다. beam 을 쏴서 돌아오는데 까지 걸린 시간을 측정하여 물체까지의 거리를 결정합니다. 레이저는 매우 짧은 파장을 쏴 돌아오는데 까지 걸리는 시간을 계산합니다. Laser 빔은 적외선 스펙트럼으로 다른 방향으로 쏩니다(일반적으로 360). 가장 잘 알려지고 사용되는 선구 제품은 Velodyne입니다.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/velodyne-hdl-64e.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;64 lasers/detectors&lt;/li&gt;
-  &lt;li&gt;360 degree field of view&lt;/li&gt;
-  &lt;li&gt;0.08 degree angular resolution(360 * 0.08 개의 포인트를 획득)&lt;/li&gt;
-  &lt;li&gt;26.8 degree vertical field of view +2 up to -24.8 down&lt;br /&gt;
-with 64 equally spaced angular subdivisions(approximately 0.4, 0.4*64 = 25.8)&lt;/li&gt;
-  &lt;li&gt;&amp;lt;2 cm distance accuracy&lt;/li&gt;
-  &lt;li&gt;5-15 Hz field of view update&lt;/li&gt;
-  &lt;li&gt;&amp;gt;1.3 M points per second&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;point-cloud-data&quot;&gt;Point Cloud Data?&lt;/h3&gt;
-&lt;p&gt;(x1, y1, z1, I1)&lt;br /&gt;
-(x2, y2, z2, I2)&lt;br /&gt;
-(x3, y3, z3, I3)&lt;br /&gt;
-포인트 클라우드는 위와 같이 X좌표 Y좌표 Z좌표 그리고 Intensity I로 이루어진 점들의 구성으로 벨로다인은 1초에 256000(64*(360/0.8)*10)개의 PCD로 구성되어 있습니다. I는 신호의 세기로 reflective properties를 의미합니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/pcd-coordinates.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;이러한 좌표 시스템은 자동차의 local 좌표와 동일합니다. x축에 평행한 -24.8도 각도로 도착시간이 66.7ns 인 레이져가 있을 때 ( 빛의 속도 300000000m/s ) (66.7/2 * 300000000 / 10^-9 * cos(-24.8) , 0 , 66.7/2 * 300000000 / 10^-9 * sin(-24.8)) 좌표를 얻을 수 있습니다.
-처리 툴로는 PCL(point cloud library), OpenCV를 자주 사용합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;pcl-library&quot;&gt;PCL Library?&lt;/h3&gt;
-&lt;p&gt;Point Cloud Library&lt;br /&gt;
-장점&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Open Source tool&lt;/li&gt;
-  &lt;li&gt;로보틱스 및 자율주행에서 널리 사용되어 tutorial이 많음&lt;/li&gt;
-  &lt;li&gt;Filtering, Segmentation, Clustering과 같은 내장함수&lt;/li&gt;
-  &lt;li&gt;Rendering 기능&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;Coherent : &lt;br /&gt;
-Ranging : 거리 &lt;br /&gt;
-Contraption : &lt;br /&gt;
-Rod : &lt;br /&gt;
-Bunch of : &lt;br /&gt;
-Steer : &lt;br /&gt;
-Exotic : 외적인 &lt;br /&gt;
-Emit : &lt;br /&gt;
-Infrared Specturm : 적외선 &lt;br /&gt;
-Angular Resolution : 분해능 -&amp;gt; 서로 떨어져 있는 두 물체를 서로 구별할 수 있는 능력, 분해능이 작으면 가까워 보이는 두 물체도 서로 다른 물체로 인식하고, 분해능이 크다면 멀리 있는 물체도 하나의 물체로 인식할 수 &lt;br /&gt;
-1Hz : 헤르쯔, 1초에 &lt;br /&gt;
-Proprietary : &lt;br /&gt;
-Granularity : 세분성, 입도, 입자 \&lt;/p&gt;
-</description>
-        <pubDate>Thu, 22 Dec 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2022/12/SensorFusion_02.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2022/12/SensorFusion_02.html</guid>
-        
-        
-        <category>sensorfusion</category>
-        
-      </item>
-    
-      <item>
-        <title>Sample Post</title>
-        <description>&lt;p&gt;Below is just about everything you’ll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.&lt;/p&gt;
-
-&lt;h1 id=&quot;heading-1&quot;&gt;Heading 1&lt;/h1&gt;
-
-&lt;h2 id=&quot;heading-2&quot;&gt;Heading 2&lt;/h2&gt;
-
-&lt;h3 id=&quot;heading-3&quot;&gt;Heading 3&lt;/h3&gt;
-
-&lt;h4 id=&quot;heading-4&quot;&gt;Heading 4&lt;/h4&gt;
-
-&lt;h5 id=&quot;heading-5&quot;&gt;Heading 5&lt;/h5&gt;
-
-&lt;h6 id=&quot;heading-6&quot;&gt;Heading 6&lt;/h6&gt;
-
-&lt;h3 id=&quot;body-text&quot;&gt;Body text&lt;/h3&gt;
-
-&lt;p&gt;Lorem ipsum dolor sit amet, test link adipiscing elit. &lt;strong&gt;This is strong&lt;/strong&gt;. Nullam dignissim convallis est. Quisque aliquam.&lt;/p&gt;
-
-&lt;p class=&quot;image-right&quot;&gt;&lt;img src=&quot;http://localhost:4000/images/3953273590_704e3899d5_m.jpg&quot; alt=&quot;Smithsonian Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;This is emphasized&lt;/em&gt;. Donec faucibus. Nunc iaculis suscipit dui. 53 = 125. Water is H&lt;sub&gt;2&lt;/sub&gt;O. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. The New York Times &lt;cite&gt;(That’s a citation)&lt;/cite&gt;. &lt;u&gt;Underline&lt;/u&gt;. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.&lt;/p&gt;
-
-&lt;p&gt;HTML and &lt;abbr title=&quot;cascading stylesheets&quot;&gt;CSS&lt;abbr&gt; are our tools. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.&lt;/abbr&gt;&lt;/abbr&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;blockquotes&quot;&gt;Blockquotes&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Lorem ipsum dolor sit amet, test link adipiscing elit. Nullam dignissim convallis est. Quisque aliquam.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;list-types&quot;&gt;List Types&lt;/h2&gt;
-
-&lt;h3 id=&quot;ordered-lists&quot;&gt;Ordered Lists&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Item one
-    &lt;ol&gt;
-      &lt;li&gt;sub item one&lt;/li&gt;
-      &lt;li&gt;sub item two&lt;/li&gt;
-      &lt;li&gt;sub item three&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Item two&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;unordered-lists&quot;&gt;Unordered Lists&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Item one&lt;/li&gt;
-  &lt;li&gt;Item two&lt;/li&gt;
-  &lt;li&gt;Item three&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;tables&quot;&gt;Tables&lt;/h2&gt;
-
-&lt;table rules=&quot;groups&quot;&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;Header1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Header2&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Header3&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;cell1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;cell2&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;cell3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;cell4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;cell5&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;cell6&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;cell1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;cell2&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;cell3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;cell4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;cell5&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;cell6&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-  &lt;tfoot&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Foot1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Foot2&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;Foot3&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tfoot&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;code-snippets&quot;&gt;Code Snippets&lt;/h2&gt;
-
-&lt;p&gt;Syntax highlighting via Rouge&lt;/p&gt;
-
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;#container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-240px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Non Pygments code example&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div id=&quot;awesome&quot;&amp;gt;
-    &amp;lt;p&amp;gt;This is great isn&apos;t it?&amp;lt;/p&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;buttons&quot;&gt;Buttons&lt;/h2&gt;
-
-&lt;p&gt;Make any link standout more when applying the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.btn&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ui positive button&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Success Button&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;/&quot; class=&quot;ui primary button&quot;&gt;Primary Button&lt;/a&gt;
-&lt;a href=&quot;/&quot; class=&quot;ui secondary button&quot;&gt;Secondary Button&lt;/a&gt;
-&lt;a href=&quot;/&quot; class=&quot;ui positive button&quot;&gt;Positive Button&lt;/a&gt;
-&lt;a href=&quot;/&quot; class=&quot;ui negative button&quot;&gt;Negative Button&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 21 Dec 2022 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2022/12/SamplePost.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2022/12/SamplePost.html</guid>
-        
-        
-        <category>etc</category>
         
       </item>
     

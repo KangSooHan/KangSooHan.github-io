@@ -59,66 +59,56 @@
             <div class="post-container">
     <center>
         <span class="date">
-            22 Dec 2022 
+            04 Jan 2023 
              
                 in <i>sensorfusion</i>
              
         </span>
-        <h1 class="post-title">Lidar?</h1>
+        <h1 class="post-title">Point Cloud Clustering</h1>
     </center>
     <div class="ui divider"></div>
-    <h3 id="lidar란">Lidar란?</h3>
-<p>라이다는 빛을 감지하고 거리를 측정하는 센서입니다. beam 을 쏴서 돌아오는데 까지 걸린 시간을 측정하여 물체까지의 거리를 결정합니다. 레이저는 매우 짧은 파장을 쏴 돌아오는데 까지 걸리는 시간을 계산합니다. Laser 빔은 적외선 스펙트럼으로 다른 방향으로 쏩니다(일반적으로 360). 가장 잘 알려지고 사용되는 선구 제품은 Velodyne입니다.</p>
+    <h2 id="point-cloud-clustering">Point Cloud Clustering</h2>
+<p>Point Cloud에서 Clustering은 보행자, 자동차 등 obstacle들을 찾아내는데 사용합니다. Udacity 강의에서는 KD-TREE를 사용한 Euclidean Clustering을 사용합니다.</p>
 
-<p align="center"><img src="/assets/img/sensorfusion/velodyne-hdl-64e.jpg" width="30%" height="30%" /></p>
-
+<h3 id="clustering">Clustering</h3>
+<p>클러스터링(Clustering : 군집화)는 비슷한 개체끼리 한 그룹으로, 다른 개체는 다른 그룹으로 묶는 것을 의미합니다. 클러스터링은 다음과 같이 얘기할 수 있습니다.</p>
 <ul>
-  <li>64 lasers/detectors</li>
-  <li>360 degree field of view</li>
-  <li>0.08 degree angular resolution(360 * 0.08 개의 포인트를 획득)</li>
-  <li>26.8 degree vertical field of view +2 up to -24.8 down<br />
-with 64 equally spaced angular subdivisions(approximately 0.4, 0.4*64 = 25.8)</li>
-  <li>&lt;2 cm distance accuracy</li>
-  <li>5-15 Hz field of view update</li>
-  <li>&gt;1.3 M points per second</li>
+  <li>군집 간 분산(outer-cluster variance) 최대화</li>
+  <li>군집 내 분산(inner-cluster variance) 최소화</li>
 </ul>
 
-<h3 id="point-cloud-data">Point Cloud Data?</h3>
-<p>(x1, y1, z1, I1)<br />
-(x2, y2, z2, I2)<br />
-(x3, y3, z3, I3)<br />
-포인트 클라우드는 위와 같이 X좌표 Y좌표 Z좌표 그리고 Intensity I로 이루어진 점들의 구성으로 벨로다인은 1초에 256000(64*(360/0.8)*10)개의 PCD로 구성되어 있습니다. I는 신호의 세기로 reflective properties를 의미합니다.</p>
-<p><img src="/assets/img/sensorfusion/pcd-coordinates.jpg" width="30%" height="30%" /></p>
-<p>이러한 좌표 시스템은 자동차의 local 좌표와 동일합니다. x축에 평행한 -24.8도 각도로 도착시간이 66.7ns 인 레이져가 있을 때 ( 빛의 속도 300000000m/s ) (66.7/2 * 300000000 / 10^-9 * cos(-24.8) , 0 , 66.7/2 * 300000000 / 10^-9 * sin(-24.8)) 좌표를 얻을 수 있습니다.
-처리 툴로는 PCL(point cloud library), OpenCV를 자주 사용합니다.</p>
+<p>클러스터링은 정답 라벨이 없는 Unsupervised Learning(비지도 학습) 입니다. 이는 그룹 정보 없이 비슷한 개체끼리 군집화 하는 것을 의미합니다.</p>
 
-<h3 id="pcl-library">PCL Library?</h3>
-<p>Point Cloud Library<br />
-장점</p>
-<ul>
-  <li>Open Source tool</li>
-  <li>로보틱스 및 자율주행에서 널리 사용되어 tutorial이 많음</li>
-  <li>Filtering, Segmentation, Clustering과 같은 내장함수</li>
-  <li>Rendering 기능</li>
-</ul>
+<h4 id="군집-타당성-평가">군집 타당성 평가</h4>
+<p>클러스터링 알고리즘은 정답 라벨이 없기 때문에 Accuracy 지표로 표현할 수 없습니다. 또한 최적의 cluster 개수를 알아내는 것은 쉽지 않습니다.</p>
+<p align="center"><img src="/assets/img/sensorfusion/clustering.jpg" width="60%" height="40%" /></p>
+<p>이러한 문제 때문에 clustering은 평가가 어렵습니다. 그래서 군집의 유용성을 다시 말해 군집 간 분산과 군집 내 분산을 기반으로 평가하는 Clustering Validity Index(Dunn Index, Silhouette)가 있습니다.</p>
+
+<h3 id="kd-tree">KD-Tree</h3>
+<p><img src="/assets/img/sensorfusion/KDTree.jpg" /></p>
+<p>K-D Tree는 공간을 기반으로 partitioning하는 B-Tree(<a href="/2023/01/Tree.html">참조</a>)로, 점들을 k-차원 공간에서 정리합니다. K-D Tree는 다음과 같이 동작합니다.</p>
+<ol>
+  <li>k차원의 점들이 N개 존재</li>
+  <li>X좌표를 기준으로 X의 중간값을 찾고 이진 트리화</li>
+  <li>자식 노드들은 각각 노드마다 Y의 중간값을 찾고 이진 트리화</li>
+  <li>손자 노드들은 각각 노드마다 Z의 중간값을 찾고 이진 트리화</li>
+  <li>증손자 노드들은 각각 노드마다 다시 X의 중간값을 찾고 이진 트리화..</li>
+  <li>반복</li>
+</ol>
+<p><img src="/assets/img/sensorfusion/BinaryTree.jpg" /></p>
 
 <p><br /><br /><br /><br /><br /><br /></p>
 
 <hr />
 <h3 id="단어">단어</h3>
-<p>Coherent : <br />
-Ranging : 거리 <br />
-Contraption : <br />
-Rod : <br />
-Bunch of : <br />
-Steer : <br />
-Exotic : 외적인 <br />
-Emit : <br />
-Infrared Specturm : 적외선 <br />
-Angular Resolution : 분해능 -&gt; 서로 떨어져 있는 두 물체를 서로 구별할 수 있는 능력, 분해능이 작으면 가까워 보이는 두 물체도 서로 다른 물체로 인식하고, 분해능이 크다면 멀리 있는 물체도 하나의 물체로 인식할 수 <br />
-1Hz : 헤르쯔, 1초에 <br />
-Proprietary : <br />
-Granularity : 세분성, 입도, 입자 \</p>
+<p>Alternating : 교대로 <br />
+Consecutive : 연이은 <br />
+Dereference : 역참조 <br />
+Proximity : 근접성 <br />
+Negligible : 무시할 수 있는 <br />
+Reap : 베다, 보상을 받다, 받다 <br />
+Innermost : 가장 깊숙히 <br />
+Coincide : 일치하다 \</p>
 
     <div class="ui horizontal divider">
         Thank You For Reading
