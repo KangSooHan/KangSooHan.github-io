@@ -43,3 +43,4 @@ Negligible : 무시할 수 있는 \
 Reap : 베다, 보상을 받다, 받다 \
 Innermost : 가장 깊숙히 \
 Coincide : 일치하다 \
+Chronological : 연대순 \

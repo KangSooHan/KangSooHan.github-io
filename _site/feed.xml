@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 05 Jan 2023 17:39:31 +0900</pubDate>
-    <lastBuildDate>Thu, 05 Jan 2023 17:39:31 +0900</lastBuildDate>
+    <pubDate>Fri, 06 Jan 2023 17:09:34 +0900</pubDate>
+    <lastBuildDate>Fri, 06 Jan 2023 17:09:34 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
@@ -120,7 +120,7 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/TreeList.jpg&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br /&gt;
-&lt;a href=&quot;https://github.com/KangSooHan/algorithm/DataStructure/Tree.cpp&quot;&gt;Tree 구현&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/DataStructure/Tree.cpp&quot;&gt;Tree 구현&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://github.com/KangSooHan/algorithm/DataStructure/BST.cpp&quot;&gt;BST 구현&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
@@ -157,6 +157,8 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 &lt;h3 id=&quot;class-default--delete&quot;&gt;class default &amp;amp; delete&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;bst&quot;&gt;BST&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;tree-주석달기&quot;&gt;TREE 주석달기&lt;/h3&gt;
 </description>
         <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Need_to_Post.html</link>
@@ -236,7 +238,8 @@ Proximity : 근접성 &lt;br /&gt;
 Negligible : 무시할 수 있는 &lt;br /&gt;
 Reap : 베다, 보상을 받다, 받다 &lt;br /&gt;
 Innermost : 가장 깊숙히 &lt;br /&gt;
-Coincide : 일치하다 \&lt;/p&gt;
+Coincide : 일치하다 &lt;br /&gt;
+Chronological : 연대순 \&lt;/p&gt;
 </description>
         <pubDate>Wed, 04 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/SensorFusion_06.html</link>

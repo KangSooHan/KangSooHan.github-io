@@ -35,6 +35,18 @@ Point Cloud Library\
 * Filtering, Segmentation, Clustering과 같은 내장함수
 * Rendering 기능
 
+### PCD의 문제점
+Lidar는 Environmental Condition(환경의 영향을)을 많이 탄다. Lidar는 비가 많이 오거나, 눈이 많이 오는 WhiteOut, 모래 먼지가 많이 낀 BrownOut에서 잘 동작하지 않습니다. 또한, 빛을 반사하는 재질을 가진 물체들을 오탐지(Ghost Objects)하는 경우도 발생합니다.
+
+### DownSampling
+PCD는 많은 용량의 데이터를 포함하고 있으며 자동차 네트워크에서 데이터를 전송하는 것은 한정적입니다. 이를 해결하기 위해 Stixel(Object를 직사각형 막대기로 나타내는 방법)을 사용합니다.
+<p><img src="/assets/img/sensorfusion/Stixel.jpg"></p>
+
+### Filtering with PCL
+PCL 라이브러리를 활용하여 PCD를 Downsampling 혹은 Filtering하는 알고리즘을 사용할 수 있습니다. 저희는 VoxelGrid Filter를 사용할 예정입니다. Voxel(3D Pixel) Grid Filter는 Cubic(3차원 공간)에 하나의 Point만 오도록 filtering하는 기법입니다. 
+
+
+
 
 
 
@@ -42,16 +54,16 @@ Point Cloud Library\
 
 ---
 ### 단어
-Coherent : \
+Coherent : 일관된 \
 Ranging : 거리 \
-Contraption : \
-Rod : \
-Bunch of : \
-Steer : \
+Contraption : 장치, 기계\
+Rod : 막대, 매, 뭉터기 \
+Bunch of : 무더기의 \
+Steer : 조종하다, 움직이다 \
 Exotic : 외적인 \
-Emit : \
+Emit : 뱉다, 방출하다\
 Infrared Specturm : 적외선 \
 Angular Resolution : 분해능 -> 서로 떨어져 있는 두 물체를 서로 구별할 수 있는 능력, 분해능이 작으면 가까워 보이는 두 물체도 서로 다른 물체로 인식하고, 분해능이 크다면 멀리 있는 물체도 하나의 물체로 인식할 수 \
 1Hz : 헤르쯔, 1초에 \
-Proprietary : \
+Proprietary : 소유주의, 등록 \
 Granularity : 세분성, 입도, 입자 \
