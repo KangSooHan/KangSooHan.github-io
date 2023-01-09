@@ -12,6 +12,17 @@
     font-style: normal;
 }
 
+table {
+    width:50%;
+    font-weight:normal;
+}
+
+td, th{
+    font-weight:normal;
+    border:1px solid grey;
+    font-size: 20px;
+}
+
 html, body {
     height: 100%;
 }
