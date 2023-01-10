@@ -41,6 +41,7 @@ RANSAC을 Lines에서 적용하는 방법에 대해서 소개합니다.
 #### in Line
 <p><img src="/assets/img/sensorfusion/RANSAC_RESULT.JPG" width="50%" height="50%"></p>
 #### in Plane
+<p><img src="/assets/img/sensorfusion/Ransac3D.jpg" width="50%" height="50%"></p>
 
 
 
