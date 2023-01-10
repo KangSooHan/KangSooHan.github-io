@@ -2,6 +2,7 @@
 title: Point Cloud Clustering
 category: sensorfusion
 layout: post
+use_math: true
 ---
 
 ## Point Cloud Clustering
@@ -31,6 +32,41 @@ K-D Tree는 공간을 기반으로 partitioning하는 B-Tree(<a href="/2023/01/T
 <p><img src="/assets/img/sensorfusion/BinaryTree.jpg"></p>
 
 
+### Searching Points in a KD-Tree
+KD-Tree를 이용하여 거리가 distanceTol(distanceTolerance) 이내인 점들을 찾아내는 방법입니다. \
+루트를 시작으로 반복하며 search 함수를 진행하면서 거리 이내의 포인트들을 찾아낼 수 있습니다. \
+**< Pseudo Code >**
+1. if node가 nullptr이면 종료
+2. 만일 현재 노드의 점과 target 점의 X,Y,Z의 거리가 distanceTol보다 크다면 종료(최적화를 위해)
+3. 만일 distance D $\sqrt{x^2 + y^2 + z^2}$의 값이 distanceTol보다 크다면 종료(거리 이내에 없기 때문에)
+4. KD-Tree의 Depth 기준에 맞게 노드의 점과 target 점의 X(0)Y(1)Z(2) 거리가 distanceTol이내에 있으며
+   * 0보다 작으면 search(node$\rightarrow$left)
+   * 0보다 크면 search(node$\rightarrow$right)
+
+이렇게 동작하면 KD-Tree를 이용하여 범위 안에 속하는 점들을 빠르게 찾을 수 있습니다.
+
+
+### Euclidean Clustering
+Euclidean Clustering은 거리를 기준으로 Clustering하는 기법 중 하나입니다. 지금까지 우리는 Euclidean Clustering을 하기 위해 KD-Tree와 KD-Tree를 활용한 근접 점들을 찾는 방법에 대해서 배웠습니다.\
+Euclidean Clustering은 다음과 같이 동작합니다. \
+1. 각각 점들을 순회하면서
+2. 만일 그 점이 처리되지 않은 점이라면
+   * Searching Point를 통해서 그 점과 근접한 점들을 획득하고
+   * 그 점들을 순회하면서 Searching Point를 하며 다시 근접 점들을 획득
+   * 만약 이미 처리되어 있는 점이라면 스킵
+3. 이렇게 하나의 Cluster를 만들고
+4. 계속해서 순회하면 집단의 Cluster를 획득
+
+이렇게 동작하면 Euclidean Clutering이 완성됩니다!
+<p><img src="/assets/img/sensorfusion/Euclidean Clustering.jpg"></p>
+
+### Bounding Box
+이렇게 획득한 Cluster를 기준으로 Bounding Box를 생성하면 더욱 쉽게 확인할 수 있습니다. \
+Bounding Box는 각각 점들의 최소 최대 값을 기준으로 생성할 수 있습니다. 다만, 이렇게 생성할 경우 아래 왼쪽 경우처럼 박스가 Fit하게 생성되지 않을 수 있습니다. \
+이러한 문제를 PCA를 이용하여 PCA Boxes를 생성하면 오른쪽과 같이 생성할 수 있습니다. PCA의 개념은 MATH 항목을 참조하면 됩니다. 
+<p><img src="/assets/img/sensorfusion/Box_Rotate.jpg"></p>
+
+
 <br><br><br><br><br><br>
 
 ---
@@ -43,4 +79,4 @@ Negligible : 무시할 수 있는 \
 Reap : 베다, 보상을 받다, 받다 \
 Innermost : 가장 깊숙히 \
 Coincide : 일치하다 \
-Chronological : 연대순 \
+Chronological : 연대순
