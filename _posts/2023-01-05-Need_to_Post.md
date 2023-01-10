@@ -29,3 +29,6 @@ layout: post
 ### BST
 <br><br>
 ### TREE 주석달기
+<br><br>
+### PCA -> 링크 달기 SF 06번 
+
