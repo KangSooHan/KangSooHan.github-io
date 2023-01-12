@@ -8,10 +8,6 @@ layout: post
 <br><br>
 ### Dot Product & Cross Product
 <br><br>
-### 3차원 RANSAC
-<br><br>
-### Data Structure Tree
-<br><br>
 ### HighWay Simulation RANSAC 부수기
 <br><br>
 ### KD-TREE clustering Code 부수기
@@ -26,9 +22,7 @@ layout: post
 <br><br>
 ### class default & delete
 <br><br>
-### BST
-<br><br>
-### TREE 주석달기
+### BST, TREE 주석달기
 <br><br>
 ### PCA -> 링크 달기 SF 06번 
 

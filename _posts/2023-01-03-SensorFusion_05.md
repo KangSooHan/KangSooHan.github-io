@@ -6,6 +6,7 @@ layout: post
 
 ## Point Cloud Segmentation
 
+<br>
 ### Segmentation
 이미지 분야에서 segmentation은 이미지 내에 있는 객체들을 객체 단위로 분할하는 작업을 의미합니다.
 <p align="center"><img src="/assets/img/sensorfusion/Segmentation.jpg"></p>
@@ -13,7 +14,7 @@ Point Cloud Segmentation은 마찬가지로 3D Point cloud 내에 있는 점들�
 <p align="center"><img src="/assets/img/sensorfusion/pointcloud_segmentation.jpg"></p>
 자율주행 자동차에서는 도로에 있는 obstacles을 탐지하는데 사용되고 있습니다. Segmentation을 진행하기 위해서 Plane 과 Obstacle을 분리해야 합니다. 우리는 Plane을 RANSAC알고리즘을 통해 추출할 수 있습니다.
 
-
+<br>
 ### RANSAC
 RAndom Sample Consensus 알고리즘은 여러 point중에서 inlier를 가장 많이 가지는 모델을 찾는 알고리즘입니다.
 * Iterative 방법
@@ -22,6 +23,7 @@ RAndom Sample Consensus 알고리즘은 여러 point중에서 inlier를 가장 �
 * 가장 많은 inliers를 가지는 모델을 선택
 <p align="center"><img src="/assets/img/sensorfusion/RANSAC_LINE.gif"></p>
 
+<br>
 ### RANSAC for Line
 RANSAC을 Lines에서 적용하는 방법에 대해서 소개합니다.
 * 각각 반복에서 2개의 점을 선택
@@ -34,13 +36,15 @@ RANSAC을 Lines에서 적용하는 방법에 대해서 소개합니다.
 4. 거리들을 모아서 크기가 가장 작은 선을 선택
 <p><img src="/assets/img/sensorfusion/RANSAC_LINE.jpg" width="50%" height="50%"></p>
 
+<br>
 ### RANSAC for Plane
 <p><img src="/assets/img/sensorfusion/RANSAC_PLANE.jpg" width="50%" height="50%"></p>
 
+<br>
 ### RANSAC Simulation Results
-#### in Line
+ in Line
 <p><img src="/assets/img/sensorfusion/RANSAC_RESULT.JPG" width="50%" height="50%"></p>
-#### in Plane
+ in Plane
 <p><img src="/assets/img/sensorfusion/Ransac3D.jpg" width="50%" height="50%"></p>
 
 

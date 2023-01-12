@@ -16,6 +16,31 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 </head>
 
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+            equationNumbers: {
+                autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+    }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 
 <body>
     
@@ -59,74 +84,67 @@
             <div class="post-container">
     <center>
         <span class="date">
-            23 Dec 2022 
+            12 Jan 2023 
              
-                in <i>Head</i>
+                in <i>sensorfusion</i>
              
         </span>
-        <h1 class="post-title">Python Tutorial</h1>
+        <h1 class="post-title">Camera Start!!</h1>
     </center>
     <div class="ui divider"></div>
-    <h2 id="파이썬python-311-튜토리얼">파이썬(Python 3.11) 튜토리얼!!</h2>
-<p><a href="https://docs.python.org/3.11/tutorial/index.html"><small>https://docs.python.org/3.11/tutorial/index.html</small></a></p>
-
-<p>파이썬은 효율적인 고급 자료 구조와 OOP에 대한 단순하지만 효율적인 접근 방식을 가지고 있습니다. Python Interpreter는 C++로 구현된 새로운 함수 및 데이터 유형으로 쉽게 확장 가능합니다.<br />
-이 튜토리얼은 Python 언어 및 시스템의 기본 개념과 기능을 비공식적으로 소개합니다.</p>
-
+    <h2 id="camera">Camera</h2>
+<p>이번장에서는 카메라에 대해서 학습하도록 하겠습니다. <br />
+카메라는 2D Image 정보를 해석할 수 있습니다. 이는 인간의 눈과 같은 단점을 가지기도 합니다.(ex Darkness, 빛번짐, 많은 비…) 하지만 이러한 점은 사람의 Visual Perception을 기반으로 구성된 우리 환경에서 강점으로 다가올 수 있습니다.(ex 신호등은 빨간 주황 초록 …). 따라서 우리는 카메라에 대해서 더 나아가 이미지를 처리하는 기술들(Image Processing &amp; Computer Vision)</p>
 <ul>
-  <li><strong>1. 입맛 자극하기!</strong></li>
-  <li><strong>2. Python Interpreter 사용하기</strong>
-    <ul>
-      <li><strong>2.1. Interpreter 호출하기</strong>
-        <ul>
-          <li><strong>2.1.1. Argument Passing</strong></li>
-          <li><strong>2.1.2. Interactive Mode</strong></li>
-        </ul>
-      </li>
-      <li>**2.2. Interpreter와 환경
-        <ul>
-          <li>**2.2.1. 소스코드 인코딩</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><strong>3. Python 소개</strong>
-    <ul>
-      <li><strong>3.1. 파이썬 계산기로 쓰기</strong>
-        <ul>
-          <li><strong>3.1.1. Numbers</strong></li>
-          <li><strong>3.1.2. Strings</strong></li>
-          <li><strong>3.1.3. Lists</strong></li>
-        </ul>
-      </li>
-      <li><strong>3.2. 프로그래밍 첫걸음</strong></li>
-    </ul>
-  </li>
-  <li><strong>4. More Control Flow</strong>
-    <ul>
-      <li><strong>4.1. If</strong></li>
-      <li><strong>4.2. For</strong></li>
-      <li><strong>4.3. range</strong></li>
-      <li><strong>4.4. break, continue, else</strong></li>
-      <li><strong>4.5. pass</strong></li>
-      <li><strong>4.6. match</strong></li>
-      <li><strong>4.7. 정의된 함수</strong></li>
-    </ul>
-  </li>
+  <li>카메라 기술 &amp; 광학</li>
+  <li>Image Processing &amp; Computer Vision</li>
+  <li>Sensur Fusion with Lidar</li>
+  <li>Project : Collision Avoidance</li>
 </ul>
 
-<p><br /><br /><br /><br /><br /><br /></p>
+<p>에 대해서 학습하도록 하겠습니다.</p>
+
+<p><br /></p>
+<h3 id="camera--rader--lidar">Camera &amp; Rader &amp; Lidar</h3>
+<p>Sensor Fusion을 하는 이유는 각각 센서들이 가지고 있는 장점들이 다르기 때문입니다. 표는 다음과 같이 각각의 센서들이 좋은 점과 나쁜 점을 알 수 있습니다.</p>
+<p><img src="/assets/img/sensorfusion/SensorTable.jpg" /></p>
+
+<p>Camera Technology 
+카메라 기술은 이미지를 3D Space로 재구성 할 때 많은 도움이 되며, 카메라 geometry와 coordinate system을 배우는 것이 중요합니다. 따라서 이번 장에서는 Camera Basic Technology(pinhole camera, lenses …)에 대해서 학습합니다.</p>
+
+<p><br /></p>
+<h3 id="pinhole-camera">Pinhole Camera</h3>
+<p>간단한 카메라는 Ojbect 사이에 작은 구멍(Pinhole)이 있는 빛 장벽을 배치하여 설계할 수 있습니다. 물체에 의해 반사된 빛은 핀홀을 통과하여 이미지로 저장하는 감광성(빛에 노출됐을 때 반응하는) 센서에 도달하게 됩니다. 핀홀이 작은 이유는 Object의 여러 부분에서 발생하는 빛들이 중첩되어 이미지가 Blurring 되는 것을 방지하기 위해서입니다.</p>
+<p><img src="/assets/img/sensorfusion/PinHole.jpg" width="50%" height="50%" /></p>
+
+<p>Pinhole 카메라에서 Photosensitive Surface는 왼쪽에 Image Plane입니다. Camera center인 pinhole과 image plane까지의 수직 거리를 focal length $f$라 부릅니다. <br />
+오프젝트의 한 점 포인트 $P$에서 반사된 빛을 image plane에 $P’$으로 매핑시키면 아래 그림과 같이 됩니다. \</p>
+<p><img src="/assets/img/sensorfusion/PointMapping.jpg" width="50%" height="50%" /></p>
+
+<p>이 때 $P$와 $P’$의 관계는 다음과 같이 나타낼 수 있습니다. <br />
+$\overrightarrow{P} = \begin{bmatrix} x \\ y \\ z \\ \end{bmatrix} \rightarrow \overrightarrow{P’} = \begin{bmatrix} x’ \\ y’ \\ \end{bmatrix}$ <br />
+$(1)\;x’\,=\,f\cdot\frac{x}{z} \qquad(2)\;y’\,=\,f\cdot\frac{y}{z}$</p>
+
+<p><br /><br /><br /><br /><br /></p>
 
 <hr />
 <h3 id="단어">단어</h3>
-<p>Handy : 능숙한
-Informally : 비공식적으로
-Noteworthy : 주목할만한
-Whetting : 자극하다, 돋우다
-Appetite : 식욕
-Invoke : 호출하다
-Tedious : 지루한
-First-Draft : 초안</p>
+<p>Gleaned : 얻은, 수집된 <br />
+Glean : 얻다 수집하다 <br />
+Embark : 배에 승선하다 <br />
+Embork : 시동을 걸다 <br />
+Contraption : 기구 장치 <br />
+Matured : 다 큰, 분별 있는 <br />
+Profoundly : 깊이 <br />
+Adverse : 불리한 부정적인 <br />
+Preceding : 선행의 <br />
+Fierce : 사나운 <br />
+Debate : 토론 논쟁 <br />
+Unattractive : 매력 없는 <br />
+Emanating : 방출 중 <br />
+Superimposed : 겹친 <br />
+Aperture : 구멍 <br />
+Photosensitive : 감광성 \</p>
 
     <div class="ui horizontal divider">
         Thank You For Reading

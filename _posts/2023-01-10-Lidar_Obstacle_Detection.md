@@ -4,7 +4,7 @@ category: sensorfusion
 layout: post
 ---
 
-### Code Review
+## Code Review
 지금까지 우리는 Lidar Obstacle Detection을 하기 위해 달려 왔고 크게 4가지를 배웠습니다. 이번 포스트에서는 이 함수들에 관한 code Review 및 Refactoring을 하도록 하겠습니다.
 1. Point Cloud Segmentation(RANSAC)
 2. Point Cloud Clustering(KD-Tree)

@@ -4,11 +4,11 @@ category: sensorfusion
 layout: post
 ---
 
-### Highway Simulation
+## Highway Simulation
 
 ### Lidar 부수기
 
-#### main 함수
+ main 함수
 ```cpp
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
@@ -135,8 +135,8 @@ void renderPointCloud(pcl::visualization::PCLVisualizer::Ptr& viewer, const pcl:
 
 ---
 ### 단어
-instantiate : 인스턴스화(Object를 \
-Compliation : \
-Orbit : \
-Discern : 분별하다, \
-Steepest : 가장 \
+instantiate : 인스턴스화(Object를 Instance화 하다) \
+Compliation : 순응, 적응 \
+Orbit : 궤도를 돌다, 순회하다\
+Discern : 분별하다, 구별하다 \
+Steepest : 가장 가파른  

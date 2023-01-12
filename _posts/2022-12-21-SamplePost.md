@@ -8,17 +8,17 @@ Below is just about everything you'll need to style in the theme. Check the sour
 
 # Heading 1
 
-## Heading 2
+ Heading 2
 
-### Heading 3
+# Heading 3
 
-#### Heading 4
+ Heading 4
 
-##### Heading 5
+# Heading 5
 
-###### Heading 6
+ Heading 6
 
-### Body text
+# Body text
 
 Lorem ipsum dolor sit amet, test link adipiscing elit. **This is strong**. Nullam dignissim convallis est. Quisque aliquam.
 
@@ -29,13 +29,13 @@ Lorem ipsum dolor sit amet, test link adipiscing elit. **This is strong**. Nulla
 
 HTML and <abbr title="cascading stylesheets">CSS<abbr> are our tools. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.
 
-### Blockquotes
+# Blockquotes
 
 > Lorem ipsum dolor sit amet, test link adipiscing elit. Nullam dignissim convallis est. Quisque aliquam.
 
-## List Types
+ List Types
 
-### Ordered Lists
+# Ordered Lists
 
 1. Item one
     1. sub item one
@@ -43,13 +43,13 @@ HTML and <abbr title="cascading stylesheets">CSS<abbr> are our tools. Mauris a a
     3. sub item three
 2. Item two
 
-### Unordered Lists
+# Unordered Lists
 
 * Item one
 * Item two
 * Item three
 
-## Tables
+ Tables
 
 | Header1 | Header2 | Header3 |
 |:--------|:-------:|--------:|
@@ -62,7 +62,7 @@ HTML and <abbr title="cascading stylesheets">CSS<abbr> are our tools. Mauris a a
 | Foot1   | Foot2   | Foot3
 {: rules="groups"}
 
-## Code Snippets
+ Code Snippets
 
 Syntax highlighting via Rouge
 
@@ -80,7 +80,7 @@ Non Pygments code example
         <p>This is great isn't it?</p>
     </div>
 
-## Buttons
+ Buttons
 
 Make any link standout more when applying the `.btn` class.
 

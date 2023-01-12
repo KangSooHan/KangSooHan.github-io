@@ -4,7 +4,7 @@ category: Head
 layout: post
 ---
 
-# 파이썬(Python 3.11) 튜토리얼!!
+## 파이썬(Python 3.11) 튜토리얼!!
 <a href="https://docs.python.org/3.11/tutorial/index.html"><small>https://docs.python.org/3.11/tutorial/index.html</small></a>
 
 파이썬은 효율적인 고급 자료 구조와 OOP에 대한 단순하지만 효율적인 접근 방식을 가지고 있습니다. Python Interpreter는 C++로 구현된 새로운 함수 및 데이터 유형으로 쉽게 확장 가능합니다.\

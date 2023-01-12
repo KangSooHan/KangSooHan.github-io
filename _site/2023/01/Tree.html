@@ -113,7 +113,7 @@ Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값</li>
 <p><img src="/assets/img/algorithm/Tree.jpg" width="30%" height="30%" /></p>
 
 <p><br /></p>
-<h3 id="binary-tree">Binary Tree</h3>
+<h2 id="binary-tree">Binary Tree</h2>
 <p>Binary Tree는 Tree의 일종으로 모든 노드들이 2개의 SubTree를 갖는 특별한 형태의 Tree를 의미합니다.<br />
 노드가 자식 노드를 최대한 2개까지만 가질 수 있는 Tree(left child node, right child node)형태 입니다. <br />
 레벨 i에서의 노드의 최대 $2^i$, 노드의 최소 개수는 $h+1$, 노드의 최대 개수는 $2^{h+1}-1$입니다.</p>
@@ -137,12 +137,11 @@ Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값</li>
 <p><img src="/assets/img/algorithm/Traversal.jpg" width="80%" height="80%" /></p>
 
 <p><br /></p>
-
-<h3 id="이진-탐색-트리binary-search-treebst">이진 탐색 트리(Binary Search Tree(BST))</h3>
+<h2 id="이진-탐색-트리binary-search-treebst">이진 탐색 트리(Binary Search Tree(BST))</h2>
 <p>이진 탐색 트리는 탐색 작업을 효율적으로 하기 위한 자료구조입니다. BST는 모든 원소가 서로 다른 유일한 키를 가지게 됩니다. 또한, 부모 노드의 값을 기준으로 왼쪽 Subtree와 오른쪽 Subtree를 구성하게 됩니다. 따라서 in-order traversal를 실행하면 오름차순으로 정렬된 값을 얻을 수 있습니다.</p>
 <p><img src="/assets/img/algorithm/BST.jpg" width="20%" height="20%" /></p>
-<p>BST는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.</p>
-<h4 id="삽입">삽입</h4>
+<p>BST는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.
+ 삽입</p>
 <ol>
   <li>node = NULL인 경우
 이는 서브트리가 비어있는 경우입니다. x를 추가하면 x가 하나뿐인 서브트리가 생기므로 x 노드를 만들어 추가해주면 됩니다.</li>
@@ -153,7 +152,7 @@ Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값</li>
 </ol>
 <p><img src="/assets/img/algorithm/BST_insert.jpg" /></p>
 
-<h4 id="삭제">삭제</h4>
+<p>삭제</p>
 <ol>
   <li>node = NULL 인 경우
 이는 서브트리가 없는 경우임으로 return하면 됩니다.</li>
@@ -171,8 +170,8 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 
 <h2><br /><br /></h2>
 
-<h2 id="구현">구현</h2>
-<p>Binary Tree는 배열과 리스트로 구현할 수 있습니다.
+<p>구현
+Binary Tree는 배열과 리스트로 구현할 수 있습니다.
 <br /></p>
 <h3 id="배열-구현">배열 구현</h3>
 <ul>
@@ -224,22 +223,18 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
     </div>
 </div>
 
-    <section class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-
-        var disqus_shortname = 'nagekar'; 
-        var disqus_developer = 0; // developer mode is on
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
 </div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
         </main>
     </div>
     

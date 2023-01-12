@@ -4,11 +4,11 @@ category: sensorfusion
 layout: post
 ---
 
-### Highway Simulation
+## Highway Simulation
 
 ### Environment.cpp 부수기
 
-#### main 함수
+ main 함수
 ```cpp
 int main()
 {
@@ -33,7 +33,7 @@ int main()
 }
 ```
 
-#### initCamera 함수
+ initCamera 함수
 ```cpp
 //CameraAngle(Enum), PCLVisualizer pointer
 void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer)
@@ -64,7 +64,7 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
 }
 ```
 
-#### simpleHighway 함수
+ simpleHighway 함수
 ```cpp
 void renderHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 {

@@ -15,10 +15,10 @@ layout: post
 <br><br><br><br><br><br>
 ---
 ### Ref
-#### <a href=""> 생성자</a>
-#### 소멸자
-#### 복사 생성자
-#### 기본 대입 연산자
+ <a href=""> 생성자</a>
+ 소멸자
+ 복사 생성자
+ 기본 대입 연산자
 
 
 
@@ -28,4 +28,4 @@ layout: post
 <br><br><br><br><br><br>
 
 ---
-### <a href="https://m.blog.naver.com/PostList.naver?blogId=sw4r"> https://m.blog.naver.com/PostList.naver?blogId=sw4r </a> 참조
+# <a href="https://m.blog.naver.com/PostList.naver?blogId=sw4r"> https://m.blog.naver.com/PostList.naver?blogId=sw4r </a> 참조

@@ -5,13 +5,78 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 10 Jan 2023 18:13:45 +0900</pubDate>
-    <lastBuildDate>Tue, 10 Jan 2023 18:13:45 +0900</lastBuildDate>
+    <pubDate>Thu, 12 Jan 2023 17:32:03 +0900</pubDate>
+    <lastBuildDate>Thu, 12 Jan 2023 17:32:03 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
+        <title>Camera Start!!</title>
+        <description>&lt;h2 id=&quot;camera&quot;&gt;Camera&lt;/h2&gt;
+&lt;p&gt;이번장에서는 카메라에 대해서 학습하도록 하겠습니다. &lt;br /&gt;
+카메라는 2D Image 정보를 해석할 수 있습니다. 이는 인간의 눈과 같은 단점을 가지기도 합니다.(ex Darkness, 빛번짐, 많은 비…) 하지만 이러한 점은 사람의 Visual Perception을 기반으로 구성된 우리 환경에서 강점으로 다가올 수 있습니다.(ex 신호등은 빨간 주황 초록 …). 따라서 우리는 카메라에 대해서 더 나아가 이미지를 처리하는 기술들(Image Processing &amp;amp; Computer Vision)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;카메라 기술 &amp;amp; 광학&lt;/li&gt;
+  &lt;li&gt;Image Processing &amp;amp; Computer Vision&lt;/li&gt;
+  &lt;li&gt;Sensur Fusion with Lidar&lt;/li&gt;
+  &lt;li&gt;Project : Collision Avoidance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;에 대해서 학습하도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;camera--rader--lidar&quot;&gt;Camera &amp;amp; Rader &amp;amp; Lidar&lt;/h3&gt;
+&lt;p&gt;Sensor Fusion을 하는 이유는 각각 센서들이 가지고 있는 장점들이 다르기 때문입니다. 표는 다음과 같이 각각의 센서들이 좋은 점과 나쁜 점을 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/SensorTable.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Camera Technology 
+카메라 기술은 이미지를 3D Space로 재구성 할 때 많은 도움이 되며, 카메라 geometry와 coordinate system을 배우는 것이 중요합니다. 따라서 이번 장에서는 Camera Basic Technology(pinhole camera, lenses …)에 대해서 학습합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;pinhole-camera&quot;&gt;Pinhole Camera&lt;/h3&gt;
+&lt;p&gt;간단한 카메라는 Ojbect 사이에 작은 구멍(Pinhole)이 있는 빛 장벽을 배치하여 설계할 수 있습니다. 물체에 의해 반사된 빛은 핀홀을 통과하여 이미지로 저장하는 감광성(빛에 노출됐을 때 반응하는) 센서에 도달하게 됩니다. 핀홀이 작은 이유는 Object의 여러 부분에서 발생하는 빛들이 중첩되어 이미지가 Blurring 되는 것을 방지하기 위해서입니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/PinHole.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pinhole 카메라에서 Photosensitive Surface는 왼쪽에 Image Plane입니다. Camera center인 pinhole과 image plane까지의 수직 거리를 focal length $f$라 부릅니다. &lt;br /&gt;
+오프젝트의 한 점 포인트 $P$에서 반사된 빛을 image plane에 $P’$으로 매핑시키면 아래 그림과 같이 됩니다. \&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/PointMapping.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 때 $P$와 $P’$의 관계는 다음과 같이 나타낼 수 있습니다. &lt;br /&gt;
+$\overrightarrow{P} = \begin{bmatrix} x \\ y \\ z \\ \end{bmatrix} \rightarrow \overrightarrow{P’} = \begin{bmatrix} x’ \\ y’ \\ \end{bmatrix}$ &lt;br /&gt;
+$(1)\;x’\,=\,f\cdot\frac{x}{z} \qquad(2)\;y’\,=\,f\cdot\frac{y}{z}$&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
+&lt;p&gt;Gleaned : 얻은, 수집된 &lt;br /&gt;
+Glean : 얻다 수집하다 &lt;br /&gt;
+Embark : 배에 승선하다 &lt;br /&gt;
+Embork : 시동을 걸다 &lt;br /&gt;
+Contraption : 기구 장치 &lt;br /&gt;
+Matured : 다 큰, 분별 있는 &lt;br /&gt;
+Profoundly : 깊이 &lt;br /&gt;
+Adverse : 불리한 부정적인 &lt;br /&gt;
+Preceding : 선행의 &lt;br /&gt;
+Fierce : 사나운 &lt;br /&gt;
+Debate : 토론 논쟁 &lt;br /&gt;
+Unattractive : 매력 없는 &lt;br /&gt;
+Emanating : 방출 중 &lt;br /&gt;
+Superimposed : 겹친 &lt;br /&gt;
+Aperture : 구멍 &lt;br /&gt;
+Photosensitive : 감광성 \&lt;/p&gt;
+</description>
+        <pubDate>Thu, 12 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/Camera_01.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/Camera_01.html</guid>
+        
+        
+        <category>sensorfusion</category>
+        
+      </item>
+    
+      <item>
         <title>Lidar Obstacle Detection Code Review</title>
-        <description>&lt;h3 id=&quot;code-review&quot;&gt;Code Review&lt;/h3&gt;
+        <description>&lt;h2 id=&quot;code-review&quot;&gt;Code Review&lt;/h2&gt;
 &lt;p&gt;지금까지 우리는 Lidar Obstacle Detection을 하기 위해 달려 왔고 크게 4가지를 배웠습니다. 이번 포스트에서는 이 함수들에 관한 code Review 및 Refactoring을 하도록 하겠습니다.&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Point Cloud Segmentation(RANSAC)&lt;/li&gt;
@@ -140,6 +205,7 @@
 &lt;h4 id=&quot;입력&quot;&gt;입력&lt;/h4&gt;
 &lt;p&gt;r, c, 선물(a~z)&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h4 id=&quot;input&quot;&gt;[INPUT]&lt;/h4&gt;
 
 &lt;div style=&quot;background-color: rgb(50, 50, 50); width: 10%; color: white&quot;&gt;
@@ -154,7 +220,8 @@ dbac
 4
 &lt;/div&gt;
 
-&lt;h4 id=&quot;to-solve&quot;&gt;To Solve&lt;/h4&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;to-solve&quot;&gt;To Solve&lt;/h3&gt;
 &lt;p&gt;문제를 해결하기 위해서 DFS로 문제를 접근하였다.&lt;br /&gt;
 DFS 제한 조건에는 방문 하였는지 check배열과 알파벳을 가지고 있는지 alpha배열을 확인하고 좌표가 MAP 안에 있는지 확인하면서 재귀적으로 접근하였다.&lt;/p&gt;
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// x좌표 y좌표 cnt카운트&lt;/span&gt;
@@ -226,7 +293,7 @@ Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값&lt;/li&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Tree.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;binary-tree&quot;&gt;Binary Tree&lt;/h3&gt;
+&lt;h2 id=&quot;binary-tree&quot;&gt;Binary Tree&lt;/h2&gt;
 &lt;p&gt;Binary Tree는 Tree의 일종으로 모든 노드들이 2개의 SubTree를 갖는 특별한 형태의 Tree를 의미합니다.&lt;br /&gt;
 노드가 자식 노드를 최대한 2개까지만 가질 수 있는 Tree(left child node, right child node)형태 입니다. &lt;br /&gt;
 레벨 i에서의 노드의 최대 $2^i$, 노드의 최소 개수는 $h+1$, 노드의 최대 개수는 $2^{h+1}-1$입니다.&lt;/p&gt;
@@ -250,12 +317,11 @@ Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값&lt;/li&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Traversal.jpg&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;이진-탐색-트리binary-search-treebst&quot;&gt;이진 탐색 트리(Binary Search Tree(BST))&lt;/h3&gt;
+&lt;h2 id=&quot;이진-탐색-트리binary-search-treebst&quot;&gt;이진 탐색 트리(Binary Search Tree(BST))&lt;/h2&gt;
 &lt;p&gt;이진 탐색 트리는 탐색 작업을 효율적으로 하기 위한 자료구조입니다. BST는 모든 원소가 서로 다른 유일한 키를 가지게 됩니다. 또한, 부모 노드의 값을 기준으로 왼쪽 Subtree와 오른쪽 Subtree를 구성하게 됩니다. 따라서 in-order traversal를 실행하면 오름차순으로 정렬된 값을 얻을 수 있습니다.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST.jpg&quot; width=&quot;20%&quot; height=&quot;20%&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;BST는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.&lt;/p&gt;
-&lt;h4 id=&quot;삽입&quot;&gt;삽입&lt;/h4&gt;
+&lt;p&gt;BST는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.
+ 삽입&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;node = NULL인 경우
 이는 서브트리가 비어있는 경우입니다. x를 추가하면 x가 하나뿐인 서브트리가 생기므로 x 노드를 만들어 추가해주면 됩니다.&lt;/li&gt;
@@ -266,7 +332,7 @@ Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST_insert.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;삭제&quot;&gt;삭제&lt;/h4&gt;
+&lt;p&gt;삭제&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;node = NULL 인 경우
 이는 서브트리가 없는 경우임으로 return하면 됩니다.&lt;/li&gt;
@@ -284,8 +350,8 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 
 &lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
 
-&lt;h2 id=&quot;구현&quot;&gt;구현&lt;/h2&gt;
-&lt;p&gt;Binary Tree는 배열과 리스트로 구현할 수 있습니다.
+&lt;p&gt;구현
+Binary Tree는 배열과 리스트로 구현할 수 있습니다.
 &lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;배열-구현&quot;&gt;배열 구현&lt;/h3&gt;
 &lt;ul&gt;
@@ -332,10 +398,6 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;dot-product--cross-product&quot;&gt;Dot Product &amp;amp; Cross Product&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;3차원-ransac&quot;&gt;3차원 RANSAC&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;data-structure-tree&quot;&gt;Data Structure Tree&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;highway-simulation-ransac-부수기&quot;&gt;HighWay Simulation RANSAC 부수기&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;kd-tree-clustering-code-부수기&quot;&gt;KD-TREE clustering Code 부수기&lt;/h3&gt;
@@ -350,9 +412,7 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;class-default--delete&quot;&gt;class default &amp;amp; delete&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;bst&quot;&gt;BST&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;tree-주석달기&quot;&gt;TREE 주석달기&lt;/h3&gt;
+&lt;h3 id=&quot;bst-tree-주석달기&quot;&gt;BST, TREE 주석달기&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;pca---링크-달기-sf-06번&quot;&gt;PCA -&amp;gt; 링크 달기 SF 06번&lt;/h3&gt;
 
@@ -373,15 +433,15 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 
 &lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
 &lt;h3 id=&quot;ref&quot;&gt;Ref&lt;/h3&gt;
-&lt;h4 id=&quot;-생성자&quot;&gt;&lt;a href=&quot;&quot;&gt; 생성자&lt;/a&gt;&lt;/h4&gt;
-&lt;h4 id=&quot;소멸자&quot;&gt;소멸자&lt;/h4&gt;
-&lt;h4 id=&quot;복사-생성자&quot;&gt;복사 생성자&lt;/h4&gt;
-&lt;h4 id=&quot;기본-대입-연산자&quot;&gt;기본 대입 연산자&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;&quot;&gt; 생성자&lt;/a&gt;
+ 소멸자
+ 복사 생성자
+ 기본 대입 연산자&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;h3 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h3&gt;
+&lt;h1 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h1&gt;
 </description>
         <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Class_Default_Delete.html</link>
@@ -394,10 +454,10 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
     
       <item>
         <title>Point Cloud Clustering</title>
-        <description>&lt;h2 id=&quot;point-cloud-clustering&quot;&gt;Point Cloud Clustering&lt;/h2&gt;
-&lt;p&gt;Point Cloud에서 Clustering은 보행자, 자동차 등 obstacle들을 찾아내는데 사용합니다. Udacity 강의에서는 KD-TREE를 사용한 Euclidean Clustering을 사용합니다.&lt;/p&gt;
+        <description>&lt;p&gt;Point Cloud Clustering
+Point Cloud에서 Clustering은 보행자, 자동차 등 obstacle들을 찾아내는데 사용합니다. Udacity 강의에서는 KD-TREE를 사용한 Euclidean Clustering을 사용합니다.&lt;/p&gt;
 
-&lt;h3 id=&quot;clustering&quot;&gt;Clustering&lt;/h3&gt;
+&lt;h2 id=&quot;clustering&quot;&gt;Clustering&lt;/h2&gt;
 &lt;p&gt;클러스터링(Clustering : 군집화)는 비슷한 개체끼리 한 그룹으로, 다른 개체는 다른 그룹으로 묶는 것을 의미합니다. 클러스터링은 다음과 같이 얘기할 수 있습니다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;군집 간 분산(outer-cluster variance) 최대화&lt;/li&gt;
@@ -406,11 +466,13 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 
 &lt;p&gt;클러스터링은 정답 라벨이 없는 Unsupervised Learning(비지도 학습) 입니다. 이는 그룹 정보 없이 비슷한 개체끼리 군집화 하는 것을 의미합니다.&lt;/p&gt;
 
-&lt;h4 id=&quot;군집-타당성-평가&quot;&gt;군집 타당성 평가&lt;/h4&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;군집-타당성-평가&quot;&gt;군집 타당성 평가&lt;/h3&gt;
 &lt;p&gt;클러스터링 알고리즘은 정답 라벨이 없기 때문에 Accuracy 지표로 표현할 수 없습니다. 또한 최적의 cluster 개수를 알아내는 것은 쉽지 않습니다.&lt;/p&gt;
 &lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/clustering.jpg&quot; width=&quot;60%&quot; height=&quot;40%&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;이러한 문제 때문에 clustering은 평가가 어렵습니다. 그래서 군집의 유용성을 다시 말해 군집 간 분산과 군집 내 분산을 기반으로 평가하는 Clustering Validity Index(Dunn Index, Silhouette)가 있습니다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;kd-tree&quot;&gt;KD-Tree&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/KDTree.jpg&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;K-D Tree는 공간을 기반으로 partitioning하는 B-Tree(&lt;a href=&quot;/2023/01/Tree.html&quot;&gt;참조&lt;/a&gt;)로, 점들을 k-차원 공간에서 정리합니다. K-D Tree는 다음과 같이 동작합니다.&lt;/p&gt;
@@ -424,6 +486,7 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/BinaryTree.jpg&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;searching-points-in-a-kd-tree&quot;&gt;Searching Points in a KD-Tree&lt;/h3&gt;
 &lt;p&gt;KD-Tree를 이용하여 거리가 distanceTol(distanceTolerance) 이내인 점들을 찾아내는 방법입니다. &lt;br /&gt;
 루트를 시작으로 반복하며 search 함수를 진행하면서 거리 이내의 포인트들을 찾아낼 수 있습니다. &lt;br /&gt;
@@ -442,6 +505,7 @@ Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는
 
 &lt;p&gt;이렇게 동작하면 KD-Tree를 이용하여 범위 안에 속하는 점들을 빠르게 찾을 수 있습니다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;euclidean-clustering&quot;&gt;Euclidean Clustering&lt;/h3&gt;
 &lt;p&gt;Euclidean Clustering은 거리를 기준으로 Clustering하는 기법 중 하나입니다. 지금까지 우리는 Euclidean Clustering을 하기 위해 KD-Tree와 KD-Tree를 활용한 근접 점들을 찾는 방법에 대해서 배웠습니다.&lt;br /&gt;
 Euclidean Clustering은 다음과 같이 동작합니다. \&lt;/p&gt;
@@ -461,6 +525,7 @@ Euclidean Clustering은 다음과 같이 동작합니다. \&lt;/p&gt;
 &lt;p&gt;이렇게 동작하면 Euclidean Clutering이 완성됩니다!&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Euclidean Clustering.jpg&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;bounding-box&quot;&gt;Bounding Box&lt;/h3&gt;
 &lt;p&gt;이렇게 획득한 Cluster를 기준으로 Bounding Box를 생성하면 더욱 쉽게 확인할 수 있습니다. &lt;br /&gt;
 Bounding Box는 각각 점들의 최소 최대 값을 기준으로 생성할 수 있습니다. 다만, 이렇게 생성할 경우 아래 왼쪽 경우처럼 박스가 Fit하게 생성되지 않을 수 있습니다. &lt;br /&gt;
@@ -492,17 +557,17 @@ Chronological : 연대순&lt;/p&gt;
     
       <item>
         <title>Dot &amp; Corss Product</title>
-        <description>&lt;h3 id=&quot;dot-product&quot;&gt;Dot Product&lt;/h3&gt;
+        <description>&lt;h2 id=&quot;dot-product&quot;&gt;Dot Product&lt;/h2&gt;
 
-&lt;h3 id=&quot;cross-product외적&quot;&gt;Cross Product(외적)&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;cross-product외적&quot;&gt;Cross Product(외적)&lt;/h2&gt;
 &lt;p&gt;외적은 Cross Product | Vector Product 라고 불립니다.&lt;br /&gt;
-외적은 3차원 상에서 두 개의 벡터들의 바이너리 연산자로, x라는 표기법을 사용합니다. 두 개의 독립 벡터 a, b가 있을 때 aXb로 표현할 수 있습니다. Cross Product 벡터는 a, b 모두에게 직교이고, 두 벡터를 포함하는 평면에 수직입니다.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
+외적은 3차원 상에서 두 개의 벡터들의 바이너리 연산자로, x라는 표기법을 사용합니다. 두 개의 독립 벡터 a, b가 있을 때 aXb로 표현할 수 있습니다. Cross Product 벡터는 a, b 모두에게 직교이고, 두 벡터를 포함하는 평면에 수직입니다.\&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;h3 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h3&gt;
+&lt;h1 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h1&gt;
 </description>
         <pubDate>Tue, 03 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/dot_cross_product.html</link>
@@ -517,6 +582,7 @@ Chronological : 연대순&lt;/p&gt;
         <title>Point Cloud Segmentation</title>
         <description>&lt;h2 id=&quot;point-cloud-segmentation&quot;&gt;Point Cloud Segmentation&lt;/h2&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;segmentation&quot;&gt;Segmentation&lt;/h3&gt;
 &lt;p&gt;이미지 분야에서 segmentation은 이미지 내에 있는 객체들을 객체 단위로 분할하는 작업을 의미합니다.&lt;/p&gt;
 &lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/Segmentation.jpg&quot; /&gt;&lt;/p&gt;
@@ -524,6 +590,7 @@ Chronological : 연대순&lt;/p&gt;
 &lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/pointcloud_segmentation.jpg&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;자율주행 자동차에서는 도로에 있는 obstacles을 탐지하는데 사용되고 있습니다. Segmentation을 진행하기 위해서 Plane 과 Obstacle을 분리해야 합니다. 우리는 Plane을 RANSAC알고리즘을 통해 추출할 수 있습니다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;ransac&quot;&gt;RANSAC&lt;/h3&gt;
 &lt;p&gt;RAndom Sample Consensus 알고리즘은 여러 point중에서 inlier를 가장 많이 가지는 모델을 찾는 알고리즘입니다.&lt;/p&gt;
 &lt;ul&gt;
@@ -534,6 +601,7 @@ Chronological : 연대순&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_LINE.gif&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;ransac-for-line&quot;&gt;RANSAC for Line&lt;/h3&gt;
 &lt;p&gt;RANSAC을 Lines에서 적용하는 방법에 대해서 소개합니다.&lt;/p&gt;
 &lt;ul&gt;
@@ -550,13 +618,15 @@ Chronological : 연대순&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_LINE.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;ransac-for-plane&quot;&gt;RANSAC for Plane&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_PLANE.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;ransac-simulation-results&quot;&gt;RANSAC Simulation Results&lt;/h3&gt;
-&lt;h4 id=&quot;in-line&quot;&gt;in Line&lt;/h4&gt;
+&lt;p&gt;in Line&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_RESULT.JPG&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;in-plane&quot;&gt;in Plane&lt;/h4&gt;
+&lt;p&gt;in Plane&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Ransac3D.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
@@ -599,7 +669,7 @@ in terms of : ~측면에서, ~면에서 \&lt;/p&gt;
     
       <item>
         <title>template 부수기</title>
-        <description>&lt;h3 id=&quot;template&quot;&gt;Template?&lt;/h3&gt;
+        <description>&lt;h2 id=&quot;template&quot;&gt;Template?&lt;/h2&gt;
 &lt;p&gt;Template는 cpp에서 generic programing의 기초입니다. cpp에서는 프로그래머가 명시적으로 변수를 선언하거나 컴파일러에서 추론하는 특정 형식을 가진 변수를 필요로 합니다. 그러나 데이터 구조 및 알고리즘은 어떤 형식이든 동일하게 동작합니다. 이 때, Template를 사용하면 클래스 또는 함수의 연산을 정의할 수 있으며, 사용자가 해당 작업을 수행할 형식을 지정할 수 있습니다.\&lt;/p&gt;
 
 &lt;ul&gt;
@@ -644,141 +714,6 @@ in terms of : ~측면에서, ~면에서 \&lt;/p&gt;
         <pubDate>Mon, 02 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/template.html</link>
         <guid isPermaLink="true">http://localhost:4000//2023/01/template.html</guid>
-        
-        
-        <category>cpp</category>
-        
-      </item>
-    
-      <item>
-        <title>ENUM 부수기</title>
-        <description>&lt;h3 id=&quot;enum&quot;&gt;ENUM?&lt;/h3&gt;
-&lt;p&gt;ENUM(enumeration)은 값이 범위로 제한되는 구분되는 형태로, 명확한 Constants를 포함합니다.&lt;br /&gt;
-ENUM의 상수의 값은 enum의 기본적인 타입으로 알려진 int형입니다. 그리고 ENUM은 동일한 크기(4 bytes), value 표현(value represntation &amp;amp; padding bits), 메모리 정렬을 가집니다.&lt;br /&gt;
-enum은 다음과 같은 문법을 따릅니다.\&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;enum-key attr(&lt;small&gt;optional&lt;/small&gt;) enum-head-name(&lt;small&gt;optional&lt;/small&gt;) enum-base(&lt;small&gt;optional&lt;/small&gt;) {enumerator-list(&lt;small&gt;optional&lt;/small&gt;)}&lt;/li&gt;
-  &lt;li&gt;enum-key : enum | enum class | enum struct&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.cppreference.com/w/cpp/language/attributes&quot;&gt;attr&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;enum-head-name : name&lt;/li&gt;
-  &lt;li&gt;enum-base : colon(:), enum의 타입형태를 생성(생성자)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// enum 생성 red = 0, green = 1, blue = 20, black = 21&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Color&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 에러 케이스 red는 Color enum 객체에서 이미 등장&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Animal&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 변수 정의&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Color&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// 에러 케이스 E1은 재선언이 불가능&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;E1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;fruit&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apple&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;S&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fruit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// OK: introduces orange and apple into S&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;orange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// OK: names fruit::orange&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;orange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// OK: names fruit::orange&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;ref&quot;&gt;Ref&lt;/h3&gt;
-&lt;h4 id=&quot;padding-bits&quot;&gt;padding bits?&lt;/h4&gt;
-&lt;p&gt;사용하지 않는 비트를 패딩 비트라고 합니다. \ 몇몇 컴파일러는 구조체의 필드를 메모리에 위치 시킬 때 CPU가 접근하기 쉬운 위치에 필드를 배치합니다.(struct에서 padding bits없이 char, int 를 읽으면 4바이트의 1바이트의 메모리를 읽고, 접근하고, int 읽고 다음 메모리 읽고 접근하고 반복이 필요. 하지만 padding bits를 사용하면 메모리는 두번 읽기만 하면됨) -&amp;gt; 이는 network 전송시 문제가 발생하기도 함(pragma pack을 사용하여 딱 맞게 변환할 수 있음)
-ex) in Struct&lt;br /&gt;
-    char -&amp;gt; 1bytes value, 3bytes padding bits&lt;br /&gt;
-    float -&amp;gt; 4bytes value&lt;/p&gt;
-
-&lt;h4 id=&quot;객체-생성&quot;&gt;객체 생성?&lt;/h4&gt;
-&lt;p&gt;OOP(Object Oriented Programming) 패러다임인 cpp에서 객체를 생성하는 방법은 크게 3가지입니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Stack 메모리&lt;/li&gt;
-  &lt;li&gt;Heap메모리에 동적이게&lt;/li&gt;
-  &lt;li&gt;Heap메모리에 정적이게&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;stack에는 Function Call에서 메모리 할당이 일어나며 지역변수, 매개변수가 저장됩니다.&lt;br /&gt;
-heap에는 사용자가 따로 할당, 관리를 해야합니다. 동적 할당으로 할당된 변수가 들어갑니다.&lt;br /&gt;
-전역변수는 data영역에 들어갑니다.&lt;/p&gt;
-&lt;p align=&quot;left&quot;&gt;&lt;img src=&quot;/assets/img/cpp/process_memory_organization.jpg&quot; width=&quot;50%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
-&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;public:&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;speak&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;woof&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;\n&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;private:&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i4a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Dog&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;staticDog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//static&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Dog&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stackDog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//stack&lt;/span&gt;
-        
-    &lt;span class=&quot;n&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heapDog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//heap&lt;/span&gt;
-                
-    &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heapDog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;stackDog는 stack영역에 저장, heapDog는 stack영역에 포인터를 생성한 뒤 heap 영역에 저장, static Dog는 data 혹은 BSS에 저장됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;메모리-정렬&quot;&gt;메모리 정렬?&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;멤버 변수는 해당 변수의 자료형 크기의 배수 위치에서 시작해야 한다.&lt;/li&gt;
-  &lt;li&gt;오브젝트의 전체 사이즈는 가장 큰 멤버 변수의 크기의 배수에서 끝나야 한다.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/cpp/memory_alignment.jpg&quot; width=&quot;50%&quot; height=&quot;30%&quot; /&gt;&lt;a href=&quot;https://pretending.tistory.com/entry/C-Memory-Alignment-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EC%96%BC%EB%9D%BC%EC%9D%B8%EB%A8%BC%ED%8A%B8-Object-In-Memory-%EA%B0%9D%EC%B2%B4%EC%83%9D%EC%84%B1&quot;&gt;ref&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog24&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;private:&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i4a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i4b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog16&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;private:&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i4a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i4b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Dog24의 경우 int4 + padding4 + double 8 + int 4 + double 8로 총 24바이트의 메모리&lt;br /&gt;
-Dog16의 경우 double 8 + int 4 + int 4 로 총 16바이트의 메모리를 차지합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;Distinct : 별개의, 명확한, 구분되는
-Opaqu : 불투명한&lt;/p&gt;
-</description>
-        <pubDate>Mon, 02 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/enum.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/enum.html</guid>
         
         
         <category>cpp</category>

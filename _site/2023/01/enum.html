@@ -67,7 +67,7 @@
         <h1 class="post-title">ENUM 부수기</h1>
     </center>
     <div class="ui divider"></div>
-    <h3 id="enum">ENUM?</h3>
+    <h2 id="enum">ENUM?</h2>
 <p>ENUM(enumeration)은 값이 범위로 제한되는 구분되는 형태로, 명확한 Constants를 포함합니다.<br />
 ENUM의 상수의 값은 enum의 기본적인 타입으로 알려진 int형입니다. 그리고 ENUM은 동일한 크기(4 bytes), value 표현(value represntation &amp; padding bits), 메모리 정렬을 가집니다.<br />
 enum은 다음과 같은 문법을 따릅니다.\</p>
@@ -112,16 +112,18 @@ enum은 다음과 같은 문법을 따릅니다.\</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h2><br /><br /><br /><br /><br /><br /></h2>
-<h3 id="ref">Ref</h3>
-<h4 id="padding-bits">padding bits?</h4>
-<p>사용하지 않는 비트를 패딩 비트라고 합니다. \ 몇몇 컴파일러는 구조체의 필드를 메모리에 위치 시킬 때 CPU가 접근하기 쉬운 위치에 필드를 배치합니다.(struct에서 padding bits없이 char, int 를 읽으면 4바이트의 1바이트의 메모리를 읽고, 접근하고, int 읽고 다음 메모리 읽고 접근하고 반복이 필요. 하지만 padding bits를 사용하면 메모리는 두번 읽기만 하면됨) -&gt; 이는 network 전송시 문제가 발생하기도 함(pragma pack을 사용하여 딱 맞게 변환할 수 있음)
+<p><br /><br /><br /><br /></p>
+
+<hr />
+<h1 id="ref">Ref</h1>
+<p>padding bits?
+사용하지 않는 비트를 패딩 비트라고 합니다. \ 몇몇 컴파일러는 구조체의 필드를 메모리에 위치 시킬 때 CPU가 접근하기 쉬운 위치에 필드를 배치합니다.(struct에서 padding bits없이 char, int 를 읽으면 4바이트의 1바이트의 메모리를 읽고, 접근하고, int 읽고 다음 메모리 읽고 접근하고 반복이 필요. 하지만 padding bits를 사용하면 메모리는 두번 읽기만 하면됨) -&gt; 이는 network 전송시 문제가 발생하기도 함(pragma pack을 사용하여 딱 맞게 변환할 수 있음)
 ex) in Struct<br />
     char -&gt; 1bytes value, 3bytes padding bits<br />
     float -&gt; 4bytes value</p>
 
-<h4 id="객체-생성">객체 생성?</h4>
-<p>OOP(Object Oriented Programming) 패러다임인 cpp에서 객체를 생성하는 방법은 크게 3가지입니다.</p>
+<p>객체 생성?
+OOP(Object Oriented Programming) 패러다임인 cpp에서 객체를 생성하는 방법은 크게 3가지입니다.</p>
 <ol>
   <li>Stack 메모리</li>
   <li>Heap메모리에 동적이게</li>
@@ -160,7 +162,8 @@ heap에는 사용자가 따로 할당, 관리를 해야합니다. 동적 할당�
 </code></pre></div></div>
 <p>stackDog는 stack영역에 저장, heapDog는 stack영역에 포인터를 생성한 뒤 heap 영역에 저장, static Dog는 data 혹은 BSS에 저장됩니다.</p>
 
-<h3 id="메모리-정렬">메모리 정렬?</h3>
+<p><br /></p>
+<h2 id="메모리-정렬">메모리 정렬?</h2>
 <ul>
   <li>멤버 변수는 해당 변수의 자료형 크기의 배수 위치에서 시작해야 한다.</li>
   <li>오브젝트의 전체 사이즈는 가장 큰 멤버 변수의 크기의 배수에서 끝나야 한다.</li>
@@ -211,22 +214,18 @@ Opaqu : 불투명한</p>
     </div>
 </div>
 
-    <section class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-
-        var disqus_shortname = 'nagekar'; 
-        var disqus_developer = 0; // developer mode is on
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
 </div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
         </main>
     </div>
     
