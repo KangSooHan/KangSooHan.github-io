@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 12 Jan 2023 17:32:03 +0900</pubDate>
-    <lastBuildDate>Thu, 12 Jan 2023 17:32:03 +0900</lastBuildDate>
+    <pubDate>Fri, 13 Jan 2023 14:26:22 +0900</pubDate>
+    <lastBuildDate>Fri, 13 Jan 2023 14:26:22 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
     
       <item>
@@ -37,12 +37,56 @@
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/PinHole.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Pinhole 카메라에서 Photosensitive Surface는 왼쪽에 Image Plane입니다. Camera center인 pinhole과 image plane까지의 수직 거리를 focal length $f$라 부릅니다. &lt;br /&gt;
-오프젝트의 한 점 포인트 $P$에서 반사된 빛을 image plane에 $P’$으로 매핑시키면 아래 그림과 같이 됩니다. \&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/PointMapping.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+오프젝트의 한 점 포인트 $P$에서 반사된 빛을 image plane에 $P’$으로 매핑시키면 아래 그림과 같이 됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/PointMapping.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이 때 $P$와 $P’$의 관계는 다음과 같이 나타낼 수 있습니다. &lt;br /&gt;
 $\overrightarrow{P} = \begin{bmatrix} x \\ y \\ z \\ \end{bmatrix} \rightarrow \overrightarrow{P’} = \begin{bmatrix} x’ \\ y’ \\ \end{bmatrix}$ &lt;br /&gt;
-$(1)\;x’\,=\,f\cdot\frac{x}{z} \qquad(2)\;y’\,=\,f\cdot\frac{y}{z}$&lt;/p&gt;
+$(1)\;x’\,=\,f\cdot\frac{x}{z} \qquad(2)\;y’\,=\,f\cdot\frac{y}{z}$ &lt;br /&gt;
+이 수식을 사용하면 우리는 3D 좌표와 Focal Length를 사용하여 image plane에 생기는 2D 좌표를 획득할 수 있습니다. 하지만 이는 pixel 단위는 아직 아닙니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;pinhole-camera-problem&quot;&gt;Pinhole Camera Problem&lt;/h4&gt;
+&lt;p&gt;Pinhole Camera의 가장 큰 문제점은 핀홀을 통과하는 빛의 양이 이미지 센서에 적절한 이미지를 생성하기에 충분하지 않은 것입니다. 그렇다고 핀홀의 크기를 넓혀 빛의 양을 증가시키면 대상 물체의 다른 부분에서 나오는 광선이 중첩되어 Blurring 효과가 발생합니다. 이러한 방법을 해결하는 것이 같은 위치에서 나오는 빛 광선을 포착할 수 있는 Lens를 사용하는 것입니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/LargePinhole.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;lenses-and-aperture&quot;&gt;Lenses and Aperture&lt;/h3&gt;
+&lt;p&gt;적절한 크기와 위치의 렌즈는 Object Point $P_{1}$ 의 빛 광선을 굴절시켜 image plane의 $ P^{‘}_{1}$ 지점으로 모아줍니다.&lt;/p&gt;
+
+&lt;p&gt;Object Point $ P $의 거리가 더 가깝거나( $P_{2}$ ), 멀리 있는 경우($P_{1}$) image plane에서 point로 나타나지 않습니다. $P_{2}$의 경우 광선의 집합이 이미지 평면에 초점이 맞지 않기 때문에 유한한 반지름을 가진 원에 수렴하게 됩니다.($P_{1}$의 경우도 유사) 이 Blurring한 원을 우리는 COF(circle of confusion)이라 부릅니다. 우리는 조리개(Aperture)를 조절하여 이러한 blurring circle을 줄일 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Aperture.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;조리개를 작게 줄이면 &lt;br /&gt;
+렌즈의 바깥부분을 통해 들어오는 빛이 차단되면서, image plane에 맺히는 COF의 크기가 줄어들게 됩니다. 그러나 적은 빛이 들어오기 때문에 이미지가 어둡게 생성됩니다.&lt;/li&gt;
+  &lt;li&gt;조리개를 크게 만들면 &lt;br /&gt;
+더 많은 빛이 이미지 영역에 들어오면서 더 밝은 이미지를 생성합니다. 하지만 COF의 크기가 커지게 됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Aperture_Image.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사진에서는 F값(조리개 값)이 높아 질수록 렌즈 조리개 구멍이 작아집니다.(16일 때 가장 어두움)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;카메라-왜곡&quot;&gt;카메라 왜곡&lt;/h3&gt;
+&lt;p&gt;여기까지 우리는 3D 물체가 PinHole Camera에서 상을 맺히는 것을 배웠습니다. 카메라에서도 3D 물체가 2D Image 상이 맺힐 때 유사한 과정을 거치지만, 실제로는 렌즈는 렌즈 유형에 따라 이미지에 왜곡을 발생시킵니다. 우리는 이런 왜곡을 “Radial Distortion”이라 부릅니다. 이러한 현상은 렌즈와 image plane까지의 focal length가 직경에 걸처 “균일”하지 않기 때문에 발생합니다. 따라서 카메라 중심(광축)과 렌즈를 통과하는 광선 사이의 거리에 따라서 렌즈의 확대 효과가 달라지게 됩니다. 우리는 배율이 증가해서 나오는 왜곡 효과를 “Pin Cushion Distortion”, 배율이 감소해서 나오는 왜곡 효과를 “Barrel Distortion”이라고 합니다. 광각 렌즈를 사용할 때 일반적으로는 Barrel Distortion이 발생합니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Distortion.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이미지에서 Object의 정보를 얻기 위해서 왜곡 정보는 제거되거나 완화되어야 합니다. 이러한 과정을 우리는 Calibration이라고 부릅니다. 이 과정은 카메라 렌즈 설정에 대해 Distortion Parameters를 개별적으로 계산할 수 있는 과정을 의미합니다. 이는 일반적으로 알려진 Planar Checkerboard 사진을 여러장 촬영함으로써 수행할 수 있습니다. Planar Checkerboard는 기하학적 형상에서 렌즈와 이미지 센서 매개변수를 강력하게 도출할 수 있는 형태의 보드로 아래 그림과 같은 모양입니다. 우리는 이 Planar Checkerboard를 사용하여 카메라 이미지에서 왜곡을 제거하는데 이 과정을 Rectification(정류)라 부릅니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Checker_Board.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;projection-of-points-in-3d-space-onto-the-digital-image&quot;&gt;Projection of points in 3D Space onto the digital Image&lt;/h3&gt;
+&lt;p&gt;앞서 말한바와 같이 3D Space의 점을 Image Plane에 Projection(투영)한 결과는 pixel로 이루어진 digital images에 완벽하게 일치하지 않습니다. 이번에는 Continuous한 결과를 Discrete한 pixel로 표현하는 digital 이미지에 대해 이해해 보도록 하겠습니다.(아래 그림 참조)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Digital_Image.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;coordinate-system으로-변환&quot;&gt;Coordinate System으로 변환&lt;/h4&gt;
+&lt;p&gt;Camera Center Position $O$는 axes $i, j, k$로 표현할 수 있으며, $k$는 image plane으로의 방향을 나타냅니다. Position $C^{‘}$은 k가 image plane과 교차하는 지점으로 이미지 좌표의 중심을 나타내는 principal point 혹은 center point입니다. 우선 Point $P$를 image plane에 projection시키기 위해 center point $O$에서 Point $P$를 빼서 image plane에 맺히는 Point $\overrightarrow{P}$를 계산할 수 있습니다.(image plane의 좌측 코너) 이 때, image plane에 맺히는 $\overrightarrow{P}$는 $\begin{bmatrix} P_{x} &amp;amp; P_{y} &amp;amp; P_{z} \end{bmatrix}$  로 표현할 수 있습니다. 다음은 transformation process로 미터로 계산한 $\overrightarrow{P}$를 pixel 좌표로 이동시키는 것입니다. 이 때 우리는 아래 투영 방정식을 통해 얻을 수 있는 $k$와 $l$ 파라미터를 사용하여 meters를 pixel로 변환할 수 있습니다.($l, k$는 추후에 mapping operation을 할 때 필요한 calibration matrix에 중요하게 사용됩니다.) 이 때, y좌표가 좌측 하단에 있는 것이 아닌 좌측 상단에 있는것을 꼭 기억해야 합니다. &lt;br /&gt;
+$ (1)\qquad \overrightarrow{P} \rightarrow \overrightarrow{P^{‘}}$ &lt;br /&gt;
+$ (2)\qquad \begin{pmatrix} x, &amp;amp; y, &amp;amp; z \end{pmatrix}^{T} \rightarrow ( \underbrace{f \cdot k}_{\alpha} \cdot \frac{x}{z} +c_x$, $\underbrace{f \cdot l}_{\beta}\cdot\frac{y}{z} + c_{y} )^{T}$ &lt;br /&gt;
+$ [k,l] = pixels/m $ㅐ&lt;/p&gt;
+
+&lt;p&gt;일반적으로 이와 같은 rectification으로 m를 픽셀로 변환할 때, 정확하게 discrete한 pixel에 일치하지 않습니다. 이러한 점을 보완하기 위해 interpolation을 사용하는데 이러한 interpolation errors를 피하기 위해서 원본 이미지를 사용하는 것은 합리적입니다.(feature tracking과 같은 task에서 origin image를 사용하고 rectification을 적용하는 것이 의미 있습니다. 하지만 deep learning을 사용하는 경우는 distortion이 detection error를 가져올 수 있습니다.)&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -63,7 +107,18 @@ Unattractive : 매력 없는 &lt;br /&gt;
 Emanating : 방출 중 &lt;br /&gt;
 Superimposed : 겹친 &lt;br /&gt;
 Aperture : 구멍 &lt;br /&gt;
-Photosensitive : 감광성 \&lt;/p&gt;
+Photosensitive : 감광성 &lt;br /&gt;
+Decent : 적절한 &lt;br /&gt;
+Emanate : 발하다 &lt;br /&gt;
+Aperture : 구멍, 개구부 &lt;br /&gt;
+Refract : 굴절시키다 &lt;br /&gt;
+Such that : 그런식으로 &lt;br /&gt;
+Concentric : 중심이 같은 &lt;br /&gt;
+Magnification : 확대 &lt;br /&gt;
+Mitigate : 완화하다 &lt;br /&gt;
+Along with : ~와 함께 &lt;br /&gt;
+Along : ~를 따라 &lt;br /&gt;
+Advisible : 권고할만한, 가치있는&lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Camera_01.html</link>
@@ -162,8 +217,7 @@ Photosensitive : 감광성 \&lt;/p&gt;
       <item>
         <title>선물사기(DFS)</title>
         <description>&lt;h2 id=&quot;선물-사기&quot;&gt;선물 사기&lt;/h2&gt;
-
-&lt;p&gt;겟 지는 여행을 갔다오면서 선물을 사려고 한다.\ 
+&lt;p&gt;겟 지는 여행을 갔다오면서 선물을 사려고 한다. &lt;br /&gt;
 여행지는 x, y크기로 a~z까지 선물이 있다. &lt;br /&gt;
 겟 지는 선물을 모으는 것을 싫어하여 중복된 선물을 사지 않도록 계획을 짰다. &lt;br /&gt;
 이 때, 겟 지가 최대 몇 개의 선물을 살 수 있는지 알아보자.
@@ -394,7 +448,10 @@ Binary Tree는 배열과 리스트로 구현할 수 있습니다.
     
       <item>
         <title>POST 해야할 것들?</title>
-        <description>&lt;h3 id=&quot;smart-pointer&quot;&gt;Smart Pointer&lt;/h3&gt;
+        <description>&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;calibration&quot;&gt;Calibration!!!!!&lt;/h3&gt;
+
+&lt;h3 id=&quot;smart-pointer&quot;&gt;Smart Pointer&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;dot-product--cross-product&quot;&gt;Dot Product &amp;amp; Cross Product&lt;/h3&gt;
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
