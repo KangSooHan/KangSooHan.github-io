@@ -5,9 +5,247 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 13 Jan 2023 14:26:22 +0900</pubDate>
-    <lastBuildDate>Fri, 13 Jan 2023 14:26:22 +0900</lastBuildDate>
+    <pubDate>Mon, 16 Jan 2023 18:27:01 +0900</pubDate>
+    <lastBuildDate>Mon, 16 Jan 2023 18:27:01 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>STL!!</title>
+        <description>&lt;h2 id=&quot;sequence-containers&quot;&gt;Sequence Containers&lt;/h2&gt;
+&lt;p&gt;데이터를 순차적으로 저장하는 자료 구조입니다. 구현이 단순하고 가벼우며 빠릅니다. 대표적으로 Vector(Arrray), Deque, List가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;vectorarray&quot;&gt;Vector(Array)&lt;/h3&gt;
+&lt;p&gt;메모리 상에서 데이터가 연속적으로 위치하는 배열입니다. 지금까지 흔하게 사용했던 배열들과 유사하지만 배열의 크기를 알 수 있고 변하지 않는다면 array를 동적인 크기를 원한다면 vector를 선택하면 됩니다. std::vector는 포인터 세 개로 구현이 되어 있습니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;할당된 배열의 시작 주소를 가리키는 포인터&lt;/li&gt;
+  &lt;li&gt;다음 데이터가 삽입될 위치를 가리키는 포인터&lt;/li&gt;
+  &lt;li&gt;배열의 끝 주소를 가리키는 포인터&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Vector.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;deque&quot;&gt;Deque&lt;/h3&gt;
+&lt;p&gt;저장 공간의 앞, 뒤에 데이터를 빠르게 넣고 뺄 수 있는 Double-Ended QUEue(DEQUE)입니다. deque는 여러개의 버퍼에 데이터를 나눠서 저장합니다. Deque는 Vector에 비해서 앞뒤로 삽입 및 삭제가 빨라 유리해 보이지만 차이가 있습니다. Vector는 요소들이 메모리에 연속적으로 존재하는 것이 보장되지만, Deque는 요소들이 연속적인 것이 보장되지 않습니다. 따라서 배열과 관련된 라이브러리를 사용해야 할 때나 공간지역성을 고려해야 하는 상황에서는 deque가 불리한 점이 있습니다.
+&lt;img src=&quot;/assets/img/algorithm/Deque.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;list&quot;&gt;List&lt;/h3&gt;
+&lt;p&gt;흔하게 파이썬에서 알고 있는 리스트입니다. Linked list라고도 불리고 Container의 어느 위치든 O(1)(근사)에 데이터를 삽입하거나 삭제할 수 있지만 Indexing할 때 O(1)에 접근은 불가능합니다. std::list 형태는 Linked list중에서도 Doubly_Linked List이고, std::forward_list는 Singly-Linked List입니다. Singly Linked List는 Doubly Linked List에 비해 맨 뒤에 데이터를 삽입하는게 빠르거나 iterator 자신을 삭제하지 못하는 등 기능이 제한됩니다. 하지만 포인터를 하나 덜 가지기 때문에 연산이 빠르고 메모리가 적게 사용됩니다.
+&lt;img src=&quot;/assets/img/algorithm/List.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;associative-containers&quot;&gt;Associative Containers&lt;/h2&gt;
+&lt;p&gt;데이터를 정렬된 상태로 유지하는 자료구조입니다. Red-Black Tree(RB-Tree)를 기반으로 하고 데이터의 추가/삭제/접근의 시간복잡도가 O(logN)입니다. 하지만 자료구조의 특성상 연산에 붙는 상수가 크고 메모리가 많이 필요하기 때문에 주의가 필요합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;set&quot;&gt;Set&lt;/h3&gt;
+&lt;p&gt;RB-Tree는 BST의 일종으로 어떤 key 값을 기준으로 데이터를 저장합니다. std::set은 데이터 자체를 key로 사용하고, std::map은 (key, value)쌍을 받아서 사용합니다. 단순히 데이터를 정렬 상태로 유지하고 싶다면 std::set을 (key, value) 데이터 쌍을 key 기준으로 정렬하고 싶다면 std::map을 사용하면 됩니다. (Key 값의 중복이 허용되지 않습니다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;multiset&quot;&gt;MultiSet&lt;/h3&gt;
+&lt;p&gt;Key값의 중복을 허용하지 않는 Set과 다르게 MultiSet은 Key값의 중복을 허용합니다. 다만 시간 복잡도의 주의가 매우 필요한 편입니다. Multiset은 같은 key를 모두 세고, 모두 접근하는 형식이기 때문에 O(logN + key 데이터 수) 만큼의 시간이 듭니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;unordered-associative-containers&quot;&gt;Unordered Associative Containers&lt;/h2&gt;
+&lt;p&gt;해시 값을 사용해 데이터를 저장하는 자료구조입니다. 대부분의 경우 데이터의 추가/삭제/접근이 O(1)이므로 Associative Container보다 효율적입니다. 하지만 데이터를 정렬된 상태로 유지해야 하거나 해시 충돌이 걱정되는 상황이라면 Associative Container를 사용하는 것이 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;unordered_set&quot;&gt;Unordered_set&lt;/h3&gt;
+&lt;p&gt;Data를 중복 없이 저장하고 싶고, 순서가 상관없을 때 사용할 수 있습니다. &lt;br /&gt;
+데이터를 여러 개의 Bucket에 나누어 저장하고, 주어진 key의 해시 값과 bucket 크기의 나머지 연산을 통해 어떤 버킷에 들어갈 지 정합니다. 이 때문에 다른 key값이여도 동일한 bucket에 들어갈 수 있습니다. 이를 해시 충돌이라고 하며 각 Bucket을 linked list로 쌍을 저장하여 해결할 수 있습니다. 최악의 시간 복잡도는 O(N) (모든 데이터가 하나의 버킷 &amp;amp; linked list 순회)입니다. std::unordered_set 혹은 Unordered_multiset 형태로 std::unordered_multiset으로 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;etc&quot;&gt;ETC…&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;stack&quot;&gt;Stack&lt;/h3&gt;
+&lt;p&gt;LIFO(Last-In, First-Out) 형태의 자료구조인 Stack입니다. std::stack을 통해 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;queue&quot;&gt;Queue&lt;/h3&gt;
+&lt;p&gt;FIFO(First-In, First-Out) 형태의 자료구조인 Queue입니다. std::queue을 통해 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Stack_Queue.jpg&quot; width=&quot;40%&quot; height=&quot;40%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;priority-queue매우중요&quot;&gt;Priority-Queue(매우중요!!!)&lt;/h3&gt;
+&lt;p&gt;Max heap 형태로 유지되는 container입니다. 데이터가 완전하게 정렬된 상태는 아니지만 최대 혹은 최솟값을 빠르게 찾을 수 있습니다. 연속적으로 데이터의 최댓값 또는 최솟값만 필요할 때 매우 효율적이게 동작합니다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 16 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/STL.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/STL.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title>Collision Detection System</title>
+        <description>&lt;h3 id=&quot;collision-detection-system&quot;&gt;Collision Detection System&lt;/h3&gt;
+&lt;p&gt;이번장에서는 Collision Detection System을 하도록 하겠습니다. 이를 위해 시간, 거리, 속도와 가속도를 사용해 sensor의 모션을 재구성합니다. 우리는 간단하고 학습을 위한 용도이기 때문에 속도 또는 가속도는 변하지 않는다는 절대적인 가정을 하고 시작하도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;the-collision-detection-problem&quot;&gt;The Collision Detection Problem&lt;/h3&gt;
+&lt;p&gt;Collision Avoidance System(CAS)은 운전을 하는 도중에 충돌이 임박했을 때 운전자에게 알려주거나 brake를 동작하는 보조 장치입니다. CAS는 자동차와의 충돌을 평가하기 위해 TTC(time-to-collision)를 계속해서 계산합니다. 아래 그림에서 노란색 차량과 초록색 차량의 거리는 time 0에서의 거리는 $d_{0}$입니다. 이 때 time $t_{0}$에서 초록색 차량이 속도를 줄이게 된다면, time $t_{1}$에서 노락색 차량과 초록색 차량의 거리는 $d_{1}$이 됩니다. 이것을 사용하여 노란색 차량과 초록색 차량의 거리 $d_{i}$가 0이 되는 시간 $t_{i}$가 TTC 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;cvmconstant-velocity-model&quot;&gt;CVM(Constant Velocity Model)&lt;/h4&gt;
+&lt;p&gt;TTC를 계산하기 위해서 우리는 몇가지 가정이 필요합니다. 첫 번째 가정은 노란색 차량과 초록색 차량의 속도는 constant하다는 것입니다. 이것은 eq.1 번의 CVM(Constant Velocity Model) 모델을 만들어줍니다.&lt;/p&gt;
+
+&lt;p&gt;$ eq 1. \quad d(t+\Delta t) = d(t) - v_{0} \cdot \Delta t$&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;camconstant-acceleration-model&quot;&gt;CAM(Constant Acceleration Model)&lt;/h4&gt;
+&lt;p&gt;하지만 CVM만 가지고 모델링을 하게되면 정확도가 매우 낮습니다. 그래서 eq 3.과 같은 velocity와 acceleration의 수식을 사용하여 eq 2.번과 같은 CAM 모델을 만들 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;$ eq 2. \quad d(t+\Delta t) = d(t) - v(t) \cdot \Delta t - \frac{1}{2}a_{0} \cdot \Delta t^{2}$ &lt;br /&gt;
+$ eq 3. \quad v(t+\Delta t) = v(t) - a_{0} \cdot \Delta t $&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
+&lt;p&gt;Imminent : 임박한&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 12 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/Camera_03.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/Camera_03.html</guid>
+        
+        
+        <category>sensorfusion</category>
+        
+      </item>
+    
+      <item>
+        <title>OpenCV</title>
+        <description>&lt;h2 id=&quot;opencv&quot;&gt;OpenCV&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;matrix-datatype&quot;&gt;Matrix Datatype&lt;/h3&gt;
+&lt;p&gt;Opencv는 기본 데이터 형식 cv::Mat datatype에 이미지를 저장하고 조작합니다. 이 형태는 다양한 차원의 숫자를 처리할 수 있으며 raster scan order이라 불리는 방식으로 정렬되어 저장됩니다. 2D image인 grayscale image의 경우 데이터가 행으로 구성되고 각 행이 차례대로 등장합니다. 3D인 RGB의 경우 평면으로 배열이 되어있으며, 각 평면은 한 줄씩 채워지고 평면이 차례대로 채워집니다.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/Raster_Scan.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;manipulating-matrices&quot;&gt;Manipulating Matrices&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;fixed-pixel-type&quot;&gt;Fixed Pixel Type&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;CV_8UC1 : 8-bit unsigned integer : uchar(0~255)&lt;/li&gt;
+  &lt;li&gt;CV_8UC3 : 8-bit signed integer : uchar with 3-D&lt;/li&gt;
+  &lt;li&gt;CV_8SC1 : 8-bit signed integer : schar(-128~127)&lt;/li&gt;
+  &lt;li&gt;CV_16UC1 : 16-bit unsigned integer : ushort(0~65535)&lt;/li&gt;
+  &lt;li&gt;CV_16SC1 : 16-bit signed integer : short(-32768~32767)&lt;/li&gt;
+  &lt;li&gt;CV_32SC1 : 32-bit signed integer : int(-21…~21…)&lt;/li&gt;
+  &lt;li&gt;CV_32FC1 : 32-bit floating-point number : float(-FLT_MAX~FLT_MAX)&lt;/li&gt;
+  &lt;li&gt;CV_64FC1 : 64-bit floating-point number : double(-DBL_MAX~DBL_MAX)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;create-matrix&quot;&gt;Create Matrix&lt;/h4&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createMatrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nrows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;480&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ncols&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;640&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Create 1D uchar(0~255) with size (480, 640) Matrix&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nrows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ncols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CV_8UC1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scalar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// White Screen&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Create 3D uchar(0~255) with size (480, 640 Matrix)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m3_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m3_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nrows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ncols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CV_8UC3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// three-channel matrix with 8bit unsigned elements&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m3_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scalar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// Blue Screen(BGR types)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;change-pixels&quot;&gt;Change Pixels&lt;/h4&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;changePixels&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// create matrix&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nrows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;480&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ncols&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;640&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Mat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nrows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ncols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CV_8UC1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// two-channel matrix with 8bit unsigned elements&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scalar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;          &lt;span class=&quot;c1&quot;&gt;//black&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;230&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// STUDENT TASK : loop over all columns and set matrix elements to 255&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ncols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// loop over all columns&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;m1_8u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// set r, c elements to 255&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;function&quot;&gt;Function&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;cvmatcreate&quot;&gt;cv::Mat::create&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;create(int rows, int cols, int types) : rows * cols 이미지를 types(Fixed Pixel Type) 형태로 생성&lt;/li&gt;
+  &lt;li&gt;create(int size, int types) : size * size 이미지를 types(Fixed Pixel Type) 형태로 생성&lt;/li&gt;
+  &lt;li&gt;create(int dim, int* size, int types) : size크기의 배열을 ndims의 크기로 생성(ex 200, arr[200&lt;em&gt;200] -&amp;gt; 200&lt;/em&gt;200 이미지)&lt;/li&gt;
+  &lt;li&gt;create(std::vector&amp;lt;int&amp;gt;&amp;amp; sizes, int types) : vector 형태의 배열을 types 형태의 이미지로 생성&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;cvmatsetto&quot;&gt;cv::Mat::setTo&lt;/h3&gt;
+&lt;p&gt;setTo(inputArray value, inputArray mask) : Matrix의 mask 영역을 value로 설정&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;cvnamedwindow---highguihpp&quot;&gt;cv::namedWindow -&amp;gt; highgui.hpp&lt;/h3&gt;
+&lt;p&gt;namedWindow(const string &amp;amp;winname, int flags) : winname이름의 types 형태 윈도우를 생성&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;cvimshow---highguihpp&quot;&gt;cv::imshow -&amp;gt; highgui.hpp&lt;/h3&gt;
+&lt;p&gt;imshow(const string &amp;amp;winname, InputArray mat) : matrix를 winname이름의 윈도우에 Display&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;library&quot;&gt;Library&lt;/h3&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;opencv2corecorehpp&quot;&gt;opencv2/core/core.hpp&lt;/h4&gt;
+&lt;p&gt;코어 모듈은 기본적인 object types나 함수를 포함하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;opencv2highguihighguihpp&quot;&gt;opencv2/highgui/highgui.hpp&lt;/h4&gt;
+&lt;p&gt;highgui 모듈은 유저의 입력이나 display를 사용할 수 있는 UI 함수를 포함하고 있습니다. 자주 사용하는 cv::imshow가 여기 속해있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;opencv2imgprocimgprochpp&quot;&gt;opencv2/imgproc/imgproc.hpp&lt;/h4&gt;
+&lt;p&gt;imgproc 모듈은 image transformations(filtering, geometric transformation, feature detection, tracking과 같은) 함수를 포함하고 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;opencv2features2dfeatures2dhpp&quot;&gt;opencv2/features2d/features2d.hpp&lt;/h4&gt;
+&lt;p&gt;feature2d 모듈은 detection, describing, matching keypoints과 같은 함수를 포함하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
+</description>
+        <pubDate>Thu, 12 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/Camera_02.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/Camera_02.html</guid>
+        
+        
+        <category>etc</category>
+        
+      </item>
     
       <item>
         <title>Camera Start!!</title>
@@ -84,9 +322,29 @@ $(1)\;x’\,=\,f\cdot\frac{x}{z} \qquad(2)\;y’\,=\,f\cdot\frac{y}{z}$ &lt;br /
 &lt;p&gt;Camera Center Position $O$는 axes $i, j, k$로 표현할 수 있으며, $k$는 image plane으로의 방향을 나타냅니다. Position $C^{‘}$은 k가 image plane과 교차하는 지점으로 이미지 좌표의 중심을 나타내는 principal point 혹은 center point입니다. 우선 Point $P$를 image plane에 projection시키기 위해 center point $O$에서 Point $P$를 빼서 image plane에 맺히는 Point $\overrightarrow{P}$를 계산할 수 있습니다.(image plane의 좌측 코너) 이 때, image plane에 맺히는 $\overrightarrow{P}$는 $\begin{bmatrix} P_{x} &amp;amp; P_{y} &amp;amp; P_{z} \end{bmatrix}$  로 표현할 수 있습니다. 다음은 transformation process로 미터로 계산한 $\overrightarrow{P}$를 pixel 좌표로 이동시키는 것입니다. 이 때 우리는 아래 투영 방정식을 통해 얻을 수 있는 $k$와 $l$ 파라미터를 사용하여 meters를 pixel로 변환할 수 있습니다.($l, k$는 추후에 mapping operation을 할 때 필요한 calibration matrix에 중요하게 사용됩니다.) 이 때, y좌표가 좌측 하단에 있는 것이 아닌 좌측 상단에 있는것을 꼭 기억해야 합니다. &lt;br /&gt;
 $ (1)\qquad \overrightarrow{P} \rightarrow \overrightarrow{P^{‘}}$ &lt;br /&gt;
 $ (2)\qquad \begin{pmatrix} x, &amp;amp; y, &amp;amp; z \end{pmatrix}^{T} \rightarrow ( \underbrace{f \cdot k}_{\alpha} \cdot \frac{x}{z} +c_x$, $\underbrace{f \cdot l}_{\beta}\cdot\frac{y}{z} + c_{y} )^{T}$ &lt;br /&gt;
-$ [k,l] = pixels/m $ㅐ&lt;/p&gt;
+$ [k,l] = pixels/m $ \&lt;/p&gt;
 
-&lt;p&gt;일반적으로 이와 같은 rectification으로 m를 픽셀로 변환할 때, 정확하게 discrete한 pixel에 일치하지 않습니다. 이러한 점을 보완하기 위해 interpolation을 사용하는데 이러한 interpolation errors를 피하기 위해서 원본 이미지를 사용하는 것은 합리적입니다.(feature tracking과 같은 task에서 origin image를 사용하고 rectification을 적용하는 것이 의미 있습니다. 하지만 deep learning을 사용하는 경우는 distortion이 detection error를 가져올 수 있습니다.)&lt;/p&gt;
+&lt;p&gt;일반적으로 이와 같은 rectification으로 m를 픽셀로 변환할 때, 정확하게 discrete한 pixel에 일치하지 않습니다. 이러한 점을 보완하기 위해 interpolation을 사용하는데 이러한 interpolation errors를 피하기 위해서 원본 이미지를 사용하는 것은 합리적입니다. feature tracking과 같은 task에서 origin image를 사용하고 rectification을 적용하는 것이 의미 있습니다. 하지만 deep learning을 사용하는 경우는 distortion이 detection error를 가져올 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;image-and-bayer-pattern&quot;&gt;Image and Bayer Pattern&lt;/h3&gt;
+&lt;p&gt;이번장에서는 빛 광선이 어떤 파장을 가지고 digitally하게 저장되는 Color Pixel로 변환되는지에 대해서 배우도록 하겠습니다. &lt;br /&gt;
+Camera로 이미지를 촬영하면, 빛이 렌즈를 통과하여 이미지 센서에 도달합니다. 이 센서는 얼마나 많은 빛이 들어오는지 등록하는 light sensitive elements로 구성되어있고 그것을 상응하는 electron(..?)의 수로 변경해줍니다.(More Light, More Electron) 일정 노출 시간(Exposure time)이 완료되면, 이 생성된 전자들은 전압으로 변환되며, 최종적으로 A/D-Converter를 통해 이산 숫자로 변환됩니다. 이미지 기술에는 현재 CCD, CMOS 2가지 기술이 주로 사용되고 있습니다. 두 기술 모두 전자를 Voltage(전압)으로 변경시켜주지만 다른 전자를 생성하는 파장을 구분하지 못하는 색맹입니다. 그래서 Color Vision을 하기 위해서 Pixel앞에 특정 파장만을 허용하는 작은 filter elements(also micro-lenses)를 사용합니다. 파장을 색상에 매핑시키는 가장 일반적인 방법은 기본 원색이 개별적으로 통과할 수 있도록 RGB 패턴으로 필터 요소를 배열 하는 것입니다. 이러한 RGB 값들의 색 조합을 사용하면 사람이 볼 수 있는 대부분의 색깔을 만들어 낼 수 있습니다. 또 각 색상을 8비트(0~255까지 256개의 값)로 코딩하면 256&lt;em&gt;256&lt;/em&gt;256=1670만 가지 색상을 생성할 수 있습니다. \&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;bayer-pattern&quot;&gt;Bayer Pattern&lt;/h4&gt;
+&lt;p&gt;가장 보편적으로 RGB 패턴을 정렬시키는 방법을 Bayer Pattern이라 부릅니다. 만약 2500 x 2000 = 5백만 화소의 이미지를 가지고 있다면 R, G, B 색을 감지할 수 있는 화소가 5백만개 포함된 이미지 센서를 사용하는 것입니다. 그런데 이 때 각 화소가 RGB를 파악하는 것이 아닌 흑백의 밝기만을 감지하는 monochrome 화소이면 데이터 전송량을 엄청나게 줄일 수 있습니다. 이 때, 인간의 시각 특성에 따라서 G가 50% R, B가 25씩 되도록 아래 그림과 같이 교차 배치하는 방식을 Bayer Pattern이라 합니다.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/Bayer_Pattern_Filter.jpg&quot; width=&quot;70%&quot; height=&quot;70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;ccdcharge-coupled-device&quot;&gt;CCD(Charge-Coupled Device)&lt;/h4&gt;
+&lt;p&gt;CCD 센서는 각 그림에서 수집된 전자들이 단일 또는 소수의 출력 노드를 통해 칩에서 전송됩니다. 그 이후 전하가 전압으로 변경되고 버퍼링 되어 아날로그 신호로 전송됩니다. 그 이후 신호가 증폭되고 센서 외부의 A/D 변환기를 통해 discrete한 숫자로 변환됩니다. CCD 센서는 CMOS에 비해 높은 감광도와 적은 노이즈를 가지고 있었지만 오늘날은 그 차이가 많이 줄어 들었습니다. 반면에 CCD는 높은 생산 가격과 높은 전력소비를 하는 단점을 가지고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;cmoscomplementary-metal-oxide-semiconductor&quot;&gt;CMOS(Complementary Metal-oxide Semiconductor)&lt;/h4&gt;
+&lt;p&gt;CMOS 센서는 반도체 소자를 이용해 빛의 세기를 측정합니다. 반도체라는 것은 전압을 걸지 않으면 부도체, 전압을 걸면 전기가 흐르는 도체가 되는데 이를 사용하여 측정값을 한번에 병렬로 읽는 방식입니다. 또한 병렬로 읽기 때문에 CCD와 달리 빛의 세기를 측정하는 회로 장치가 셀 마다 전부 존재합니다. 이러한 특징 때문에 소비 전력이 작고, 고속 처리가 가능한 장점을 가지고 있습니다. 단점은 CMOS센서는 회로가 가지고 있는 (재질적, 공정적, 물리적)편차를 가지고 있기 때문에 전위를 측정하는 방식이 동일하지 않기 때문에 낮은 감도를 가지고 있습니다. 또한 암 전류가 잔존하여 노이즈가 많이 발생할 수 있는 단점을 가지고 있습니다. 하지만 오늘날 기술들이 비약적으로 발전하면서 이러한 문제를 많이 해결하였고 요즘은 CMOS를 대부분 사용하는 추세입니다.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;iframe width=&quot;720&quot; height=&quot;405&quot; src=&quot;https://www.youtube.com/embed/nxUDHcZl1uo&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -118,7 +376,8 @@ Magnification : 확대 &lt;br /&gt;
 Mitigate : 완화하다 &lt;br /&gt;
 Along with : ~와 함께 &lt;br /&gt;
 Along : ~를 따라 &lt;br /&gt;
-Advisible : 권고할만한, 가치있는&lt;/p&gt;
+Advisible : 권고할만한, 가치있는 &lt;br /&gt;
+Electrons : 전자&lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Camera_01.html</link>
@@ -473,6 +732,9 @@ Binary Tree는 배열과 리스트로 구현할 수 있습니다.
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;pca---링크-달기-sf-06번&quot;&gt;PCA -&amp;gt; 링크 달기 SF 06번&lt;/h3&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;우측-값-참조-및-vector-reallocation&quot;&gt;우측 값 참조 및 vector reallocation&lt;/h3&gt;
+
 </description>
         <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Need_to_Post.html</link>
@@ -609,171 +871,6 @@ Chronological : 연대순&lt;/p&gt;
         
         
         <category>sensorfusion</category>
-        
-      </item>
-    
-      <item>
-        <title>Dot &amp; Corss Product</title>
-        <description>&lt;h2 id=&quot;dot-product&quot;&gt;Dot Product&lt;/h2&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;cross-product외적&quot;&gt;Cross Product(외적)&lt;/h2&gt;
-&lt;p&gt;외적은 Cross Product | Vector Product 라고 불립니다.&lt;br /&gt;
-외적은 3차원 상에서 두 개의 벡터들의 바이너리 연산자로, x라는 표기법을 사용합니다. 두 개의 독립 벡터 a, b가 있을 때 aXb로 표현할 수 있습니다. Cross Product 벡터는 a, b 모두에게 직교이고, 두 벡터를 포함하는 평면에 수직입니다.\&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h1 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h1&gt;
-</description>
-        <pubDate>Tue, 03 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/dot_cross_product.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/dot_cross_product.html</guid>
-        
-        
-        <category>math</category>
-        
-      </item>
-    
-      <item>
-        <title>Point Cloud Segmentation</title>
-        <description>&lt;h2 id=&quot;point-cloud-segmentation&quot;&gt;Point Cloud Segmentation&lt;/h2&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;segmentation&quot;&gt;Segmentation&lt;/h3&gt;
-&lt;p&gt;이미지 분야에서 segmentation은 이미지 내에 있는 객체들을 객체 단위로 분할하는 작업을 의미합니다.&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/Segmentation.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;Point Cloud Segmentation은 마찬가지로 3D Point cloud 내에 있는 점들에서 객체들을 객체 단위로 분할하는 작업을 의미합니다.&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/pointcloud_segmentation.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;자율주행 자동차에서는 도로에 있는 obstacles을 탐지하는데 사용되고 있습니다. Segmentation을 진행하기 위해서 Plane 과 Obstacle을 분리해야 합니다. 우리는 Plane을 RANSAC알고리즘을 통해 추출할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;ransac&quot;&gt;RANSAC&lt;/h3&gt;
-&lt;p&gt;RAndom Sample Consensus 알고리즘은 여러 point중에서 inlier를 가장 많이 가지는 모델을 찾는 알고리즘입니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Iterative 방법&lt;/li&gt;
-  &lt;li&gt;각 반복에서 points의 subset(집합)을 랜덤하게 고름&lt;/li&gt;
-  &lt;li&gt;모델에 point를 적용&lt;/li&gt;
-  &lt;li&gt;가장 많은 inliers를 가지는 모델을 선택&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_LINE.gif&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;ransac-for-line&quot;&gt;RANSAC for Line&lt;/h3&gt;
-&lt;p&gt;RANSAC을 Lines에서 적용하는 방법에 대해서 소개합니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;각각 반복에서 2개의 점을 선택&lt;/li&gt;
-  &lt;li&gt;두 개의 점을 지나는 선을 그림&lt;/li&gt;
-  &lt;li&gt;그린 선과 모든 점들의 거리를 계산하고 distance tolerance 이내에 있는 점들은 inlier&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;두 점을 선택&lt;/li&gt;
-  &lt;li&gt;선의 방정식을 구함&lt;/li&gt;
-  &lt;li&gt;나머지 점들과 선의 거리들을 계산&lt;/li&gt;
-  &lt;li&gt;거리들을 모아서 크기가 가장 작은 선을 선택&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_LINE.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;ransac-for-plane&quot;&gt;RANSAC for Plane&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_PLANE.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;ransac-simulation-results&quot;&gt;RANSAC Simulation Results&lt;/h3&gt;
-&lt;p&gt;in Line&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/RANSAC_RESULT.JPG&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;in Plane&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Ransac3D.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;Fairly : 꽤 &lt;br /&gt;
-Straightforward : 직설적인, 간단한, 복잡하지 않은 &lt;br /&gt;
-Segmentation : 분할 &lt;br /&gt;
-Associate : 연관짓다 &lt;br /&gt;
-Parentheses : 괄호 &lt;br /&gt;
-Elicit : 끌어내다 &lt;br /&gt;
-Indices : index의 복수, 색인 지수 &lt;br /&gt;
-Stub : 몽땅, 꽁초, 남는 부분 &lt;br /&gt;
-Declaration : 선언 &lt;br /&gt;
-Handy : 편리하게, 편리한 &lt;br /&gt;
-Encourage : 격려하다 &lt;br /&gt;
-Film Up : 촬영하다 &lt;br /&gt;
-Consensus : 의견일치, 합의 &lt;br /&gt;
-Prep : 준비하다 &lt;br /&gt;
-flavor : 맛, 맛이 나다, 풍미를 더하다 &lt;br /&gt;
-Prependicular : 전치(전치 몇주 할 때) &lt;br /&gt;
-Perpendicular : 수직의, 수직적인, 수직 &lt;br /&gt;
-Trigonometry : 삼각법 &lt;br /&gt;
-Numerator : 분자 &lt;br /&gt;
-Denominator : 분모 &lt;br /&gt;
-Magnitude : 크기, 규모 &lt;br /&gt;
-Hill : 언덕 &lt;br /&gt;
-in terms of : ~측면에서, ~면에서 \&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 03 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/SensorFusion_05.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/SensorFusion_05.html</guid>
-        
-        
-        <category>sensorfusion</category>
-        
-      </item>
-    
-      <item>
-        <title>template 부수기</title>
-        <description>&lt;h2 id=&quot;template&quot;&gt;Template?&lt;/h2&gt;
-&lt;p&gt;Template는 cpp에서 generic programing의 기초입니다. cpp에서는 프로그래머가 명시적으로 변수를 선언하거나 컴파일러에서 추론하는 특정 형식을 가진 변수를 필요로 합니다. 그러나 데이터 구조 및 알고리즘은 어떤 형식이든 동일하게 동작합니다. 이 때, Template를 사용하면 클래스 또는 함수의 연산을 정의할 수 있으며, 사용자가 해당 작업을 수행할 형식을 지정할 수 있습니다.\&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;함수가 호출되면 컴파일러는 모든 인스턴스를 사용자가 지정하거나 추론하는 구체적인 형식 인수로 바꿔줌(T -&amp;gt; int, char, e etc..)&lt;/li&gt;
-  &lt;li&gt;컴파일러가 템플릿에서 클래스 또는 함수를 생성하는 프로세스를 template instace라고 함(minimum&amp;lt;int&amp;gt;는 minimum&amp;lt;T&amp;gt;의 instace화)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// typename : 매개 변수 형식의 자리 표시자를 의미&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minimum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lhs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rhs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lhs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rhs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lhs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rhs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// typename... 줄임표 연산자 사용 가능&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Arguments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;vtclass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vtclass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vt1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vtclass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vtclass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vt3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Arr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 에러 발생!! non-type template pyrameter 는 double이 될 수 없다.&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PointT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pcl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointCloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ptr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ProcessPointClouds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FilterCloud&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pcl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointCloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ptr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filterRes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Eigen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vector4f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Eigen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vector4f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;generic : 일반적인 \&lt;/p&gt;
-</description>
-        <pubDate>Mon, 02 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/template.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/template.html</guid>
-        
-        
-        <category>cpp</category>
         
       </item>
     

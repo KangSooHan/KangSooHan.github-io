@@ -28,3 +28,7 @@ layout: post
 <br><br>
 ### PCA -> 링크 달기 SF 06번 
 
+<br><br>
+### 우측 값 참조 및 vector reallocation
+
+
