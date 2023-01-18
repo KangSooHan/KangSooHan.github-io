@@ -5,9 +5,331 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 16 Jan 2023 18:27:01 +0900</pubDate>
-    <lastBuildDate>Mon, 16 Jan 2023 18:27:01 +0900</lastBuildDate>
+    <pubDate>Wed, 18 Jan 2023 10:34:15 +0900</pubDate>
+    <lastBuildDate>Wed, 18 Jan 2023 10:34:15 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>SWExpert 3316 동아리실 관리하기 - D4</title>
+        <description>&lt;p&gt;문제 링크 : &lt;a href=&quot;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBnFuhqxE8DFAWr&quot;&gt;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWBnFuhqxE8DFAWr&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;to-solve&quot;&gt;To Solve&lt;/h3&gt;
+&lt;p&gt;이 문제는 bits에 대해서 학습하기 위한 기본 문제 중 하나입니다. &lt;br /&gt;
+추가적으로 이 문제를 풀기 위해서 DP 방법을 사용했습니다. &lt;br /&gt;
+첫 날에는 A가 키를 가지고 있고 Master가 정해져 있기 때문에 반복문을 돌면서 A를 포함하고 Master를 포함하는 집합을 구하고 cnt[0][A]에 1의 값을 줍니다.(경우의 수 1개) &lt;br /&gt;
+두번 째 날에는 이전 반복문의 경우의 수와 현재의 경우의 수를 비교하면서 AND 연산을 계산해 동일 원소가 있는지 확인합니다. &lt;br /&gt;
+만일 동일 원소가 존재한다면 현재 케이스에 숫자를 카운팅 하는 cnt[i][A]에 더해줍니다. &lt;br /&gt;
+이러한 방식을 반복적이게 끝까지 진행하면 원하는 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#define MAX 1000000007
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;freopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;master&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;A&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+       &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#%d %d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_3316.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/3316/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/swexpert-3316.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/swexpert-3316.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title>SWExpert 1288 새로운 불면증 치료법 - D2</title>
+        <description>&lt;p&gt;문제 링크 : &lt;a href=&quot;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18_yw6I9MCFAZN&quot;&gt;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18_yw6I9MCFAZN&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;to-solve&quot;&gt;To Solve&lt;/h3&gt;
+&lt;p&gt;이 문제는 bits에 대해서 학습하기 위한 기본 문제 중 하나입니다. &lt;br /&gt;
+반복문을 돌면서 value를 N, 2N, 3N, …, KN 형태로 만들어줍니다. &lt;br /&gt;
+value 값의 나머지를 계산하고 10으로 나누는 것을 진행하면서 각 자리 숫자를 확인합니다. &lt;br /&gt;
+각 자리 숫자와 check를 or 연산하면서 check가 모두 1이 되었을 때 종료합니다. \&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;freopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#%d %d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_1288.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/1288/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/swexpert-1288.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/swexpert-1288.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title>SWExpert 10726 이진수 표현 - D3</title>
+        <description>&lt;p&gt;문제 링크 : &lt;a href=&quot;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXRSXf_a9qsDFAXS&quot;&gt;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXRSXf_a9qsDFAXS&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;to-solve&quot;&gt;To Solve&lt;/h3&gt;
+&lt;p&gt;이 문제는 bits에 대해서 학습하기 위한 기본 문제 중 하나입니다. &lt;br /&gt;
+끝의 비트가 1인지 0인지 확인하였습니다. &lt;br /&gt;
+그 이후 비트를 오른쪽으로 쉬프트하여 끝 비트가 1인지 0인지 확인하였습니다. &lt;br /&gt;
+이를 반복적으로 n번 수행하였을 때, flag가 참이면 ON 아니면 OFF를 내도록 하였습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;freopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;input.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d %d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 끝 비트가 0인지 1인지 확인하기&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 비트 SHIFT&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#%d ON&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#%d OFF&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_10726.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/10726/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/swexpert-10726.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/swexpert-10726.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title>Bits 연산</title>
+        <description>&lt;h3 id=&quot;비트bit&quot;&gt;비트(bit)&lt;/h3&gt;
+&lt;p&gt;컴퓨터에서 자료를 표현하기 위해 비트를 사용합니다. \&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1bit = 0 또는 1&lt;/li&gt;
+  &lt;li&gt;1byte = 8 bits&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;우리가 사용하는 Window에는 32 비트 혹은 64 비트 시스템이 있습니다. 여기서 얘기하는 비트가 우리가 배우려는 비트입니다. 우리가 프로그램을 실행할 때 CPU가 데이터를 처리하는데 이 때 처리하는 데이터의 최소 단위인 레지스터의 크기가 32bits 혹은 64bits라는 의미입니다. 레지스터는 CPU(Central Processing Unit)가 요청을 처리하는데 필요한 데이터를 일시적으로 저장하는 기억 장치 입니다. 레지스터는 명령을 처리하기 위해서 이들에 대한 주소 및 명령의 종류를 저장할 수 있는 기억 공간입니다. 이전에 32 bits 시스템일 경우 최대 2^32 bits 대략 4GB정도의 메모리만 인식이 가능하여 64bits 크기의 운영체제를 많이 사용하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;비트-연산자&quot;&gt;비트 연산자&lt;/h3&gt;
+&lt;p&gt;아래의 표는 6가지 비트 연산자입니다.&lt;/p&gt;
+
+&lt;table rules=&quot;groups&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;비트 연산자&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;a=0b1010, b=0b0110&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&amp;amp;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;AND&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a &amp;amp; b = 0b0010&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;|&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;OR&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a | b = 0b1110&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;^&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;XOR&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a ^ b = 0b1100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;~&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;NOT&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;~a = 0b0101&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;«&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;left shift&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a « 1 = a * $2^{n}$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;»&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;right shift&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a » n = a * $2^{-n}$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;비트 연산은 우선순위에 주의가 필요합니다. 일반적으로 사칙연산은 비교, 논리 연산자보다 우선 순위가 높습니다. 하지만 비트 연산은 논리 연산보다 우선순위가 높으나 비교 연산보다는 낮습니다. 아래 두 식은 동일한 수식입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;비트-연산의-응용&quot;&gt;비트 연산의 응용&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;AND &amp;amp; : 비트 집합 두개를 AND하면 교집합&lt;/li&gt;
+  &lt;li&gt;OR  | : 비트 집합 두개를 OR하면 합집합&lt;/li&gt;
+  &lt;li&gt;XOR ^ : True/False를 번갈아 바꾸는 스위치 구현과 같이 몇 개의 bit를 바꿔서 대응되는 수를 구할 수 있음(ASCII코드에서 짝이 맞는 문자끼리 다른 bit를 XOR시키는 기법을 이용한 대소문자 변환 함수 등..)&lt;/li&gt;
+  &lt;li&gt;NOT ~ : 비트 집합에 사용하면 가지고 있지 않은 원소들을 구할 수 있음&lt;/li&gt;
+  &lt;li&gt;SHIFT » : 나누기 혹은 곱하기 연산을 대신해서 사용 가능(속도의 이점)&lt;/li&gt;
+  &lt;li&gt;i &amp;amp; (1 « j) : i 숫자의 j 번째 bit가 1인지 아닌지를 판별&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;bit-masking&quot;&gt;Bit Masking&lt;/h3&gt;
+&lt;p&gt;각 Bit하나를 Flag로 활용한다면 자료 저장과 집합 표현을 쉽게 할 수 있습니다. &lt;br /&gt;
+0~31 사이의 번호가 매겨져 있고 사람 A의 친구 목록이 2의 배수이고, B의 친구 목록이 3의 배수라고 할 때, &lt;br /&gt;
+A, B 모두와 친구인 사람은? &lt;br /&gt;
+A 또는 B와 친구인 사람은? &lt;br /&gt;
+과 같은 집합 문제를 비트를 사용하면 쉽게 풀 수 있습니다.&lt;/p&gt;
+
+&lt;p rules=&quot;groups&quot;&gt;A $\quad$
+|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|&lt;/p&gt;
+
+&lt;p rules=&quot;groups&quot;&gt;B $\quad$
+|1|0|0|1|0|0|1|0|0|1|0|0|1|0|0|1|0|0|1|0|0|1|0|0|1|0|0|1|0|0|1|0|&lt;/p&gt;
+
+&lt;p rules=&quot;groups&quot;&gt;A &amp;amp; B(A B 모두와 친구) $\quad$
+|1|0|0|0|0|0|1|0|0|0|0|0|1|0|0|0|0|0|1|0|0|0|0|0|1|0|0|0|0|0|1|0|&lt;/p&gt;
+
+&lt;p rules=&quot;groups&quot;&gt;A | B(A 또는 B와 친구) $\quad$
+|1|0|1|1|1|0|1|0|1|1|1|0|1|0|1|1|1|0|1|0|1|1|1|0|1|0|1|1|1|0|1|0|&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;data-compression&quot;&gt;Data Compression&lt;/h3&gt;
+&lt;p&gt;문자열 두 개를 비교할 때 O(문자열의 길이)의 시간이 드는데, 만약 사용하는 문자의 가지수가 적다면 필요한 bit만 골라내어 압축시킬 수 있습니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;size_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;실수&quot;&gt;실수&lt;/h3&gt;
+&lt;p&gt;우리는 소수점 이하의 실수를 표현할 때 정확한 값을 계산하는 것이 아닌 근사 값을 활용합니다. 소수점 이하 4자리를 10진수로 나타내보면 2진수 0.1은 10진수 0.5 2진수 0.01은 10진수 0.25 2진수 0.001은 10진수 0.125로 2진수 0.0001은 10진수 0.0625로 표현이 됩니다. 이런 점을 사용해 우리는 floating-point 표기법을 사용합니다. 예를 들어, 314.625를 bits로 표현하면 100111010.101이 됩니다. 이 2진수의 소수점을 아래와 같이 왼쪽으로 이동시켜서 1.00111010101 * $2^{8}$로 표현할 수 있습니다. 이때 부호 1비트 | 지수 8비트(숫자 8) | 가수 23비트(100111010101)로 숫자를 표현할 수 있습니다. 추가적으로 지수 비트에는 음수 양수의 값이 들어갈 수 있기 때문에 맨 앞 부호비트 + 7비트로 -128~127까지 표현할 수 있습니다.
+&lt;img src=&quot;/assets/img/algorithm/Floating_Point.jpg&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 17 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/SWExpert_01.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/SWExpert_01.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
     
       <item>
         <title>STL!!</title>
@@ -111,14 +433,34 @@
 &lt;p&gt;$ eq 2. \quad d(t+\Delta t) = d(t) - v(t) \cdot \Delta t - \frac{1}{2}a_{0} \cdot \Delta t^{2}$ &lt;br /&gt;
 $ eq 3. \quad v(t+\Delta t) = v(t) - a_{0} \cdot \Delta t $&lt;/p&gt;
 
+&lt;p&gt;실제 환경에서는 CVM보다 CAM이 훨씬 좋은 성능을 보이지만 우리는 CVM 모델을 기반으로 공부를 하도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;estimating-ttc-with-lidar&quot;&gt;Estimating TTC with Lidar&lt;/h3&gt;
+&lt;p&gt;Lidar에서 TTC를 계산하는 것은 아래 그림과 수식처럼 확인할 수 있습니다.(CVM 기반의 Lidar TTC) &lt;br /&gt;
+&lt;img src=&quot;/assets/img/sensorfusion/Lidar_TTC.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt; &lt;br /&gt;
+$ eq 1. \quad d(t+\Delta t)= d(t)-v_{0} \cdot \Delta t $ &lt;br /&gt;
+$ eq 2. \quad v_{0}=\frac{d(t) - d(t + \Delta t)}{\Delta t} = \frac{d_{0} - d_{1}}{\Delta t}$ &lt;br /&gt;
+$ eq 3. \quad TTC = \frac{d_{1}}{v_{0}} = \frac{d_{1} \cdot \Delta t}{d_{0} - d_{1}} $&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Rader는 상대 속도에 관한 정보를 포함하기 때문에 TTC를 측정할 수 있지만 Lidar로 얻은 point cloud는 depth를 기반으로 계산하기 때문에 두가지 거리 측정을 통해 계산해야 합니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;도로 표면에 있는 measurements를 제거&lt;/li&gt;
+  &lt;li&gt;low reflectivity measurements를 제거&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Remove_Lidar_Point.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;Imminent : 임박한&lt;/p&gt;
-
+&lt;p&gt;Imminent : 임박한 &lt;br /&gt;
+Tailgate : 뒷문, 바짝 따라 달리다 &lt;br /&gt;
+Deviation : 편차 &lt;br /&gt;
+Curvature : 곡선의 \&lt;/p&gt;
 </description>
-        <pubDate>Thu, 12 Jan 2023 00:00:00 +0900</pubDate>
+        <pubDate>Mon, 16 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Camera_03.html</link>
         <guid isPermaLink="true">http://localhost:4000//2023/01/Camera_03.html</guid>
         
@@ -580,297 +922,6 @@ DFS 제한 조건에는 방문 하였는지 check배열과 알파벳을 가지�
         
         
         <category>algorithm</category>
-        
-      </item>
-    
-      <item>
-        <title>Tree</title>
-        <description>&lt;h2 id=&quot;tree&quot;&gt;TREE&lt;/h2&gt;
-&lt;p&gt;Tree는 상위 원소에서 하위 원소로 내려가면서 확장되는(계층 관계를 가지는) 나무 모양의 구조를 가진 비 선형 구조의 자료구조 입니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Root
-노드 중 최상위 노드&lt;/li&gt;
-  &lt;li&gt;Node
-Tree의 원소 &lt;br /&gt;
-최상위 노드인 루트 노드가 있으며, 자식 부모 관계를 가진 부모 노드와 자식 노드 &lt;br /&gt;
-단말 노드는 차수가 0인(자식 노드가 없는) 노드&lt;/li&gt;
-  &lt;li&gt;Edge(간선)
-간선은 노드를 연결하는(자식 노드와 부모 노드를 연결하는) 선&lt;/li&gt;
-  &lt;li&gt;차수
-노드에 연결된 자식 노드의 수
-Tree의 차수는 Tree에서 가장 큰 차수를 의미&lt;/li&gt;
-  &lt;li&gt;높이
-노드의 높이 : 루트에서 노드에 이르는 간선의 수 : Level
-Tree의 높이 : Tree에 있는 노드의 높이 중 가장 큰 값&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Tree.jpg&quot; width=&quot;30%&quot; height=&quot;30%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;binary-tree&quot;&gt;Binary Tree&lt;/h2&gt;
-&lt;p&gt;Binary Tree는 Tree의 일종으로 모든 노드들이 2개의 SubTree를 갖는 특별한 형태의 Tree를 의미합니다.&lt;br /&gt;
-노드가 자식 노드를 최대한 2개까지만 가질 수 있는 Tree(left child node, right child node)형태 입니다. &lt;br /&gt;
-레벨 i에서의 노드의 최대 $2^i$, 노드의 최소 개수는 $h+1$, 노드의 최대 개수는 $2^{h+1}-1$입니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;포화 이진 트리(Full Binary Tree)
-모든 레벨의 노드가 포화 상태인 Binary Tree&lt;/li&gt;
-  &lt;li&gt;완전 이진 트리(Complete Binary Tree
-노드번호 1번부터 n번까지 빈 자리가 없는 Binary Tree&lt;/li&gt;
-  &lt;li&gt;Skewed Binary Tree(편향 이진 트리)
-한쪽 방향의 자식 노드만을 가진 Binary Tree&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;순회traversal&quot;&gt;순회(Traversal)&lt;/h3&gt;
-&lt;p&gt;순회는 Tree의 각 노드를 중복되지 않게 전부 방문(Visit)하는 방법입니다. Tree는 비선형 구조이기 때문에 선형 구조에서와 같이 선후 연결 관계를 알 수 없습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;전위 순회(Pre-order) : 루트 $\rightarrow$ 왼 $\rightarrow$ 오&lt;/li&gt;
-  &lt;li&gt;중위 순회(In-order) : 왼 $\rightarrow$ 루트 $\rightarrow$ 오&lt;/li&gt;
-  &lt;li&gt;후위 순회(Post-order) : 왼 $\rightarrow$ 오 $\rightarrow$ 루트&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Traversal.jpg&quot; width=&quot;80%&quot; height=&quot;80%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;이진-탐색-트리binary-search-treebst&quot;&gt;이진 탐색 트리(Binary Search Tree(BST))&lt;/h2&gt;
-&lt;p&gt;이진 탐색 트리는 탐색 작업을 효율적으로 하기 위한 자료구조입니다. BST는 모든 원소가 서로 다른 유일한 키를 가지게 됩니다. 또한, 부모 노드의 값을 기준으로 왼쪽 Subtree와 오른쪽 Subtree를 구성하게 됩니다. 따라서 in-order traversal를 실행하면 오름차순으로 정렬된 값을 얻을 수 있습니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST.jpg&quot; width=&quot;20%&quot; height=&quot;20%&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;BST는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.
- 삽입&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;node = NULL인 경우
-이는 서브트리가 비어있는 경우입니다. x를 추가하면 x가 하나뿐인 서브트리가 생기므로 x 노드를 만들어 추가해주면 됩니다.&lt;/li&gt;
-  &lt;li&gt;node의 자식에 x가 들어가야 하는 경우
-자식 서브트리에 x를 삽입한 뒤 서브트리의 루트를 그 방향의 자식으로 만들면 됩니다.&lt;/li&gt;
-  &lt;li&gt;node = x 인 경우
-이미 존재하는 경우이기 때문에 return 하면 됩니다.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST_insert.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;삭제&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;node = NULL 인 경우
-이는 서브트리가 없는 경우임으로 return하면 됩니다.&lt;/li&gt;
-  &lt;li&gt;node = x인 경우
-node를 삭제해야 하는데 2가지 케이스가 있습니다.
-    &lt;ol&gt;
-      &lt;li&gt;Node의 한 쪽 자식이 없는 경우
-노드를 삭제 하면 됩니다. 그 이후 Subtree와 부모 노드를 연결하면 됩니다.&lt;/li&gt;
-      &lt;li&gt;Node의 양 쪽 자식이 있는 경우
-Tree의 형태를 유지하기 위해서는 Subtree의 루트가 왼쪽보다는 크고 오른쪽 보다는 작아야 합니다. 이를 유지하기 위해서 삭제 노드의 값을 오른쪽 Subtree에서 가장 작은 값(left$\rightarrow$left$\rightarrow$…) 혹은 왼쪽 Subtree에서 가장 큰 값(right$\rightarrow$right$\rightarrow$…)로 대체하면 됩니다.&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/BST_remove.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
-
-&lt;p&gt;구현
-Binary Tree는 배열과 리스트로 구현할 수 있습니다.
-&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;배열-구현&quot;&gt;배열 구현&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;장점 : 구현이 쉬움&lt;/li&gt;
-  &lt;li&gt;단점 : 메모리 공간 낭비, 노드가 자식 노드를 최대한 2개까지만 가질 수 있음&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Binary Tree에 각 노드 번호를 다음과 같이 부여&lt;/li&gt;
-  &lt;li&gt;루트 번호를 1로함&lt;/li&gt;
-  &lt;li&gt;레벨 N에 있는 노드에 대해서 왼쪽부터 오른쪽까지 $2^n\sim2^{n+1}-1$ 번호를 차례대로 부여
-    &lt;ul&gt;
-      &lt;li&gt;노드 번호가 i인 노드의 부모 노드 : i/2&lt;/li&gt;
-      &lt;li&gt;노드 번호가 i인 노드의 왼쪽 자식 노드 : 2*i&lt;/li&gt;
-      &lt;li&gt;노드 번호가 i인 노드의 오른쪽 자식 노드 : 2*i+1&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/TreeArray.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;리스트-구현&quot;&gt;리스트 구현&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;장점 : 구현이 어려움&lt;/li&gt;
-  &lt;li&gt;단점 : 메모리 효율이 좋음, 자식 노드를 여러명 가질 수 있음&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/TreeList.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/DataStructure/Tree.cpp&quot;&gt;Tree 구현&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://github.com/KangSooHan/algorithm/DataStructure/BST.cpp&quot;&gt;BST 구현&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/Tree.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/Tree.html</guid>
-        
-        
-        <category>algorithm</category>
-        
-      </item>
-    
-      <item>
-        <title>POST 해야할 것들?</title>
-        <description>&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;calibration&quot;&gt;Calibration!!!!!&lt;/h3&gt;
-
-&lt;h3 id=&quot;smart-pointer&quot;&gt;Smart Pointer&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;dot-product--cross-product&quot;&gt;Dot Product &amp;amp; Cross Product&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;highway-simulation-ransac-부수기&quot;&gt;HighWay Simulation RANSAC 부수기&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;kd-tree-clustering-code-부수기&quot;&gt;KD-TREE clustering Code 부수기&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;생성자&quot;&gt;생성자&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;소멸자&quot;&gt;소멸자&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;복사-생성자&quot;&gt;복사 생성자&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;기본-대입-연산자&quot;&gt;기본 대입 연산자&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;class-default--delete&quot;&gt;class default &amp;amp; delete&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;bst-tree-주석달기&quot;&gt;BST, TREE 주석달기&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;pca---링크-달기-sf-06번&quot;&gt;PCA -&amp;gt; 링크 달기 SF 06번&lt;/h3&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;우측-값-참조-및-vector-reallocation&quot;&gt;우측 값 참조 및 vector reallocation&lt;/h3&gt;
-
-</description>
-        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/Need_to_Post.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/Need_to_Post.html</guid>
-        
-        
-        <category>etc</category>
-        
-      </item>
-    
-      <item>
-        <title>Class Default &amp; Delete</title>
-        <description>&lt;h2 id=&quot;가독성을-위한-default와-delete-키워드&quot;&gt;가독성을 위한 default와 delete 키워드&lt;/h2&gt;
-&lt;p&gt;클래스 작성 시 우리가 직접 작성하지 않아도 기본적으로 컴파일러가 생성해 주는 것이 있다. 그 대표적인 예로 기본 생성자, 기본 소멸자, 기본 복사생성자, 기본 대입 연사자 등이 그렇다. 컴파일러가 생성한 복사 생성자와 대입 연산자는 얕은 복사를&lt;/p&gt;
-
-&lt;h2&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/h2&gt;
-&lt;h3 id=&quot;ref&quot;&gt;Ref&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;&quot;&gt; 생성자&lt;/a&gt;
- 소멸자
- 복사 생성자
- 기본 대입 연산자&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h1 id=&quot;-httpsmblognavercompostlistnaverblogidsw4r--참조&quot;&gt;&lt;a href=&quot;https://m.blog.naver.com/PostList.naver?blogId=sw4r&quot;&gt; https://m.blog.naver.com/PostList.naver?blogId=sw4r &lt;/a&gt; 참조&lt;/h1&gt;
-</description>
-        <pubDate>Thu, 05 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/Class_Default_Delete.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/Class_Default_Delete.html</guid>
-        
-        
-        <category>cpp</category>
-        
-      </item>
-    
-      <item>
-        <title>Point Cloud Clustering</title>
-        <description>&lt;p&gt;Point Cloud Clustering
-Point Cloud에서 Clustering은 보행자, 자동차 등 obstacle들을 찾아내는데 사용합니다. Udacity 강의에서는 KD-TREE를 사용한 Euclidean Clustering을 사용합니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;clustering&quot;&gt;Clustering&lt;/h2&gt;
-&lt;p&gt;클러스터링(Clustering : 군집화)는 비슷한 개체끼리 한 그룹으로, 다른 개체는 다른 그룹으로 묶는 것을 의미합니다. 클러스터링은 다음과 같이 얘기할 수 있습니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;군집 간 분산(outer-cluster variance) 최대화&lt;/li&gt;
-  &lt;li&gt;군집 내 분산(inner-cluster variance) 최소화&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;클러스터링은 정답 라벨이 없는 Unsupervised Learning(비지도 학습) 입니다. 이는 그룹 정보 없이 비슷한 개체끼리 군집화 하는 것을 의미합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;군집-타당성-평가&quot;&gt;군집 타당성 평가&lt;/h3&gt;
-&lt;p&gt;클러스터링 알고리즘은 정답 라벨이 없기 때문에 Accuracy 지표로 표현할 수 없습니다. 또한 최적의 cluster 개수를 알아내는 것은 쉽지 않습니다.&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/sensorfusion/clustering.jpg&quot; width=&quot;60%&quot; height=&quot;40%&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;이러한 문제 때문에 clustering은 평가가 어렵습니다. 그래서 군집의 유용성을 다시 말해 군집 간 분산과 군집 내 분산을 기반으로 평가하는 Clustering Validity Index(Dunn Index, Silhouette)가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;kd-tree&quot;&gt;KD-Tree&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/KDTree.jpg&quot; /&gt;&lt;/p&gt;
-&lt;p&gt;K-D Tree는 공간을 기반으로 partitioning하는 B-Tree(&lt;a href=&quot;/2023/01/Tree.html&quot;&gt;참조&lt;/a&gt;)로, 점들을 k-차원 공간에서 정리합니다. K-D Tree는 다음과 같이 동작합니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;k차원의 점들이 N개 존재&lt;/li&gt;
-  &lt;li&gt;X좌표를 기준으로 X의 중간값을 찾고 이진 트리화&lt;/li&gt;
-  &lt;li&gt;자식 노드들은 각각 노드마다 Y의 중간값을 찾고 이진 트리화&lt;/li&gt;
-  &lt;li&gt;손자 노드들은 각각 노드마다 Z의 중간값을 찾고 이진 트리화&lt;/li&gt;
-  &lt;li&gt;증손자 노드들은 각각 노드마다 다시 X의 중간값을 찾고 이진 트리화..&lt;/li&gt;
-  &lt;li&gt;반복&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/BinaryTree.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;searching-points-in-a-kd-tree&quot;&gt;Searching Points in a KD-Tree&lt;/h3&gt;
-&lt;p&gt;KD-Tree를 이용하여 거리가 distanceTol(distanceTolerance) 이내인 점들을 찾아내는 방법입니다. &lt;br /&gt;
-루트를 시작으로 반복하며 search 함수를 진행하면서 거리 이내의 포인트들을 찾아낼 수 있습니다. &lt;br /&gt;
-&lt;strong&gt;&amp;lt; Pseudo Code &amp;gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;if node가 nullptr이면 종료&lt;/li&gt;
-  &lt;li&gt;만일 현재 노드의 점과 target 점의 X,Y,Z의 거리가 distanceTol보다 크다면 종료(최적화를 위해)&lt;/li&gt;
-  &lt;li&gt;만일 distance D $\sqrt{x^2 + y^2 + z^2}$의 값이 distanceTol보다 크다면 종료(거리 이내에 없기 때문에)&lt;/li&gt;
-  &lt;li&gt;KD-Tree의 Depth 기준에 맞게 노드의 점과 target 점의 X(0)Y(1)Z(2) 거리가 distanceTol이내에 있으며
-    &lt;ul&gt;
-      &lt;li&gt;0보다 작으면 search(node$\rightarrow$left)&lt;/li&gt;
-      &lt;li&gt;0보다 크면 search(node$\rightarrow$right)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이렇게 동작하면 KD-Tree를 이용하여 범위 안에 속하는 점들을 빠르게 찾을 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;euclidean-clustering&quot;&gt;Euclidean Clustering&lt;/h3&gt;
-&lt;p&gt;Euclidean Clustering은 거리를 기준으로 Clustering하는 기법 중 하나입니다. 지금까지 우리는 Euclidean Clustering을 하기 위해 KD-Tree와 KD-Tree를 활용한 근접 점들을 찾는 방법에 대해서 배웠습니다.&lt;br /&gt;
-Euclidean Clustering은 다음과 같이 동작합니다. \&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;각각 점들을 순회하면서&lt;/li&gt;
-  &lt;li&gt;만일 그 점이 처리되지 않은 점이라면
-    &lt;ul&gt;
-      &lt;li&gt;Searching Point를 통해서 그 점과 근접한 점들을 획득하고&lt;/li&gt;
-      &lt;li&gt;그 점들을 순회하면서 Searching Point를 하며 다시 근접 점들을 획득&lt;/li&gt;
-      &lt;li&gt;만약 이미 처리되어 있는 점이라면 스킵&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;이렇게 하나의 Cluster를 만들고&lt;/li&gt;
-  &lt;li&gt;계속해서 순회하면 집단의 Cluster를 획득&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이렇게 동작하면 Euclidean Clutering이 완성됩니다!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Euclidean Clustering.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;bounding-box&quot;&gt;Bounding Box&lt;/h3&gt;
-&lt;p&gt;이렇게 획득한 Cluster를 기준으로 Bounding Box를 생성하면 더욱 쉽게 확인할 수 있습니다. &lt;br /&gt;
-Bounding Box는 각각 점들의 최소 최대 값을 기준으로 생성할 수 있습니다. 다만, 이렇게 생성할 경우 아래 왼쪽 경우처럼 박스가 Fit하게 생성되지 않을 수 있습니다. &lt;br /&gt;
-이러한 문제를 PCA를 이용하여 PCA Boxes를 생성하면 오른쪽과 같이 생성할 수 있습니다. PCA의 개념은 MATH 항목을 참조하면 됩니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Box_Rotate.jpg&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;단어&quot;&gt;단어&lt;/h3&gt;
-&lt;p&gt;Alternating : 교대로 &lt;br /&gt;
-Consecutive : 연이은 &lt;br /&gt;
-Dereference : 역참조 &lt;br /&gt;
-Proximity : 근접성 &lt;br /&gt;
-Negligible : 무시할 수 있는 &lt;br /&gt;
-Reap : 베다, 보상을 받다, 받다 &lt;br /&gt;
-Innermost : 가장 깊숙히 &lt;br /&gt;
-Coincide : 일치하다 &lt;br /&gt;
-Chronological : 연대순&lt;/p&gt;
-</description>
-        <pubDate>Wed, 04 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/SensorFusion_06.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/SensorFusion_06.html</guid>
-        
-        
-        <category>sensorfusion</category>
         
       </item>
     
