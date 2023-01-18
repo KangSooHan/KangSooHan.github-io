@@ -32,3 +32,8 @@ layout: post
 ### 우측 값 참조 및 vector reallocation
 
 
+<br><br>
+### 정렬
+삽입정렬 
+병합정렬 
+삼성 강의도 참조할것!
