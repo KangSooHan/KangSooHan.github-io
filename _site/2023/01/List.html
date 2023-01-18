@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Whale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/mobile.css">
+    <link rel="stylesheet" href="/assets/css/vendor/syntax.css">
+    <link rel="stylesheet" href="/assets/css/vendor/semantic.min.css"/>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+</head>
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+            equationNumbers: {
+                autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+    }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<body>
+    
+    <div class="page-wrap">
+        <div class="header-wrapper">
+    <header>
+        <!-- logo and description -->
+        
+        <nav class="site-nav">
+            <div class="left-nav">
+                <!-- add titles to all buttons -->
+                <div class="ui secondary menu inverted">
+                    <a class="item" href="/">
+                        Home
+                    </a>
+                    <a class="item" href="/about.html">
+                        About
+                    </a>
+                    <a class="item" href="/archive.html">
+                        Archive
+                    </a>
+                    <div class="right menu">
+                        <a class="item" href="https://facebook.com/tkatjdrkd">
+                            <i class="facebook link icon"></i>
+                        </a>
+                        <a class="item" href="https://www.instagram.com/soohan.getjy/">
+                            <i class="instagram link icon"></i>
+                        </a>
+                        <a class="item" href="https://github.com/KangSooHan">
+                            <i class="github link icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-nav"></div>
+        </nav>
+    </header>
+</div>
+
+        <main>
+            <div class="post-container">
+    <center>
+        <span class="date">
+            18 Jan 2023 
+             
+                in <i>algorithm</i>
+             
+        </span>
+        <h1 class="post-title">Linked-List</h1>
+    </center>
+    <div class="ui divider"></div>
+    <h2 id="list란">List란?</h2>
+<p>리스트는 순서를 가진 데이터의 집합을 가리키는 추상 자료형입니다. 리스트를 사용하면 삽입 정렬, 병합 정렬, Stack, Priority Queue 등 다양한 자료구조 및 알고리즘을 구현할 수 있습니다. 리스트는 다음과 같은 특징을 가집니다.</p>
+<ul>
+  <li>동일한 데이터를 가지고 있어도 상관 없음</li>
+  <li>구현 방법에 따라 크게 두 가지로 나뉨
+    <ol>
+      <li>순차 List : 배열을 기반으로 구현된 List
+$\rightarrow$ 1차원 배열에 항목들을 순서대로 저장(거의 구현 X) : 삭제 및 삽입 시 항목들을 이동해야 함 &amp; 메모리 낭비 초래</li>
+      <li>연결 List : 메모리의 동적 할당을 기반으로 구현된 List
+$\rightarrow$ 개별적으로 위치하고 있는 원소의 주소를 연결하여 하나의 전체적인 자료구조를 이룸 &amp; 물리적 순서 X &amp; 메모리 효율적 사용</li>
+    </ol>
+  </li>
+</ul>
+
+<p><br /></p>
+<h3 id="연결-리스트-구조">연결 리스트 구조</h3>
+<p>연결 리스트는 Data와 연결될 다음 노드의 주소인 Link 필드로 구성된 Node로 이루어져 있습니다.</p>
+<ul>
+  <li>Node : 연결 List에서 하나의 원소에 필요한 구성 요소</li>
+  <li>Data : Node안에 저장된 실제 값</li>
+  <li>Link : 다음 노드의 주소가 저장된 주소 값</li>
+  <li>Head : LIst의 처음 노드를 가리키는 주소</li>
+</ul>
+
+<p><img src="/assets/img/algorithm/Node.jpg" width="60%" height="60%" /></p>
+
+<p><br /></p>
+<h3 id="list와-array">List와 Array</h3>
+<p>List와 Array는 유사해 보이지만 조금 차이가 있습니다. Array는 indexing(Random Access)가 O(1)로 매우 빠르지만 List는 O(N)으로 느립니다. list는 indexing을 하기 위해서 search의 과정이 필요하기 때문입니다. 그렇지만 List는 Array에 비해 빠른 삽입/삭제 연산을 수행할 수 있습니다.</p>
+<ul>
+  <li>Array는 삽입 연산을 수행할 때 수행 위치의 뒤 배열들을 모두 한칸씩 뒤로 미뤄야 하기 때문에 최악의 경우 O(N)의 시간이 걸립니다. 삭제 연산도 마찬가지로 수행 위치의 뒤 배열을 앞으로 한칸씩 땡겨야 하기 때문에 최악의 경우 O(N)의 시간이 걸립니다. <br />
+<img src="/assets/img/algorithm/Array_Insert_Delete.jpg" width="40%" height="40%" /></li>
+  <li>List는 삽입 연산을 수행할 때 수행 위치를 찾는 Find O(N) 이후 삽입 O(1)의 시간이 걸립니다. 삭제 연산도 마찬가지로 Find O(N)과 삭제 O(1)의 시간이 걸립니다. 하지만 맨 앞 혹은 뒤에 삽입 삭제를 하거나, 중간 노드의 값을 아는 경우, Random Access가 불가능한 Data 값을 기반으로한 삽입 삭제를 진행할 때 Array보다 큰 강점을 가집니다.<br />
+<img src="/assets/img/algorithm/List_Insert_Delete.jpg" width="50%" height="40%" /></li>
+</ul>
+
+<p><br /></p>
+<h3 id="list의-삽입-삭제">List의 삽입 삭제</h3>
+<p>List는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.<br />
+<strong>삽입</strong></p>
+<ol>
+  <li>head = NULL인 경우
+Head가 nullptr인 경우 리스트에 값이 없는 경우임으로 head$\rightarrow$next = new_node</li>
+  <li>head != NULL인 경우
+Head가 nullptr이 아닌 경우 리스트에 값을 삽입하기 위해서는 원하는 위치를 find 한 뒤 find_node$\rightarrow$next = new_node</li>
+</ol>
+
+<p><strong>삭제</strong></p>
+<ol>
+  <li>head = NULL인 경우
+Head가 nullptr인 경우 리스트에 값이 없는 경우임으로 return</li>
+  <li>head != NULL인 경우
+Head가 nullptr이 아닌 경우 리스트에 값을 삭제하기 위해서는 원하는 위치를 find 한 뒤 find_node$\rightarrow$next = find_node$\rightarrow$next$\rightarrow$next</li>
+</ol>
+
+<p><strong>Find(찾기)</strong></p>
+<ol>
+  <li>head = NULL인 경우
+빈 리스트임으로 return</li>
+  <li>head != NULL인 경우
+node = head$\rightarrow$next 이고 node$\rightarrow$next가 특정 값일 때 까지 반복하며 진행</li>
+</ol>
+
+<p><a href="https://github.com/KangSooHan/algorithm/blob/main/DataStructure/SinglyLinkedList/main.cpp">Singly Linked List 구현</a><br />
+<a href="https://github.com/KangSooHan/algorithm/blob/main/DataStructure/DoublyLinkedList/main.cpp">Doubly Linked List 구현</a></p>
+
+    <div class="ui horizontal divider">
+        Thank You For Reading
+    </div>
+    <!-- author box -->
+<div class="ui segment">
+    <div class="ui items">
+        <div class="item">
+            <a class="ui circular tiny image">
+                <img src="/assets/img/profile.jpg">
+            </a>
+            <div class="content">
+                <a class="header">Getjy</a>
+                <div class="description">
+                    <p>안녕하세요. 부족하지만 천천히 성장해나가는 로봇 AI 개발자 강수한입니다. 수정해야할 부분이 있다면 편하게 남겨주세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
+        </main>
+    </div>
+    
+    <footer>
+    <div class="footer-wrapper">
+        <div class="ui secondary menu inverted">
+            <p class="item">Whale &copy; 2022</p>
+            <div class="right menu">
+                <a class="item" href="/archive.html">
+                    Latest Posts
+                </a>
+                <a class="item" href="https://twitter.com/fsf">
+                    Twitter
+                </a>
+                <a class="item" href="https://github.com/abhn">
+                    Github
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/semantic.min.js"></script>
+
+    <script src="/assets/js/vendor/jquery.min.js"></script>
+    <script src="/assets/js/vendor/semantic.min.js"></script>
+    <script type="/assets/js/main.js"></script>
+</body>
+
+</html>

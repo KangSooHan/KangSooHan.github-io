@@ -5,9 +5,86 @@
     <description></description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 18 Jan 2023 10:34:15 +0900</pubDate>
-    <lastBuildDate>Wed, 18 Jan 2023 10:34:15 +0900</lastBuildDate>
+    <pubDate>Wed, 18 Jan 2023 18:55:58 +0900</pubDate>
+    <lastBuildDate>Wed, 18 Jan 2023 18:55:58 +0900</lastBuildDate>
     <generator>Jekyll v4.3.1</generator>
+    
+      <item>
+        <title>Linked-List</title>
+        <description>&lt;h2 id=&quot;list란&quot;&gt;List란?&lt;/h2&gt;
+&lt;p&gt;리스트는 순서를 가진 데이터의 집합을 가리키는 추상 자료형입니다. 리스트를 사용하면 삽입 정렬, 병합 정렬, Stack, Priority Queue 등 다양한 자료구조 및 알고리즘을 구현할 수 있습니다. 리스트는 다음과 같은 특징을 가집니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;동일한 데이터를 가지고 있어도 상관 없음&lt;/li&gt;
+  &lt;li&gt;구현 방법에 따라 크게 두 가지로 나뉨
+    &lt;ol&gt;
+      &lt;li&gt;순차 List : 배열을 기반으로 구현된 List
+$\rightarrow$ 1차원 배열에 항목들을 순서대로 저장(거의 구현 X) : 삭제 및 삽입 시 항목들을 이동해야 함 &amp;amp; 메모리 낭비 초래&lt;/li&gt;
+      &lt;li&gt;연결 List : 메모리의 동적 할당을 기반으로 구현된 List
+$\rightarrow$ 개별적으로 위치하고 있는 원소의 주소를 연결하여 하나의 전체적인 자료구조를 이룸 &amp;amp; 물리적 순서 X &amp;amp; 메모리 효율적 사용&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;연결-리스트-구조&quot;&gt;연결 리스트 구조&lt;/h3&gt;
+&lt;p&gt;연결 리스트는 Data와 연결될 다음 노드의 주소인 Link 필드로 구성된 Node로 이루어져 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Node : 연결 List에서 하나의 원소에 필요한 구성 요소&lt;/li&gt;
+  &lt;li&gt;Data : Node안에 저장된 실제 값&lt;/li&gt;
+  &lt;li&gt;Link : 다음 노드의 주소가 저장된 주소 값&lt;/li&gt;
+  &lt;li&gt;Head : LIst의 처음 노드를 가리키는 주소&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/Node.jpg&quot; width=&quot;60%&quot; height=&quot;60%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;list와-array&quot;&gt;List와 Array&lt;/h3&gt;
+&lt;p&gt;List와 Array는 유사해 보이지만 조금 차이가 있습니다. Array는 indexing(Random Access)가 O(1)로 매우 빠르지만 List는 O(N)으로 느립니다. list는 indexing을 하기 위해서 search의 과정이 필요하기 때문입니다. 그렇지만 List는 Array에 비해 빠른 삽입/삭제 연산을 수행할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Array는 삽입 연산을 수행할 때 수행 위치의 뒤 배열들을 모두 한칸씩 뒤로 미뤄야 하기 때문에 최악의 경우 O(N)의 시간이 걸립니다. 삭제 연산도 마찬가지로 수행 위치의 뒤 배열을 앞으로 한칸씩 땡겨야 하기 때문에 최악의 경우 O(N)의 시간이 걸립니다. &lt;br /&gt;
+&lt;img src=&quot;/assets/img/algorithm/Array_Insert_Delete.jpg&quot; width=&quot;40%&quot; height=&quot;40%&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;List는 삽입 연산을 수행할 때 수행 위치를 찾는 Find O(N) 이후 삽입 O(1)의 시간이 걸립니다. 삭제 연산도 마찬가지로 Find O(N)과 삭제 O(1)의 시간이 걸립니다. 하지만 맨 앞 혹은 뒤에 삽입 삭제를 하거나, 중간 노드의 값을 아는 경우, Random Access가 불가능한 Data 값을 기반으로한 삽입 삭제를 진행할 때 Array보다 큰 강점을 가집니다.&lt;br /&gt;
+&lt;img src=&quot;/assets/img/algorithm/List_Insert_Delete.jpg&quot; width=&quot;50%&quot; height=&quot;40%&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;list의-삽입-삭제&quot;&gt;List의 삽입 삭제&lt;/h3&gt;
+&lt;p&gt;List는 다음과 같은 삭제 삽입 연산을 통해서 형태를 유지합니다.&lt;br /&gt;
+&lt;strong&gt;삽입&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;head = NULL인 경우
+Head가 nullptr인 경우 리스트에 값이 없는 경우임으로 head$\rightarrow$next = new_node&lt;/li&gt;
+  &lt;li&gt;head != NULL인 경우
+Head가 nullptr이 아닌 경우 리스트에 값을 삽입하기 위해서는 원하는 위치를 find 한 뒤 find_node$\rightarrow$next = new_node&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;삭제&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;head = NULL인 경우
+Head가 nullptr인 경우 리스트에 값이 없는 경우임으로 return&lt;/li&gt;
+  &lt;li&gt;head != NULL인 경우
+Head가 nullptr이 아닌 경우 리스트에 값을 삭제하기 위해서는 원하는 위치를 find 한 뒤 find_node$\rightarrow$next = find_node$\rightarrow$next$\rightarrow$next&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Find(찾기)&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;head = NULL인 경우
+빈 리스트임으로 return&lt;/li&gt;
+  &lt;li&gt;head != NULL인 경우
+node = head$\rightarrow$next 이고 node$\rightarrow$next가 특정 값일 때 까지 반복하며 진행&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/DataStructure/SinglyLinkedList/main.cpp&quot;&gt;Singly Linked List 구현&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/DataStructure/DoublyLinkedList/main.cpp&quot;&gt;Doubly Linked List 구현&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 18 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/List.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/List.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
     
       <item>
         <title>SWExpert 3316 동아리실 관리하기 - D4</title>
@@ -21,6 +98,8 @@
 두번 째 날에는 이전 반복문의 경우의 수와 현재의 경우의 수를 비교하면서 AND 연산을 계산해 동일 원소가 있는지 확인합니다. &lt;br /&gt;
 만일 동일 원소가 존재한다면 현재 케이스에 숫자를 카운팅 하는 cnt[i][A]에 더해줍니다. &lt;br /&gt;
 이러한 방식을 반복적이게 끝까지 진행하면 원하는 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_3316.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
 #include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
@@ -85,8 +164,6 @@
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_3316.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;br /&gt;
 &lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/3316/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -109,6 +186,8 @@
 반복문을 돌면서 value를 N, 2N, 3N, …, KN 형태로 만들어줍니다. &lt;br /&gt;
 value 값의 나머지를 계산하고 10으로 나누는 것을 진행하면서 각 자리 숫자를 확인합니다. &lt;br /&gt;
 각 자리 숫자와 check를 or 연산하면서 check가 모두 1이 되었을 때 종료합니다. \&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_1288.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
 &lt;/span&gt;
@@ -140,14 +219,33 @@ value 값의 나머지를 계산하고 10으로 나누는 것을 진행하면서
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_1288.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;br /&gt;
 &lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/1288/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 17 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/swexpert-1288.html</link>
         <guid isPermaLink="true">http://localhost:4000//2023/01/swexpert-1288.html</guid>
+        
+        
+        <category>algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title>SWExpert 10726 암호문3 - D3</title>
+        <description>&lt;p&gt;문제 링크 : &lt;a href=&quot;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14zIwqAHwCFAYD&quot;&gt;https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14zIwqAHwCFAYD&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;to-solve&quot;&gt;To Solve&lt;/h3&gt;
+&lt;p&gt;이 문제는 List에 대해서 학습하기 위한 기본 문제 중 하나입니다. &lt;br /&gt;
+리스트는 구현하는게 힘든 문제이기 때문에(사실 stl 사용하면 용이..) 별다르게 리뷰할 게 없습니다. \&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/LIST/1230/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jan 2023 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000//2023/01/swexpert-1230.html</link>
+        <guid isPermaLink="true">http://localhost:4000//2023/01/swexpert-1230.html</guid>
         
         
         <category>algorithm</category>
@@ -164,6 +262,8 @@ value 값의 나머지를 계산하고 10으로 나누는 것을 진행하면서
 끝의 비트가 1인지 0인지 확인하였습니다. &lt;br /&gt;
 그 이후 비트를 오른쪽으로 쉬프트하여 끝 비트가 1인지 0인지 확인하였습니다. &lt;br /&gt;
 이를 반복적으로 n번 수행하였을 때, flag가 참이면 ON 아니면 OFF를 내도록 하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_10726.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;
 &lt;/span&gt;
@@ -194,8 +294,6 @@ value 값의 나머지를 계산하고 10으로 나누는 것을 진행하면서
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/algorithm/bit_10726.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/10726/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
@@ -435,6 +533,7 @@ $ eq 3. \quad v(t+\Delta t) = v(t) - a_{0} \cdot \Delta t $&lt;/p&gt;
 
 &lt;p&gt;실제 환경에서는 CVM보다 CAM이 훨씬 좋은 성능을 보이지만 우리는 CVM 모델을 기반으로 공부를 하도록 하겠습니다.&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;estimating-ttc-with-lidar&quot;&gt;Estimating TTC with Lidar&lt;/h3&gt;
 &lt;p&gt;Lidar에서 TTC를 계산하는 것은 아래 그림과 수식처럼 확인할 수 있습니다.(CVM 기반의 Lidar TTC) &lt;br /&gt;
 &lt;img src=&quot;/assets/img/sensorfusion/Lidar_TTC.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt; &lt;br /&gt;
@@ -451,6 +550,48 @@ Rader는 상대 속도에 관한 정보를 포함하기 때문에 TTC를 측정�
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Remove_Lidar_Point.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;estimating-ttc-with-a-camera&quot;&gt;Estimating TTC with a Camera&lt;/h3&gt;
+&lt;p&gt;앞에서 Lidar를 사용한 TTC를 계산하였습니다. 그리고 Lidar를 사용한 TTC 계산은 어려운 부분도 있었지만 매우 강력하게 잘 동작합니다. 이번 장에서는 Camera를 사용한 TTC를 진행합니다. Camera는 3D 측정값을 포함하고 있지 않고, 안정적이고 정확하게 차량의 움직임을 추적하기 위해서 차량을 정확하게 식별해야 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;measuring-ttc-without-distance&quot;&gt;Measuring TTC without distance&lt;/h3&gt;
+&lt;p&gt;Monocular 카메라는 거리를 측정할 수 없습니다. 왜냐하면 레이더나 라이다 처럼 파장을 쏘는 것이 아닌 주변 빛에 의존하는 Passive Sensor이기 때문입니다. 따라서 거리를 측정하기 위해서는 두번째 카메라가 필요합니다. 정교하게 정렬된 두개의 카메라들(stereo setup이라 불리는)로 얻은 이미지에서 두 이미지의 공통 관심 지점(feature extraction)을 찾은 다음 카메라 기하학 및 perspective projection(투시 투영)을 사용하여 삼각 측량을 진행하면 거리를 계산할 수 있습니다. &lt;br /&gt;
+우리는 이제 앞서 배웠던 CVM을 카메라를 통해 계산합니다. 우리는 distance $d$를 이미지 평면에서 픽셀 거리를 통해 획득할 수 있습니다. 아래 그림을 보면 주행중인 자동차의 높이 $H$를 perspective projection을 사용하여 이미지 평면에 매핑시킬 수 있습니다. 이 때, 주행중인 자동차의 높이 $H$는 동일하지만, 거리 $d_{0}$과 $d_{1}$에 따라 이미지 평면에 맺히는 높이 $h_{0}$와 $h_{1}$은 다른 것을 확인할 수 있습니다. 그래서 우리는 명백한 값 $d$를 $h, H$ 그리고 focal length $f$를 통해 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/sensorfusion/Camera_TTC_Distance.jpg&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;strong&gt;$\qquad$ project object into camera&lt;/strong&gt; &lt;br /&gt;
+1번 수식에서 우리는 camera의 focal length $f$와 distance measurement $d_{0}$을 통해 높이 $H$의 자동차를 pixel 높이 $h_{0}$를 표현할 수 있습니다. time $t_{1}$에서도 동일합니다. &lt;br /&gt;
+$Eq 1. \quad h_{0} = \frac{f \cdot H}{d_{0}}; h_{1} = \frac{f \cdot H}{d_{1}} $&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;strong&gt;$\qquad$ relate projection and distance&lt;/strong&gt; &lt;br /&gt;
+2번 수식에서 우리는 $h_{1}$과 $h_{0}$의 비율을 계산하고 Eq 1.을 사용하여 $d_{0}$과 $d_{1}$의 관계도 표현할 수 있습니다. &lt;br /&gt;
+$Eq 2. \quad \frac{h_{1}}{h_{0}} = \frac{\frac{f \cdot H}{d_{1}}}{\frac{f \cdot H}{d_{0}}} = \frac{d_{0}}{d_{1}} \rightarrow d_{0} = d_{1} \cdot \frac{h_{1}}{h_{0}} $&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;strong&gt;$\qquad$ substitute in constant-velocity model&lt;/strong&gt; &lt;br /&gt;
+3번 수식에서 CVM에서 $d_{0}$을 대체하여 $d_{1}$을 풀 수 있습니다. 이렇게 하면 우리는 velocity $v_{0}$, image plane에 맺히는 차의 pixel 높이 $h_{0}, h_{1}$로 $d_{1}$을 표현할 수 있습니다. &lt;br /&gt;
+$Eq 3. \quad d_{1} = d_{0} - v_{0} \cdot \Delta t = d_{1} \cdot \frac{h_{1}}{h_{0}} - v_{0} \cdot \Delta t $&lt;br /&gt;
+$ \qquad\quad d_{1} = \frac{-v_{0} \cdot \Delta t}{(1-\frac{h_{1}}{h_{0}}} $&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;strong&gt;$\qquad$ compuote time to contact / collision&lt;/strong&gt; &lt;br /&gt;
+4번 수식에서는 앞서 얻은 $d_{1}$을 기반으로 TTC를 계산할 수 있습니다. 그러면 최종적으로 $h_{1}, h_{0}$을 통해서 TTC를 계산할 수 있는 수식을 획득할 수 있습니다.&lt;br /&gt;
+$Eq 4. \quad TTC = \frac{d_{1}}{v_{0}} = \frac{-\Delta t}{(1-\frac{h_{1}}{h_{0}})}$&lt;/p&gt;
+
+&lt;p&gt;그러므로 그러므로 우리는 이미지 센서를 통해 얻은 이미지 pixel의 높이 변화(relative height, scale change)만을 관찰하여 TTC를 계산할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;using-texture-keypoints-instead&quot;&gt;Using Texture Keypoints Instead&lt;/h3&gt;
+&lt;p&gt;NN로 계산한 Bounding Box는 계속해서 크기가 변경이 되어 정확한 결과를 얻기 어렵습니다. 이러한 문제는 TTC를 계산할 때 큰 에러를 가져올 수 있습니다. 그래서 우리는 uniquely identifiable keypoints를 찾고 이 keypoints를 통해 높이를 계산하도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;p align=”center”&lt;img src=&quot;/assets/img/sensorfusion/Camera_KeyPoint_TTC.jpg&quot; width=&quot;60%&quot; height=&quot;60%&quot; /&gt;&amp;lt;/p&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;그림(a)에서 자동차에 7가지의 keypoints를 찾았습니다. 그림 (b)에서는 descriptor라 불리는 higher-dimensional similarity measure를 사용하여 4개의 keypoints가 매칭이 되었습니다. 우리는 여기서 얻은 $d_{k}$ 값들의 평균 혹은 중앙 값으로 TTC를 계산합니다.\&lt;/p&gt;
+
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -458,7 +599,8 @@ Rader는 상대 속도에 관한 정보를 포함하기 때문에 TTC를 측정�
 &lt;p&gt;Imminent : 임박한 &lt;br /&gt;
 Tailgate : 뒷문, 바짝 따라 달리다 &lt;br /&gt;
 Deviation : 편차 &lt;br /&gt;
-Curvature : 곡선의 \&lt;/p&gt;
+Curvature : 곡선의 &lt;br /&gt;
+Substitute : 대체하다&lt;/p&gt;
 </description>
         <pubDate>Mon, 16 Jan 2023 00:00:00 +0900</pubDate>
         <link>http://localhost:4000//2023/01/Camera_03.html</link>
@@ -727,201 +869,6 @@ Electrons : 전자&lt;/p&gt;
         
         
         <category>sensorfusion</category>
-        
-      </item>
-    
-      <item>
-        <title>Lidar Obstacle Detection Code Review</title>
-        <description>&lt;h2 id=&quot;code-review&quot;&gt;Code Review&lt;/h2&gt;
-&lt;p&gt;지금까지 우리는 Lidar Obstacle Detection을 하기 위해 달려 왔고 크게 4가지를 배웠습니다. 이번 포스트에서는 이 함수들에 관한 code Review 및 Refactoring을 하도록 하겠습니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Point Cloud Segmentation(RANSAC)&lt;/li&gt;
-  &lt;li&gt;Point Cloud Clustering(KD-Tree)&lt;/li&gt;
-  &lt;li&gt;Point Cloud Clustering(Euclidean Clustering)&lt;/li&gt;
-  &lt;li&gt;Point Cloud Downsampling &amp;amp; Filtering(Voxel Grid)&lt;/li&gt;
-  &lt;li&gt;Point Cloud Downsampling &amp;amp; Filtering(Region of Interest)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;1-point-cloud-segmentationransac&quot;&gt;1. Point Cloud Segmentation(RANSAC)&lt;/h3&gt;
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unordered_set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Ransac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pcl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointCloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pcl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointXYZ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ptr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxIterations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distanceTol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// cloudSize to get random index&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloudSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxIterations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unordered_set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// randomly sample subset&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// select two points.(Line Ransac)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emplace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloudSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// set cant contain same key&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// if inliers size is not two select same key in random sample&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// take out two point that are in the form of pcl::PointXYZ format&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;pcl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PointXYZ&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-
-        &lt;span class=&quot;c1&quot;&gt;// make line AX+BY+C = 0&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// iterate all points&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cloudSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// skip select subset points&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-            &lt;span class=&quot;c1&quot;&gt;// calculate distance&lt;/span&gt;
-            &lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fabs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-            &lt;span class=&quot;c1&quot;&gt;// if distance &amp;lt; distanceTol&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distanceTol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;// it is inliers&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emplace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// want to extract plain(biggest one)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inliersResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;inliersResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inliers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inliersResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;/2023/01/SensorFusion_05.html&quot;&gt;참조&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://github.com/KangSooHan/SensorFusion/blob/main/SFND_Lidar_Obstacle_Detection/src/quiz/ransac/ransac2d.cpp&quot;&gt; github &lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;2-point-cloud-clusterkd-tree&quot;&gt;2. Point Cloud Cluster(KD-Tree)&lt;/h3&gt;
-
-</description>
-        <pubDate>Tue, 10 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/Lidar_Obstacle_Detection.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/Lidar_Obstacle_Detection.html</guid>
-        
-        
-        <category>sensorfusion</category>
-        
-      </item>
-    
-      <item>
-        <title>선물사기(DFS)</title>
-        <description>&lt;h2 id=&quot;선물-사기&quot;&gt;선물 사기&lt;/h2&gt;
-&lt;p&gt;겟 지는 여행을 갔다오면서 선물을 사려고 한다. &lt;br /&gt;
-여행지는 x, y크기로 a~z까지 선물이 있다. &lt;br /&gt;
-겟 지는 선물을 모으는 것을 싫어하여 중복된 선물을 사지 않도록 계획을 짰다. &lt;br /&gt;
-이 때, 겟 지가 최대 몇 개의 선물을 살 수 있는지 알아보자.
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;여행지&quot;&gt;여행지&lt;/h3&gt;
-
-&lt;table rules=&quot;groups&quot;&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt; &lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;a&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;a&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;b&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;d&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;b&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;a&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;c&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;입력&quot;&gt;입력&lt;/h4&gt;
-&lt;p&gt;r, c, 선물(a~z)&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;input&quot;&gt;[INPUT]&lt;/h4&gt;
-
-&lt;div style=&quot;background-color: rgb(50, 50, 50); width: 10%; color: white&quot;&gt;
-2, 4 &lt;br /&gt;
-caab &lt;br /&gt;
-dbac
-&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;output&quot;&gt;[OUTPUT]&lt;/h4&gt;
-&lt;div style=&quot;background-color: rgb(50, 50, 50); width: 10%; color: white&quot;&gt;
-4
-&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;to-solve&quot;&gt;To Solve&lt;/h3&gt;
-&lt;p&gt;문제를 해결하기 위해서 DFS로 문제를 접근하였다.&lt;br /&gt;
-DFS 제한 조건에는 방문 하였는지 check배열과 알파벳을 가지고 있는지 alpha배열을 확인하고 좌표가 MAP 안에 있는지 확인하면서 재귀적으로 접근하였다.&lt;/p&gt;
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// x좌표 y좌표 cnt카운트&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// alphabet이 있으면 종료&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MaP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 없을 시 cnt가 ans보다 크면 변경&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// check와 alpha를 1로 변경&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MaP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 4방향으로 돌면서&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// 조건 확인&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MaP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// 재귀&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;c1&quot;&gt;// 백트래킹&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MaP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ny&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;a href=&quot;https://github.com/KangSooHan/algorithm/blob/main/SWExpert/DFS/%EC%84%A0%EB%AC%BC%EC%82%AC%EA%B8%B0/main.cpp&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 09 Jan 2023 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000//2023/01/%EC%84%A0%EB%AC%BC%EC%82%AC%EA%B8%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000//2023/01/%EC%84%A0%EB%AC%BC%EC%82%AC%EA%B8%B0.html</guid>
-        
-        
-        <category>algorithm</category>
         
       </item>
     
