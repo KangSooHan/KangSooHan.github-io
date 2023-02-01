@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Whale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/mobile.css">
+    <link rel="stylesheet" href="/assets/css/vendor/syntax.css">
+    <link rel="stylesheet" href="/assets/css/vendor/semantic.min.css"/>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+</head>
+
+
+<body>
+    
+    <div class="page-wrap">
+        <div class="header-wrapper">
+    <header>
+        <!-- logo and description -->
+        
+        <nav class="site-nav">
+            <div class="left-nav">
+                <!-- add titles to all buttons -->
+                <div class="ui secondary menu inverted">
+                    <a class="item" href="/">
+                        Home
+                    </a>
+                    <a class="item" href="/about.html">
+                        About
+                    </a>
+                    <a class="item" href="/archive.html">
+                        Archive
+                    </a>
+                    <div class="right menu">
+                        <a class="item" href="https://facebook.com/tkatjdrkd">
+                            <i class="facebook link icon"></i>
+                        </a>
+                        <a class="item" href="https://www.instagram.com/soohan.getjy/">
+                            <i class="instagram link icon"></i>
+                        </a>
+                        <a class="item" href="https://github.com/KangSooHan">
+                            <i class="github link icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-nav"></div>
+        </nav>
+    </header>
+</div>
+
+        <main>
+            <div class="post-container">
+    <center>
+        <span class="date">
+            31 Jan 2023 
+             
+                in <i>etc</i>
+             
+        </span>
+        <h1 class="post-title">GIT!</h1>
+    </center>
+    <div class="ui divider"></div>
+    <h2 id="git-이란">GIT 이란?</h2>
+<p>간단하게 생각하면 버전 관리 시스템입니다. 이전에 저희가 파일을 수정하고 저장할 떄 report.ppt, final_report.ppt, final_final_report.ppt 와 같이 버전 관리를 하였습니다.(어떤게 파이널이야 대체!?) Version Control System은 여러가지의 역할과 의미를 가지고 있습니다. 그 중에서 저희가 꼭 기억해야 하는 것은 file의 이름을 더럽히지 않고 report.ppt만을 유지하면서 버전 관리를 할 수 있습니다.(Backup, Recovery, Collaboration이 가능한건 안비밀) \</p>
+
+<p><br /><br /></p>
+
+<hr />
+
+<h3 id="git-init">git init</h3>
+<p>git init은 내가 현재  디렉토리에서 작업을 진행하겠다 선언해주는 명령어입니다. git init을 실행하면 ./.git이라는 폴더가 생성되고 그 안에 버전 정보들이 저장됩니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<p><br /></p>
+
+<hr />
+
+<h3 id="git-status">git status</h3>
+<p>git status는 현재 git에 대한 정보들이 나옵니다.</p>
+<ul>
+  <li>“Untracked files:”는 아직 git이 추적하지 않은 파일들을 의미합니다.</li>
+  <li>“Changes not staged for commit: “ 파일은 추적되었지만 변경이 추적되지 않은 파일들을 의미합니다.</li>
+  <li>“Changes to be committed:”는 git이 추적을 시작하였지만 버전을 생성하지 않은 파일들을 의미합니다.</li>
+</ul>
+
+<h2><br /></h2>
+
+<h3 id="git-add">git add</h3>
+<p>git add는 추적하지 않은 파일들에 대하여 git이 추적할 수 있도록 파일을 추가해주는 명령어입니다. git add를 진행하면 git status의 상태가 Untracked files에서 Changes to be committed로 변경됩니다.(tracking 시작)</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add &lt;파일이름&gt;
+</code></pre></div></div>
+
+<hr />
+<h3 id="git-stage-area">git stage area</h3>
+<p>git add를 사용하면 commit 대기 상태로 넘어가게 됩니다. 이 commit 대기 상태를 stage area라 부릅니다. 위에 표현으로는 추적된 파일들을 stage area에 있다고 생각하시면 될 것 같습니다.</p>
+
+<p><br /></p>
+
+<hr />
+<h3 id="git-commit">git commit</h3>
+<p>git commit은 현재 추적하고 있는 파일들의 버전 정보를 생성할 수 있는 명령어입니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 저는 git commit 실행 후 내용을 수정하기보다 -m 명령어를 붙여 사용하는 것을 선호합니다.</span>
+git commit <span class="nt">-m</span> <span class="s2">"버전 이름"</span> 
+<span class="c"># git commit -a 는 이미 추가되있는 파일에 한해서 add를 실행하는 명령어입니다.</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<hr />
+<h3 id="git-repository">git repository</h3>
+<p>이렇게 commit을 해서 생성한 버전 파일들을 저장하는 곳이 git repository입니다. stage와는 명백하게 다르기 때문에 유의하시기 바랍니다.</p>
+
+<p><br /></p>
+
+<hr />
+<h3 id="git-log">git log</h3>
+<p>git log는 commit을 통해 만든 버전들을 볼 수 있는 명령어입니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+<span class="c"># -p 인자를 주게되면 각 버전 사이의  diff를 확인할 수 있습니다.</span>
+git log <span class="nt">-p</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<hr />
+<h3 id="git-diff">git diff</h3>
+<p>git diff는 git log -p의 명령어를 치면 생성되었던 diff를 표시해주는 명령어입니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#git diff만 입력할 경우 현재와 그 이전의 차이를 보여줍니다.</span>
+git diff
+<span class="c"># commit id끼리의 차이점을 보여줍니다.</span>
+git diff &lt;src_commit <span class="nb">id</span><span class="o">&gt;</span>..&lt;tgt_commit <span class="nb">id</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<hr />
+<h2 id="git-branch">git branch</h2>
+<p>git branch는 나무의 가지처럼 하나의 뿌리에서 다른 뿌리로 뻗어나가는 것과 같이 다른 버전들이 여러개 있는 것을 의미합니다.(다양한 사용자들이 하나의 작업을 진행한다면) 그래서 branch는 작업을 진행하다가 필요에 의해서 작업이 분기되는 현상입니다. branch는 가지고 있는 소스 코드를 좀더 customize할 때 사용할 때, 협업할 때, Server에 반영할 때 등 다양하게 사용할 수 있습니다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 기본 git init후 branch를 사용하면 master가 생성됩니다.</span>
+git branch
+<span class="c"># git branch를 사용하여 exp1을 생성합니다.(이 때까지 작업한 log들은 동일하게 생성됩니다.)</span>
+git branch exp1
+<span class="c"># checkout을 하면 현재 branch에서 checkout하고 exp1 branch로 접근합니다.</span>
+git checkout exp1
+<span class="c"># master와 branch 사이의 차이를 확인하고 싶다면 branches</span>
+<span class="c"># decorate를 적용하면 branch와 master의 마지막 commit을 확인할 수 있음. Head는 git branch의 현재 checkout </span>
+<span class="c"># graph명령어는 git log에 가지가 보임</span>
+<span class="c"># oneline명령어는 한줄로 깔끔하게 그래프를 확인할 수 있음</span>
+git log <span class="nt">--branches</span> <span class="nt">--decorate</span> <span class="nt">--graph</span> <span class="nt">--oneline</span>
+<span class="c"># master와 branch의 차이를 보고 싶으면(마지막 master가 아닌 분기점 master와의 차이)</span>
+git log master..exp1
+<span class="c"># diff로도 차이를 확인할 수 있음(마지막 master와 마지막 branch와의 차이)</span>
+git diff master..exp1
+<span class="c"># exp1=&gt; master(*) master에서 merge명령어</span>
+git merge exp1
+<span class="c"># exp작업이 끝났으니 삭제! -d 옵션</span>
+git branch <span class="nt">-d</span> exp1
+</code></pre></div></div>
+
+    <div class="ui horizontal divider">
+        Thank You For Reading
+    </div>
+    <!-- author box -->
+<div class="ui segment">
+    <div class="ui items">
+        <div class="item">
+            <a class="ui circular tiny image">
+                <img src="/assets/img/profile.jpg">
+            </a>
+            <div class="content">
+                <a class="header">Getjy</a>
+                <div class="description">
+                    <p>안녕하세요. 부족하지만 천천히 성장해나가는 로봇 AI 개발자 강수한입니다. 수정해야할 부분이 있다면 편하게 남겨주세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
+        </main>
+    </div>
+    
+    <footer>
+    <div class="footer-wrapper">
+        <div class="ui secondary menu inverted">
+            <p class="item">Whale &copy; 2022</p>
+            <div class="right menu">
+                <a class="item" href="/archive.html">
+                    Latest Posts
+                </a>
+                <a class="item" href="https://twitter.com/fsf">
+                    Twitter
+                </a>
+                <a class="item" href="https://github.com/abhn">
+                    Github
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/semantic.min.js"></script>
+
+    <script src="/assets/js/vendor/jquery.min.js"></script>
+    <script src="/assets/js/vendor/semantic.min.js"></script>
+    <script type="/assets/js/main.js"></script>
+</body>
+
+</html>

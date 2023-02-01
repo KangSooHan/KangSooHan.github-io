@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Whale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/mobile.css">
+    <link rel="stylesheet" href="/assets/css/vendor/syntax.css">
+    <link rel="stylesheet" href="/assets/css/vendor/semantic.min.css"/>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+</head>
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+            equationNumbers: {
+                autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+    }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<body>
+    
+    <div class="page-wrap">
+        <div class="header-wrapper">
+    <header>
+        <!-- logo and description -->
+        
+        <nav class="site-nav">
+            <div class="left-nav">
+                <!-- add titles to all buttons -->
+                <div class="ui secondary menu inverted">
+                    <a class="item" href="/">
+                        Home
+                    </a>
+                    <a class="item" href="/about.html">
+                        About
+                    </a>
+                    <a class="item" href="/archive.html">
+                        Archive
+                    </a>
+                    <div class="right menu">
+                        <a class="item" href="https://facebook.com/tkatjdrkd">
+                            <i class="facebook link icon"></i>
+                        </a>
+                        <a class="item" href="https://www.instagram.com/soohan.getjy/">
+                            <i class="instagram link icon"></i>
+                        </a>
+                        <a class="item" href="https://github.com/KangSooHan">
+                            <i class="github link icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-nav"></div>
+        </nav>
+    </header>
+</div>
+
+        <main>
+            <div class="post-container">
+    <center>
+        <span class="date">
+            28 Jan 2023 
+             
+                in <i>algorithm</i>
+             
+        </span>
+        <h1 class="post-title">Heap</h1>
+    </center>
+    <div class="ui divider"></div>
+    <h2 id="heap이란">Heap이란?</h2>
+<p>Heap은 Complete Binary Tree에 있는 노드 중에서 키 값이 가장 큰 노드나 가장 작은 노드를 찾기 위해 만든 자료구조입니다. Binary Tree와의 가장 큰 차이는 Heap은 부모 노드를 따라서 정렬이 됩니다.</p>
+
+<p><br /></p>
+<h3 id="삽입-연산">삽입 연산</h3>
+<p>Heap의 삽입 연산은 맨 마지막 leaf 노드에 데이터를 삽입하고, 힙 구조를 유지하기 위해서 부모 노드와 값을 바꾸워 주면서 루트 노드까지 올라갑니다. 힙의 삽입은 거품이 올라가는 모양과 유사하여 Bubble Up이라고도 합니다.</p>
+<p align="center"><img src="/assets/img/algorithm/Heap_Insert.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+<h3 id="삭제-연산">삭제 연산</h3>
+<p>Heap에서는 루트 노드의 원소만을 삭제할 수 있습니다. 힙 구조를 유지하면서 루트 노드를 삭제하기 위해서는 마지막 노드를 루트 노드의 위치로 이동 시킨 후, 자식 노드와 비교하면서 위치를 찾아 내려가면 힙 구조를 유지하면서 삭제 연산을 진행할 수 있습니다.</p>
+<p align="center"><img src="/assets/img/algorithm/Heap_Remove.jpg" width="50%" height="50%" /></p>
+
+
+    <div class="ui horizontal divider">
+        Thank You For Reading
+    </div>
+    <!-- author box -->
+<div class="ui segment">
+    <div class="ui items">
+        <div class="item">
+            <a class="ui circular tiny image">
+                <img src="/assets/img/profile.jpg">
+            </a>
+            <div class="content">
+                <a class="header">Getjy</a>
+                <div class="description">
+                    <p>안녕하세요. 부족하지만 천천히 성장해나가는 로봇 AI 개발자 강수한입니다. 수정해야할 부분이 있다면 편하게 남겨주세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
+        </main>
+    </div>
+    
+    <footer>
+    <div class="footer-wrapper">
+        <div class="ui secondary menu inverted">
+            <p class="item">Whale &copy; 2022</p>
+            <div class="right menu">
+                <a class="item" href="/archive.html">
+                    Latest Posts
+                </a>
+                <a class="item" href="https://twitter.com/fsf">
+                    Twitter
+                </a>
+                <a class="item" href="https://github.com/abhn">
+                    Github
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/semantic.min.js"></script>
+
+    <script src="/assets/js/vendor/jquery.min.js"></script>
+    <script src="/assets/js/vendor/semantic.min.js"></script>
+    <script type="/assets/js/main.js"></script>
+</body>
+
+</html>
