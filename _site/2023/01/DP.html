@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Whale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/mobile.css">
+    <link rel="stylesheet" href="/assets/css/vendor/syntax.css">
+    <link rel="stylesheet" href="/assets/css/vendor/semantic.min.css"/>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+</head>
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+            equationNumbers: {
+                autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+    }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<body>
+    
+    <div class="page-wrap">
+        <div class="header-wrapper">
+    <header>
+        <!-- logo and description -->
+        
+        <nav class="site-nav">
+            <div class="left-nav">
+                <!-- add titles to all buttons -->
+                <div class="ui secondary menu inverted">
+                    <a class="item" href="/">
+                        Home
+                    </a>
+                    <a class="item" href="/about.html">
+                        About
+                    </a>
+                    <a class="item" href="/archive.html">
+                        Archive
+                    </a>
+                    <div class="right menu">
+                        <a class="item" href="https://facebook.com/tkatjdrkd">
+                            <i class="facebook link icon"></i>
+                        </a>
+                        <a class="item" href="https://www.instagram.com/soohan.getjy/">
+                            <i class="instagram link icon"></i>
+                        </a>
+                        <a class="item" href="https://github.com/KangSooHan">
+                            <i class="github link icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-nav"></div>
+        </nav>
+    </header>
+</div>
+
+        <main>
+            <div class="post-container">
+    <center>
+        <span class="date">
+            25 Jan 2023 
+             
+                in <i>algorithm</i>
+             
+        </span>
+        <h1 class="post-title">DP</h1>
+    </center>
+    <div class="ui divider"></div>
+    <h2 id="dpdynamic-programming이란">DP(Dynamic Programming)이란?</h2>
+<p>DP는 완전 탐색을 하는데 좀 더 스마트하게 하는 방법입니다. DP는 기본적으로 Recursive한 방법 + Memoization을 통해서 문제를 푸는 방법입니다. 특히 DP는 점화식으로 표현할 수 있다는 강점을 가지고 있습니다. 기본적으로 DP알고리즘은 최적화 문제를 해결하는 알고리즘입니다. 최적화 알고리즘은 최적의 값을 구하는 문제 입니다. DP는 작은 부분 문제들의 해들을 구하고 이를 이용하여 큰 크기의 부분 문제들을 해결하는 알고리즘 기법입니다.</p>
+
+<p><br /><br /></p>
+
+<hr />
+<h3 id="dp시작하기">DP시작하기</h3>
+
+<p><br /></p>
+<h3 id="토끼-수-구하기">토끼 수 구하기</h3>
+<ul>
+  <li>첫 달에는 새로 태어난 토끼 한 쌍만이 존재한다.</li>
+  <li>두 달 이상 된 토끼는 번식이 가능하다.</li>
+  <li>번식 가능한 토끼 한 쌍은 매달 새끼 한 쌍을 낳는다.</li>
+  <li>토끼는 죽지 않는다.</li>
+</ul>
+
+<p>N번째 달의 토끼 수는? <br />
+f(n) : time n에서 토끼의 수 <br />
+n번째 달 f(n)을 a  n+1번째 달 f(n+1)을 b라 하면 n+2번째 달 f(n+2)는 a+b가 됩니다.<br />
+이를 점화식으로 표현하면 <br />
+$ f(n+2) = f(n+1) + f(n) ,\qquad f(1) = 1 , f(2) = 1 $ <br />
+이 됩니다.\</p>
+
+<h4 id="이를-단순하게-중복-호출로만-해결한다면">이를 단순하게 중복 호출로만 해결한다면!?</h4>
+<p>fib(3) = fib(2) + fib(1) <br />
+fib(4) = fib(3) + fib(2) = fib(2) + fib(1) + fib(2) <br />
+fib(5) = fib(4) + fib(3) = fib(3) + fib(2) + fib(2) + fib(1) + fib(2) = fib(2) + fib(1) + fib(2) + fib(2) + fib(2) + fib(1) + fib(2)<br />
+와 같이 엄청난 중복 호출이 발생하게 됩니다.</p>
+
+<h4 id="수학적-귀납법을-통해-얼마나-중복되었는지-확인해보자">수학적 귀납법을 통해 얼마나 중복되었는지 확인해보자!</h4>
+
+<p><br /></p>
+<h4 id="수학적-귀납법">수학적 귀납법</h4>
+<p>어떤 등식이 모든 N에 대해서 성립함을 보이기 위해서, 가능한 모든 N을 등식에 대입하여 증명할 수는 없습니다. 이 때 사용하는 것이 수학적 귀납법입니다.\</p>
+<ul>
+  <li>주어진 등식이 n=1 일 때 성립함을 증명하고, N일 때 성립한다고 가정한 후, N+1일 떄 성립함을 증명</li>
+  <li>그러면 도미노의 원리와 같이 1, 2, 3, … N 까지 모든 N에 대해서 성립</li>
+</ul>
+
+<ol>
+  <li>귀납 기본(Induction Base) : n=1(혹은 n=0)에 대해 등식이 성립함을 증명한다.</li>
+  <li>귀납 가정(Induction Hypothesis) : 임의의 n에 대해 등식이 성립한다고 가정한다,</li>
+  <li>귀납 단계(Induction Step) : 등식이 N+1에 대해서도 성립함을 증명한다.</li>
+</ol>
+
+<p>$\rightarrow$ 적용해보면</p>
+<ol>
+  <li>Induction Base : $T(2) = T(1) + T(0) + 1 = 3 &gt; 2 = 2^{\frac{2}{2}}$ <br />
+$ T(3) = T(2) + T(1) + 1 = 5 &gt; 2.83 \approx 2^{frac{3}{2}} $</li>
+  <li>Induction Hypothesis :
+$2 \leq M &lt; n$ 인 모든 m에 대해서 $T(m) &gt; 2^{frac{m}{2}}$이라 가정</li>
+  <li>Induction Step : 
+ $T(n)$ : fibo(n)을 계산하기 위하여 fibo 함수를 호출하는 횟수 <br />
+ $T(0)=1;$ <br />
+ $T(1) = 1;$ <br />
+ $T(n) = T(n-1) + T(n-2) + 1 \quad for \quad n \geq 2 $ <br />
+ $\qquad &gt; 2 * T(n-2) \qquad \qquad since \quad T(n-1) &gt; T(n-2) $ <br />
+ $\qquad &gt; 2^2 * T(n-4) $ <br />
+ $\qquad &gt; 2^3 * T(n-6) $ <br />
+ $\qquad … $ <br />
+ $\qquad &gt; 2^{\frac{n}{2}} * T(0) $ <br />
+ $\qquad = 2^{\frac{n}{2}} $</li>
+</ol>
+
+<p><br /></p>
+<h3 id="비둘기-집의-원리pigeonholde-principle">비둘기 집의 원리(pigeonholde principle)</h3>
+<p>비둘기 집의 원리는 N+1개의 물건을 N개의 상자에 넣을 때 적어도 어느 한 상자에는 두 개 이상의 비둘기가 들어 있다는 원리입니다.</p>
+
+<p><br /></p>
+<h4 id="수학적-귀류법">수학적 귀류법</h4>
+<p>수학적 귀류법은 우리가 가정한 것의 역에 대해서 사실임을 가정하고 그것이 모순됨을 증명하는 방법입니다.</p>
+<ul>
+  <li>n개의 비둘기 집과 n+1마리의 비둘기가 있다고 가정</li>
+  <li>만약 비둘기 집에 한 마리 이하의 비둘기만 들어 있다면, 전체 비둘기 집에는 많아야 n마리의 비둘기가 존재</li>
+  <li>그런데 비둘기는 n+1마리 임으로 이것은 모순 -&gt; 따라서 적어도 어느 한 비둘기 집에는 두마리 이상의 비둘기가 존재</li>
+</ul>
+
+<p>$\rightarrow$ 적용해보면</p>
+<ol>
+  <li>n번째의 피보나치수를 구하기 위해 알아야 할 값은 fibo(0) ~ fibo(n-1) : n개</li>
+  <li>재귀로 n번쨰의 피보나치수를 구할 경우 fibo(n) 함수를 $2^{\frac{n}{2}}$번 호출 <br />
+$2^{\frac{n}{2}} &gt; n $</li>
+  <li>따라서 비둘기 집의 원리를 적용하면 중복해서 호출됨을 증명</li>
+</ol>
+
+<p><br /></p>
+<h3 id="연습문제-1">연습문제 1</h3>
+<p>아파트를 각 층별로 파란색 또는 노란색 페인트로 칠하려고 합니다.\</p>
+<ul>
+  <li>노란색은 인접한 두 층에 연속해서 사용할 수 있다.</li>
+  <li>파란색은 인접한 두 층에 연속해서 사용할 수 없다.</li>
+</ul>
+
+<p>이와 같은 규칙으로 N층의 아파트를 칠할 수 있는 방법의 수는 몇가지인가?\</p>
+
+<p>$Yellow[n] = Yellow[n-1] + Blue[n-1];$ <br />
+$Blue[n] = Yellow[n-1];$ <br />
+$Yellow[1] = 1, Blue[1] = 1;$</p>
+
+<p><br /><br /></p>
+
+<hr />
+
+<h3 id="memozation">Memozation</h3>
+<p>지금까지 우리는 재귀적 방법을 통해 2가지 문제를 풀어 봤습니다. 하지만 귀납법 및 귀류법으로 증명한 것처럼 지금까지 문제를 풀 때 동일한 함수를 중복적이게 호출하고 있습니다. 컴퓨터 프로그램을 실행할 때 이러한 문제를 해결하기 위해서 메모리에 값을 저장해서 매번 다시 계산하지 않도록 하여 전체적인 실행 속도를 빠르게 하는 기술을 Memoization이라고 합니다.<br />
+예를 들면, 피보나치 수열에서 fibo(3) = fibo(2) + fibo(1)을 저장해 둔다면 fibo(4) = fibo(3) + fibo(2)를 계산할 때, fibo(3)을 다시한번 계산할 필요가 없게 됩니다.</p>
+
+<p><br /><br /></p>
+
+<hr />
+
+<h3 id="동적-계획법의-적용-요건">동적 계획법의 적용 요건</h3>
+<p>지금까지 우리는 DP에 대해서 알아보았는데 이러한 동적 계획법을 적용하려면 2가지 조건이 있어야 합니다.</p>
+<ol>
+  <li>최적 부분문제 구조(Optimal Substructure) $\rightarrow$ Recursive
+최적화의 원칙을 만족해야 함
+최적화의 원칙 : 어떤 문제에 대한 해가 최적일 때, 그 해를 구성하는 작은 문제들의 해 역시 최적이어야 한다.</li>
+  <li>중복 부분문제 구조(Overlapping Subproblems) $\rightarrow$ Memoization</li>
+</ol>
+
+<p><br /></p>
+<h3 id="3단계-dp-적용-접근-방법">3단계 DP 적용 접근 방법!</h3>
+<ol>
+  <li>최적해 구조의 특성을 파악
+문제를 부분 문제로 나눈다.</li>
+  <li>최적해의 값을 재귀적으로 정의
+부분 문제의 최적해 값에 기반하여 문제의 최적해 값을 정의한다.</li>
+  <li>상향식 방법으로 최적해를 계산!
+가장 작은 부분 문제의 해를 구한 뒤 테이블에 저장한다.</li>
+</ol>
+
+<p>$\rightarrow$ 적용해보면</p>
+<ol>
+  <li>f(n-1) + f(n-2)</li>
+  <li>f(n) = f(n-1) + f(n-2)</li>
+  <li>f(0) = 0, f(1) = 1, f(2) = 1</li>
+</ol>
+
+<hr />
+
+<h3 id="p-np">P-NP</h3>
+<p>어떤 문제는 P(Polynomial)문제와 NP(Non-Polynomial)(지수 factorial 등..)로 문제를 나눌 수 있습니다. 이를 기반으로 우리는 다루기 힘들다고 표현할 수 있습니다. 다루기 힘든 문제들은 비 다항식 크기의 결과를 요구하거나 결정 불가능한 비 현실적인 문제입니다.(ex : 해밀토니안 회로를 결정하는 (n-1)!개의 답이 있는 문제, Halting Problem)</p>
+<ul>
+  <li>P는 다차시간 알고리즘이 존재하는 모든 결정 문제들의 집합</li>
+  <li>NP(Nondeterministic Polynomial)는 다차시간 비 결정적 알고리즘으로 해결할 수 있는 결정 문제의 집합</li>
+  <li>결정적 알고리즘은 결과가 유일하게 정의된 연산만을 써서 만들어진 알고리즘</li>
+  <li>비 결정적 알고리즘은 연산 결과가 상황에 따라 달라질 수 있는 연산을 써서 만들어진 알고리즘</li>
+</ul>
+
+<p>따라서 NP-Complete/Hard임이 확인되면 주어진 시간 내에서 최대한 좋은 해를 찾는 근사치 알고리즘 개발에 집중해야 합니다.</p>
+
+<hr />
+
+<h2 id="문제로-dp를-뿌셔보자">문제로 DP를 뿌셔보자</h2>
+
+<p><br /></p>
+<h3 id="계수-값-구하기">계수 값 구하기</h3>
+<p>다음 수식의 a의 값은? <br />
+$(x+y)^4 = x^4 + 4x^3y + ax^2y^2 + 4xy^3 + y^4$</p>
+
+<p>$ \begin{pmatrix} n \\ k \end{pmatrix} = \Biggl( \begin{matrix} \begin{pmatrix} n-1 \\ k-1 \end{pmatrix} + \begin{pmatrix} n-1 \\ k \end{pmatrix} &amp; if \quad 0\;&lt;\;k\;&lt;\;n \\ 1 &amp; if \quad k\;=\;0 \;or\; k\;=\;n \end{matrix} $</p>
+
+<p><img src="/assets/img/algorithm/Pascal_Triangle.jpg" height="50%" width="50%" /></p>
+
+<p><br /></p>
+<h3 id="lislongest-increasing-subsequence-최장-증가-수열의-길이는">LIS(Longest Increasing Subsequence) 최장 증가 수열의 길이는?</h3>
+<p>다음과 같이 어떤 수열이 왼쪽에서 오른쪽으로 나열돼 있다.</p>
+<ul>
+  <li>3, 2, 6, 4, 5, 1</li>
+</ul>
+
+<p>이 배열 순서를 유지하면서 크기가 점진적으로 커지는 가장 긴 부분 수열은??<br />
+해결법</p>
+<ol>
+  <li>Brute-Force 접근방법 $O(2^n)$<br />
+모든 부분 집합들을 순회하면서 가장 긴 부분 수열을 찾는다.</li>
+  <li>DP 접근방법 $O(n^{2})$<br />
+LIS[i] : $a_{1} ~ a_{i}$ 에서 최장 부분 수열의 길이<br />
+case 1 : LIS[i]가 $a_{i}$를 포함하지 않는다면, LIS[i] = LIS[i-1]<br />
+case 2 : LIS[i]가 $a_{i}$를 포함한다면, LIS[i] = LIS[i-1] + 1</li>
+</ol>
+
+<p><img src="/assets/img/algorithm/DP_LIS.jpg" /> <br />
+<a href="https://github.com/KangSooHan/algorithm/blob/main/SWExpert/DP/LIS/main.cpp">코드</a></p>
+
+<p><br /></p>
+<h3 id="최단-경로shortest-path-모든-쌍의-최단-경로는">최단 경로(Shortest Path) 모든 쌍의 최단 경로는?</h3>
+<p>다음 각 정점 사이의 최단 경로는 얼마인가? <br />
+<img src="/assets/img/algorithm/DP_GRAPH.jpg" width="20%" height="20%" /></p>
+
+<p>해결법</p>
+<ol>
+  <li>Brute-Force 접근방법 $O(2^n)$<br />
+한 정점에서 다른 정점으로의 모든 경로의 길이를 구한 뒤 최소 길이를 구한다. \</li>
+  <li>각 점을 시작점으로 정하여 Dijkstra를 수행한다 $O(n^3)$ \</li>
+  <li>Floyd(모든 쌍 최단 경로 찾기) - Warshall(모든 쌍의 경로 존재 찾기) Algorhtm을 수행한다 $O(n^3)$.<br />
+<img src="/assets/img/algorithm/Floyd-Warshall.jpg" width="60%" height="60%" /><br />
+<a href="https://github.com/KangSooHan/algorithm/blob/main/SWExpert/DP/Floyd-Warshall/main.cpp">코드</a>\</li>
+</ol>
+
+<p><br /></p>
+<h3 id="tsptraveling-salesman-problem-최소-여행-경비는">TSP(Traveling Salesman Problem) 최소 여행 경비는?</h3>
+<p>휴가 기간에 다음 도시 들을 최소 이동 경비로 여행하고 싶다. 어느 순서로 여행하면 되나? 단 집에서 출발해서 여행이 끝나면 집으로 돌아와야 한다.<br />
+해결법</p>
+<ol>
+  <li>Brute-Force 접근 방법 $O(N!)$<br />
+가능한 모든 여행 경로를 고려한 후 가장 짧은 여행 경로를 선택한다.</li>
+  <li>DP 접근방법<br />
+V는 모든 정점의 집합, A는 V의 부분집합<br />
+D[$V_{i}$][A]는 A에 속한 각 정점을 정확히 한번씩만 거쳐서 $V_{i}$에서 $V_{i}$으로 가는 최단 경로의 길이라고 하자.</li>
+</ol>
+
+
+    <div class="ui horizontal divider">
+        Thank You For Reading
+    </div>
+    <!-- author box -->
+<div class="ui segment">
+    <div class="ui items">
+        <div class="item">
+            <a class="ui circular tiny image">
+                <img src="/assets/img/profile.jpg">
+            </a>
+            <div class="content">
+                <a class="header">Getjy</a>
+                <div class="description">
+                    <p>안녕하세요. 부족하지만 천천히 성장해나가는 로봇 AI 개발자 강수한입니다. 수정해야할 부분이 있다면 편하게 남겨주세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
+        </main>
+    </div>
+    
+    <footer>
+    <div class="footer-wrapper">
+        <div class="ui secondary menu inverted">
+            <p class="item">Whale &copy; 2022</p>
+            <div class="right menu">
+                <a class="item" href="/archive.html">
+                    Latest Posts
+                </a>
+                <a class="item" href="https://twitter.com/fsf">
+                    Twitter
+                </a>
+                <a class="item" href="https://github.com/abhn">
+                    Github
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/semantic.min.js"></script>
+
+    <script src="/assets/js/vendor/jquery.min.js"></script>
+    <script src="/assets/js/vendor/semantic.min.js"></script>
+    <script type="/assets/js/main.js"></script>
+</body>
+
+</html>

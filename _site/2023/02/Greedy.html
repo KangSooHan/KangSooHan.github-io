@@ -16,6 +16,31 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 </head>
 
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+            equationNumbers: {
+                autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+    }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 
 <body>
     
@@ -59,46 +84,53 @@
             <div class="post-container">
     <center>
         <span class="date">
-            05 Jan 2023 
+            02 Feb 2023 
              
-                in <i>etc</i>
+                in <i>algorithm</i>
              
         </span>
-        <h1 class="post-title">POST 해야할 것들?</h1>
+        <h1 class="post-title">Greedy</h1>
     </center>
     <div class="ui divider"></div>
-    <p><br /><br /></p>
-<h3 id="calibration">Calibration!!!!!</h3>
+    <h2 id="greedy-algorithm이란">Greedy Algorithm이란?</h2>
+<p>탐욕 알고리즘은 최적해를 구하는데 사용되는 근시안적인 방법입니다. 여러 경우 중 하나를 선택할 때마다 그 순간이 최적인 것을 선택해 나가는 방식으로 진행합니다. 각 선택 시점에서 이루어지는 결정은 지역적으로 최적이지만 이렇게 최적해를 만들었다고 꼭 결과적으로 최적이라는 보장은 없습니다. 하지만 이것이 보장되는 케이스도 존재합니다.</p>
 
-<h3 id="smart-pointer">Smart Pointer</h3>
-<p><br /><br /></p>
-<h3 id="dot-product--cross-product">Dot Product &amp; Cross Product</h3>
-<p><br /><br /></p>
-<h3 id="생성자">생성자</h3>
-<p><br /><br /></p>
-<h3 id="소멸자">소멸자</h3>
-<p><br /><br /></p>
-<h3 id="복사-생성자">복사 생성자</h3>
-<p><br /><br /></p>
-<h3 id="기본-대입-연산자">기본 대입 연산자</h3>
-<p><br /><br /></p>
-<h3 id="class-default--delete">class default &amp; delete</h3>
-<p><br /><br /></p>
-<h3 id="bst-tree-주석달기">BST, TREE 주석달기</h3>
-<p><br /><br /></p>
-<h3 id="pca---링크-달기-sf-06번">PCA -&gt; 링크 달기 SF 06번</h3>
+<p><br /></p>
+
+<hr />
+<h2 id="해결하지-못하는-경우">해결하지 못하는 경우</h2>
+<h3 id="동전-갯수-줄이기">동전 갯수 줄이기</h3>
+<p>Greedy Algorithm으로 계산하는 동전의 개수를 결정할 때 500, 100, 50, 10원 짜리 동전만 있다면 성공적으로 해결할 수 있습니다.(500은 100, 50, 10의 100은 50, 10의 50은 10의 배수임으로 보장되어 있음) . 하지만 500, 400, 100, 50, 10원짜리 동전이 있다면 800원을 계산할 때 Greedy로 해결할 수 없습니다.(800원 -&gt; 500+100+100+100 / 400+400)</p>
+
+<p><br /></p>
+<h3 id="배낭-짐싸기knapsack">배낭 짐싸기(Knapsack)</h3>
+<p>Greedy Algorithm을 사용하여 무게, 값, 무게 당 값이 높은 순서로 물건을 채울수 있습니다. 하지만 이 방법으로 진행하면 최적의 해가 보장되지 않습니다.</p>
+
+<p><img src="/assets/img/algorithm/Greedy_Knapsack.jpg" width="30%" height="30%" /></p>
+
+<p>30kg를 무게 당 값을 기준으로 채운다고 한다면.. 성공할 수 없습니다.</p>
 
 <p><br /><br /></p>
-<h3 id="우측-값-참조-및-vector-reallocation">우측 값 참조 및 vector reallocation</h3>
 
-<p><br /><br /></p>
-<h3 id="kmp-알고리즘">KMP 알고리즘</h3>
+<hr />
+<h2 id="그러면-대체-어디에쓰여">그러면 대체 어디에쓰여..?</h2>
+<h3 id="회의실-배정하기활동-선택-문제">회의실 배정하기(활동 선택 문제)</h3>
+<p>A회사 개발팀이 회의실 사용 신청을 처리하는 업무를 진행하려고 합니다. 이 때 사용 가능한 회의실은 하나만 존재하고 다수의 회의가 신청이 되어있습니다. 회의는 시작 시간과 종료 시간이 있으며 회의는 동시에 열릴 수 없습니다. 이 때 최대 몇 개의 회의를 배정할 수 있을까요?</p>
 
-<p><br /><br /></p>
-<h3 id="정렬">정렬</h3>
-<p>삽입정렬 
-병합정렬 
-삼성 강의도 참조할것!</p>
+<h4 id="탐욕-기법의-적용">탐욕 기법의 적용</h4>
+<ol>
+  <li>회의 목록 S에서 가장 일찍 끝나는 회의 $s_{min}$를 선택</li>
+  <li>$s_{min}$과 겹치는 모든 회의를 S에서 삭제</li>
+  <li>S에 회의가 모두 없어질 때까지 1번부터 반복</li>
+</ol>
+
+<h4 id="proof">Proof</h4>
+<ul>
+  <li>탐욕적 선택이 항상 최적해로 가는 길 중에 하나입니다.</li>
+  <li>즉, 가장 종료 시간이 빠른 회의를 포함하는 최적의 해가 반드시 존재합니다.</li>
+</ul>
+
+<p><a href="https://github.com/KangSooHan/algorithm/blob/main/SWExpert/GREEDY/%ED%9A%8C%EC%9D%98%EC%8B%A4%EB%B0%B0%EC%A0%95/main.cpp"> 코드</a></p>
 
     <div class="ui horizontal divider">
         Thank You For Reading
