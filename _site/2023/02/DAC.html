@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Whale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/mobile.css">
+    <link rel="stylesheet" href="/assets/css/vendor/syntax.css">
+    <link rel="stylesheet" href="/assets/css/vendor/semantic.min.css"/>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/img/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+</head>
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+            equationNumbers: {
+                autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+    }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+    alert("Math Processing Error: "+message[1]);
+});
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<body>
+    
+    <div class="page-wrap">
+        <div class="header-wrapper">
+    <header>
+        <!-- logo and description -->
+        
+        <nav class="site-nav">
+            <div class="left-nav">
+                <!-- add titles to all buttons -->
+                <div class="ui secondary menu inverted">
+                    <a class="item" href="/">
+                        Home
+                    </a>
+                    <a class="item" href="/about.html">
+                        About
+                    </a>
+                    <a class="item" href="/archive.html">
+                        Archive
+                    </a>
+                    <div class="right menu">
+                        <a class="item" href="https://facebook.com/tkatjdrkd">
+                            <i class="facebook link icon"></i>
+                        </a>
+                        <a class="item" href="https://www.instagram.com/soohan.getjy/">
+                            <i class="instagram link icon"></i>
+                        </a>
+                        <a class="item" href="https://github.com/KangSooHan">
+                            <i class="github link icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-nav"></div>
+        </nav>
+    </header>
+</div>
+
+        <main>
+            <div class="post-container">
+    <center>
+        <span class="date">
+            02 Feb 2023 
+             
+                in <i>algorithm</i>
+             
+        </span>
+        <h1 class="post-title">분할정복(Devide & Conquer)</h1>
+    </center>
+    <div class="ui divider"></div>
+    <h2 id="분할-정복">분할 정복</h2>
+<p>분할 정복은 해결해야 하는 문제를 분할(Divide)하고 여러개의 작은 부분으로 나눈 뒤 이 부분을 정복(Conquer)하여 해결하고 마지막으로 통합(Combine)하는 알고리즘입니다.</p>
+
+<h2><br /></h2>
+<h3 id="가짜-동전-찾기">가짜 동전 찾기</h3>
+<p>n개의 동전들 중에 가짜 동전이 하나 포함되어 있다. 이 때 양팔 저울을 최소로 사용해서 가짜 동전을 찾는 방법은?</p>
+<ol>
+  <li>23</li>
+  <li>11 &amp; 11 &amp; 1(만일 11과 11이 같다면 1에 가짜 동전 다르다면 작은 쪽에 가짜 동전)</li>
+  <li>5 &amp; 5 &amp; 1</li>
+  <li>2 &amp; 2 &amp; 1</li>
+  <li>1 &amp; 1 (마지막을 비교함으로써 어떤 동전이 가짜인지 확인 가능)</li>
+</ol>
+
+<p><br /></p>
+<h3 id="거듭-제곱">거듭 제곱</h3>
+<p>거듭제곱의 값을 구하는 방법은?</p>
+<ol>
+  <li>25승</li>
+  <li>12승 * 13승 $\rightarrow$ 12승 * 12승 *X 25승</li>
+  <li>6승 * 6승 $\rightarrow$ 12승</li>
+  <li>3승 * 3승 $\rightarrow$ 6승</li>
+  <li>2승 * 1승 $\rightarrow$ 3승</li>
+  <li>1승 * 1승 $\rightarrow$ 2승</li>
+</ol>
+
+<p><br /></p>
+<h3 id="merge-sort">Merge Sort</h3>
+<p>병합정렬은 여러 개의 정렬된 자료의 집합을 병합하여 한 개의 정렬된 집합으로 만드는 정렬 방식입니다. 분할 정복 알고리즘을 활용한 정렬 방식으로 시간 복잡도는 O(nlogn)입니다.</p>
+
+<p><img src="/assets/img/algorithm/Merge_Sort.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+<h3 id="quick-sort">Quick Sort</h3>
+<p>퀵정렬은 병합 정렬처럼 배열을 두개로 분할하고 각각 정렬하는 방법이지만 병합을 진행하지는 않습니다. 퀵정렬의 아이디어는 피봇(P)값들 보다 큰 값을 오른쪽, 작은 값을 왼쪽 집합에 위치하도록 합니다. 그러면 pivot은 정렬된 위치임을 보장받을 수 있습니다. 그 이후 피봇의 왼쪽과, 오른쪽을 나눠서 다시 피봇을 기준으로 정렬합니다. 이를 반복하면 모든 피봇들이 정렬된 위치를 보장받는 정렬된 상태가 될 수 있습니다.</p>
+
+<p><img src="/assets/img/algorithm/Quick_Sort.jpg" width="30%" height="30%" /></p>
+
+<p><br /></p>
+<h3 id="이진-탐색binary-search">이진 탐색(Binary Search)</h3>
+<p>이진탐색은 자료의 가운데에 있는 항목의 키 값과 비교하여 다음 탐색의 위치를 결정하고 탐색을 계속 진행하는 방식입니다. 꼭 정렬이 되어 있어야 합니다.</p>
+<ol>
+  <li>자료의 중앙에 있는 원소</li>
+  <li>중앙 원소의 값과 찾고자 하는 목표 값을 비교</li>
+  <li>
+    <ul>
+      <li>목표 값이 중앙 원소보다 작으면 왼쪽 새로 탐색</li>
+      <li>목표 값이 중앙 원소보다 크면 오른쪽 새로 탐색</li>
+    </ul>
+  </li>
+  <li>찾고자 하는 값을 찾을때까지 반복</li>
+</ol>
+
+<p><img src="/assets/img/algorithm/Binary_Search.jpg" width="30%" height="30%" /></p>
+
+
+    <div class="ui horizontal divider">
+        Thank You For Reading
+    </div>
+    <!-- author box -->
+<div class="ui segment">
+    <div class="ui items">
+        <div class="item">
+            <a class="ui circular tiny image">
+                <img src="/assets/img/profile.jpg">
+            </a>
+            <div class="content">
+                <a class="header">Getjy</a>
+                <div class="description">
+                    <p>안녕하세요. 부족하지만 천천히 성장해나가는 로봇 AI 개발자 강수한입니다. 수정해야할 부분이 있다면 편하게 남겨주세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="github_issue">
+    <script src="https://utteranc.es/client.js"
+        repo="KangSooHan/KangSooHan.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>  
+<a name="comments"></a>
+
+        </main>
+    </div>
+    
+    <footer>
+    <div class="footer-wrapper">
+        <div class="ui secondary menu inverted">
+            <p class="item">Whale &copy; 2022</p>
+            <div class="right menu">
+                <a class="item" href="/archive.html">
+                    Latest Posts
+                </a>
+                <a class="item" href="https://twitter.com/fsf">
+                    Twitter
+                </a>
+                <a class="item" href="https://github.com/abhn">
+                    Github
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/vendor/semantic.min.js"></script>
+
+    <script src="/assets/js/vendor/jquery.min.js"></script>
+    <script src="/assets/js/vendor/semantic.min.js"></script>
+    <script type="/assets/js/main.js"></script>
+</body>
+
+</html>
