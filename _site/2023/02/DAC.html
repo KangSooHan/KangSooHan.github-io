@@ -147,6 +147,18 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p><img src="/assets/img/algorithm/Binary_Search.jpg" width="30%" height="30%" /></p>
 
+<p><br /></p>
+<h3 id="binary-search를-이용한-최근접-점의-쌍-찾기-알고리즘closest-pair-of-points">Binary Search를 이용한 최근접 점의 쌍 찾기 알고리즘(Closest Pair of Points)</h3>
+<p>최근접 점의 쌍(Closest Pair)를 찾는 문제는 2차원 평면에서 N개의 점이 있을 때, 거리가 가장 가까운 한 쌍의 점을 찾는 문제입니다. 이 문제도 DAC로 해결할 수 있습니다.</p>
+<ol>
+  <li>평면을 L과 R집합으로 나눕니다.</li>
+  <li>만일 L혹은 R집합이 2개보다 작다면(3개 이하일 때는 직접 계산이 빠르긴 합니다.) 최근접 쌍으로 return해줍니다.</li>
+  <li>L과 R로 통합할 때, L과 R사이에 있는 점들을 유의해야 합니다.(L과 R사이에 있는 점이 최근접 쌍이 될 수 있습니다.)</li>
+</ol>
+
+<p><img src="/assets/img/algorithm/Closest_Pair.jpg" width="20%" height="20%" /></p>
+
+<p><img src="/assets/img/algorithm/Closest_Pair_DAC.jpg" width="30%" height="30%" /></p>
 
     <div class="ui horizontal divider">
         Thank You For Reading
