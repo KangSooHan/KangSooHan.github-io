@@ -10,10 +10,6 @@ layout: post
 <br><br>
 ### Dot Product & Cross Product
 <br><br>
-### HighWay Simulation RANSAC 부수기
-<br><br>
-### KD-TREE clustering Code 부수기
-<br><br>
 ### 생성자
 <br><br>
 ### 소멸자
@@ -30,6 +26,9 @@ layout: post
 
 <br><br>
 ### 우측 값 참조 및 vector reallocation
+
+<br><br>
+### KMP 알고리즘
 
 
 <br><br>
