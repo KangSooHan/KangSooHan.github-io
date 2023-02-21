@@ -1,0 +1,173 @@
+<p>문제 링크 : <a href="https://swexpertacademy.com/main/talk/codeBattle/problemDetail.do?contestProbId=AV15PTkqAPYCFAYD&amp;categoryId=AYWab_JKjkwDFAQK&amp;categoryType=BATTLE&amp;battleMainPageIndex=1">https://swexpertacademy.com/main/talk/codeBattle/problemDetail.do?contestProbId=AV15PTkqAPYCFAYD&amp;categoryId=AYWab_JKjkwDFAQK&amp;categoryType=BATTLE&amp;battleMainPageIndex=1</a></p>
+
+<p><br /></p>
+<h3 id="to-solve">To Solve</h3>
+<p>이 문제는 Tree에 대해서 학습하기 위한 기본 문제 중 하나입니다. <br />
+이 문제를 해결 하기 위해선 우선 부모를 알 수 있는 트리를 구현해야 합니다. <br />
+그 이후 주어진 두개의 공통 조상을 계산해야 하는 문제였습니다. <br />
+두 개의 node를 받고 각각 node들의 조상들을 스택에 넣어둡니다. <br />
+공통의 조상을 가지려면 동일한 depth를 가지고 있어야 하기 때문에 node1의 조상 queue1과 node2의 조상 queue2의 깊이가 같아질 때 까지 queue을 pop해 줍니다. <br />
+그 이후에는 두 queue을 동시에 pop해 주면서 같은 결과가 나올 때 까지 pop했습니다.</p>
+
+<p><img src="/assets/img/algorithm/swea_1248.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">Node</span> <span class="n">node_pool</span><span class="p">[</span><span class="mi">10002</span><span class="p">];</span>
+
+<span class="k">struct</span> <span class="nc">queue</span><span class="p">{</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="n">pool</span><span class="p">[</span><span class="mi">10002</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">r</span><span class="p">,</span> <span class="n">l</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">insert</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">node</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">pool</span><span class="p">[</span><span class="n">r</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">Node</span><span class="o">*</span> <span class="n">pop</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">pool</span><span class="p">[</span><span class="n">l</span><span class="o">++</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="n">empty</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">r</span><span class="o">==</span><span class="n">l</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">size</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">queue</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">BST</span><span class="p">{</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+
+<span class="nl">public:</span>
+    <span class="n">BST</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+        <span class="n">s1</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="n">s2</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10002</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">node_pool</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">parent</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+            <span class="n">node_pool</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">left</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+            <span class="n">node_pool</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">right</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">parent</span><span class="p">,</span> <span class="kt">int</span> <span class="n">child</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">node_pool</span><span class="p">[</span><span class="n">child</span><span class="p">].</span><span class="n">data</span> <span class="o">=</span> <span class="n">child</span><span class="p">;</span>
+        <span class="n">node_pool</span><span class="p">[</span><span class="n">parent</span><span class="p">].</span><span class="n">data</span> <span class="o">=</span> <span class="n">parent</span><span class="p">;</span>
+        <span class="n">node_pool</span><span class="p">[</span><span class="n">child</span><span class="p">].</span><span class="n">parent</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">parent</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">node_pool</span><span class="p">[</span><span class="n">parent</span><span class="p">].</span><span class="n">left</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">node_pool</span><span class="p">[</span><span class="n">parent</span><span class="p">].</span><span class="n">left</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">child</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">node_pool</span><span class="p">[</span><span class="n">parent</span><span class="p">].</span><span class="n">right</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">child</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">subtree</span><span class="p">(</span><span class="kt">int</span> <span class="n">node_num</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">s1</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">cnt</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="n">s1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">node_num</span><span class="p">]);</span>
+        <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">s1</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">Node</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">s1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">){</span>
+                <span class="n">s1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">){</span>
+                <span class="n">s1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+                <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">ancestor</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">s1</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="n">s2</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+        <span class="n">Node</span><span class="o">*</span> <span class="n">node1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">a</span><span class="p">];</span>
+        <span class="n">Node</span><span class="o">*</span> <span class="n">node2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="n">node1</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">s1</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">node1</span><span class="p">);</span>
+            <span class="n">node1</span> <span class="o">=</span> <span class="n">node1</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">node2</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">s2</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">node2</span><span class="p">);</span>
+            <span class="n">node2</span> <span class="o">=</span> <span class="n">node2</span><span class="o">-&gt;</span><span class="n">parent</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="n">s1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="n">s2</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="k">else</span> <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">s1</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">s2</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">Node</span><span class="o">*</span> <span class="n">na</span> <span class="o">=</span> <span class="n">s1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="n">Node</span><span class="o">*</span> <span class="n">nb</span> <span class="o">=</span> <span class="n">s2</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">na</span><span class="o">==</span><span class="n">nb</span><span class="p">)</span> <span class="k">return</span> <span class="n">na</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">BST</span> <span class="n">bst</span> <span class="p">{};</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">freopen</span><span class="p">(</span><span class="s">"input.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">T</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">test</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">test</span><span class="o">&lt;=</span><span class="n">T</span><span class="p">;</span> <span class="o">++</span><span class="n">test</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">bst</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">V</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d %d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">V</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">E</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">E</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">;</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">parent</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">child</span><span class="p">);</span>
+            <span class="n">bst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">anc</span> <span class="o">=</span> <span class="n">bst</span><span class="p">.</span><span class="n">ancestor</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"#%d %d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">anc</span><span class="p">,</span> <span class="n">bst</span><span class="p">.</span><span class="n">subtree</span><span class="p">(</span><span class="n">anc</span><span class="p">));</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p><br />
+<a href="https://github.com/KangSooHan/algorithm/blob/main/SWExpert/TREE/1248/main.cpp">Code</a></p>

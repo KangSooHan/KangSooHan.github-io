@@ -1,0 +1,43 @@
+<p>문제 링크 : <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXRSXf_a9qsDFAXS">https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AXRSXf_a9qsDFAXS</a></p>
+
+<p><br /></p>
+<h3 id="to-solve">To Solve</h3>
+<p>이 문제는 bits에 대해서 학습하기 위한 기본 문제 중 하나입니다. <br />
+끝의 비트가 1인지 0인지 확인하였습니다. <br />
+그 이후 비트를 오른쪽으로 쉬프트하여 끝 비트가 1인지 0인지 확인하였습니다. <br />
+이를 반복적으로 n번 수행하였을 때, flag가 참이면 ON 아니면 OFF를 내도록 하였습니다.</p>
+
+<p><img src="/assets/img/algorithm/bit_10726.jpg" width="50%" height="50%" /></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">freopen</span><span class="p">(</span><span class="s">"input.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">T</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">);</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">test</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">test</span><span class="o">&lt;=</span><span class="n">T</span><span class="p">;</span> <span class="o">++</span><span class="n">test</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ans</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+
+    <span class="kt">bool</span> <span class="n">flag</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+        <span class="c1">// 끝 비트가 0인지 1인지 확인하기</span>
+        <span class="n">flag</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">m</span><span class="o">%</span><span class="mi">2</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span> <span class="o">?</span> <span class="nb">true</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
+
+        <span class="c1">// 비트 SHIFT</span>
+        <span class="n">m</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">flag</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="n">printf</span><span class="p">(</span><span class="s">"#%d ON</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">test</span><span class="p">);</span>
+    <span class="k">else</span> <span class="n">printf</span><span class="p">(</span><span class="s">"#%d OFF</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">test</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br />
+<a href="https://github.com/KangSooHan/algorithm/blob/main/SWExpert/BITS/10726/main.cpp">Code</a></p>

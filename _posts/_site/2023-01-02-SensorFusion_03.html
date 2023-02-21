@@ -1,0 +1,120 @@
+<h2 id="highway-simulation">Highway Simulation</h2>
+
+<h3 id="environmentcpp-부수기">Environment.cpp 부수기</h3>
+
+<p>main 함수</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// viewer 객체 생성</span>
+    <span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCLVisualizer</span><span class="o">::</span><span class="n">Ptr</span> <span class="n">viewer</span> <span class="p">(</span><span class="k">new</span> <span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCLVisualizer</span> <span class="p">(</span><span class="s">"3D Viewer"</span><span class="p">));</span>
+
+    <span class="c1">// getRenderWindow() : VTK Render Window가 사용하는 pointer를 가져옴</span>
+    <span class="c1">// GlobalWarningDisplayOff() : VTK 에러창 안보이게</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">getRenderWindow</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GlobalWarningDisplayOff</span><span class="p">();</span>
+
+    <span class="c1">// ENUM CameraAngle</span>
+    <span class="n">CameraAngle</span> <span class="n">setAngle</span> <span class="o">=</span> <span class="n">XY</span><span class="p">;</span>
+
+    <span class="c1">// initCamera 함수</span>
+    <span class="n">initCamera</span><span class="p">(</span><span class="n">setAngle</span><span class="p">,</span> <span class="n">viewer</span><span class="p">);</span>
+
+    <span class="c1">// simpleHighway 함수</span>
+    <span class="n">simpleHighway</span><span class="p">(</span><span class="n">viewer</span><span class="p">);</span>
+
+    <span class="c1">// interactor를 부르고 내부적인 loop를 실행시킴(screen을 업데이트)</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">spin</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>initCamera 함수</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//CameraAngle(Enum), PCLVisualizer pointer</span>
+<span class="kt">void</span> <span class="nf">initCamera</span><span class="p">(</span><span class="n">CameraAngle</span> <span class="n">setAngle</span><span class="p">,</span> <span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCLVisualizer</span><span class="o">::</span><span class="n">Ptr</span><span class="o">&amp;</span> <span class="n">viewer</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// setBackgroundColor : viewer의 backgroundColor 설정(0, 0, 0) -&gt; 검정색</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setBackgroundColor</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// set camera position and angle</span>
+    <span class="c1">// camera parameter를 default value로 init</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">initCameraParameters</span><span class="p">();</span>
+
+    <span class="c1">// distance away in meters</span>
+    <span class="kt">int</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+
+    <span class="c1">// setCameraPosition : 카메라의 위치 조정(x, y, z, up_x, up_y, up_z) up은 시점 방향</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">setAngle</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="n">XY</span> <span class="p">:</span> <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setCameraPosition</span><span class="p">(</span><span class="o">-</span><span class="n">distance</span><span class="p">,</span> <span class="o">-</span><span class="n">distance</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">TopDown</span> <span class="p">:</span> <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setCameraPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">Side</span> <span class="p">:</span> <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setCameraPosition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">distance</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">FPS</span> <span class="p">:</span> <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setCameraPosition</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">setAngle</span><span class="o">!=</span><span class="n">FPS</span><span class="p">)</span>
+        <span class="c1">// addCoordinateSystem(scale, id, viewport) : 0,0,0에 3차원 좌표계 생성</span>
+        <span class="c1">// Eigen:Affine3f 혹은 x, y, z,를 줌으로써 변경 가능(optional)</span>
+        <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">addCoordinateSystem</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>simpleHighway 함수</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">renderHighway</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCLVisualizer</span><span class="o">::</span><span class="n">Ptr</span><span class="o">&amp;</span> <span class="n">viewer</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="c1">// units in meters</span>
+    <span class="kt">double</span> <span class="n">roadLength</span> <span class="o">=</span> <span class="mf">50.0</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">roadWidth</span> <span class="o">=</span> <span class="mf">12.0</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">roadHeight</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
+
+    <span class="c1">// addCube(x_min, x_max, y_min, y_max, z_min, z_max, r, g, b, id) : Cube 모델 추가    </span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">addCube</span><span class="p">(</span><span class="o">-</span><span class="n">roadLength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">roadLength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">roadWidth</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">roadWidth</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">roadHeight</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="s">"highwayPavement"</span><span class="p">);</span>
+
+    <span class="c1">// setShapeRenderingProperties(property, double, {double, double}(optional), id) : 모양에 대한 rendering properties를 설정</span>
+    <span class="c1">// double 1개 : shape, double 2개 : 2x values - e.g, minmax values, double 3개 : 3x values - e.g., RGB</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setShapeRenderingProperties</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCL_VISUALIZER_REPRESENTATION</span><span class="p">,</span> <span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCL_VISUALIZER_REPRESENTATION_SURFACE</span><span class="p">,</span> <span class="s">"highwayPavement"</span><span class="p">);</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setShapeRenderingProperties</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCL_VISUALIZER_COLOR</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="s">"highwayPavement"</span><span class="p">);</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">setShapeRenderingProperties</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCL_VISUALIZER_OPACITY</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">"highwayPavement"</span><span class="p">);</span>
+
+    <span class="c1">// addLine(point1, point2) : point 1에서 point 2까지 선 추가</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">addLine</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="p">(</span><span class="o">-</span><span class="n">roadLength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="n">roadWidth</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="p">(</span><span class="n">roadLength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">roadWidth</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s">"line1"</span><span class="p">);</span>
+    <span class="n">viewer</span><span class="o">-&gt;</span><span class="n">addLine</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="p">(</span><span class="o">-</span><span class="n">roadLength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">roadWidth</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="p">(</span><span class="n">roadLength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">roadWidth</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s">"line2"</span><span class="p">);</span>                                                                                 <span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">simpleHighway</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCLVisualizer</span><span class="o">::</span><span class="n">Ptr</span><span class="o">&amp;</span> <span class="n">viewer</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// RENDER OPTIONS</span>
+    <span class="kt">bool</span> <span class="n">renderScene</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+    <span class="c1">// initHighway 함수</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">cars</span> <span class="o">=</span> <span class="n">initHighway</span><span class="p">(</span><span class="n">renderScene</span><span class="p">,</span> <span class="n">viewer</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">initHighway</span><span class="p">(</span><span class="kt">bool</span> <span class="n">renderScene</span><span class="p">,</span> <span class="n">pcl</span><span class="o">::</span><span class="n">visualization</span><span class="o">::</span><span class="n">PCLVisualizer</span><span class="o">::</span><span class="n">Ptr</span><span class="o">&amp;</span> <span class="n">viewer</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Car</span> <span class="n">egoCar</span><span class="p">(</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="s">"egoCar"</span><span class="p">);</span>
+    <span class="n">Car</span> <span class="n">car1</span><span class="p">(</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s">"car1"</span><span class="p">);</span>
+    <span class="n">Car</span> <span class="n">car2</span><span class="p">(</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s">"car2"</span><span class="p">);</span>
+    <span class="n">Car</span> <span class="n">car3</span><span class="p">(</span> <span class="n">Vect3</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vect3</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s">"car3"</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">cars</span><span class="p">;</span>
+    <span class="n">cars</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">egoCar</span><span class="p">);</span>
+    <span class="n">cars</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">car1</span><span class="p">);</span>
+    <span class="n">cars</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">car2</span><span class="p">);</span>
+    <span class="n">cars</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">car3</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">renderScene</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">renderHighway</span><span class="p">(</span><span class="n">viewer</span><span class="p">);</span>
+        <span class="n">egoCar</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewer</span><span class="p">);</span>
+        <span class="n">car1</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewer</span><span class="p">);</span>
+        <span class="n">car2</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewer</span><span class="p">);</span>
+        <span class="n">car3</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewer</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">cars</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /><br /><br /><br /><br /><br /></p>
+
+<hr />
+<h3 id="단어">단어</h3>
+<p>Underlying : 근본적인</p>
+

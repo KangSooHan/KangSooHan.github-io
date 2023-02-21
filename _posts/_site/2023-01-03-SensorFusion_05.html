@@ -1,0 +1,77 @@
+<h2 id="point-cloud-segmentation">Point Cloud Segmentation</h2>
+
+<p><br /></p>
+<h3 id="segmentation">Segmentation</h3>
+<p>이미지 분야에서 segmentation은 이미지 내에 있는 객체들을 객체 단위로 분할하는 작업을 의미합니다.</p>
+<p align="center"><img src="/assets/img/sensorfusion/Segmentation.jpg" /></p>
+<p>Point Cloud Segmentation은 마찬가지로 3D Point cloud 내에 있는 점들에서 객체들을 객체 단위로 분할하는 작업을 의미합니다.</p>
+<p align="center"><img src="/assets/img/sensorfusion/pointcloud_segmentation.jpg" /></p>
+<p>자율주행 자동차에서는 도로에 있는 obstacles을 탐지하는데 사용되고 있습니다. Segmentation을 진행하기 위해서 Plane 과 Obstacle을 분리해야 합니다. 우리는 Plane을 RANSAC알고리즘을 통해 추출할 수 있습니다.</p>
+
+<p><br /></p>
+<h3 id="ransac">RANSAC</h3>
+<p>RAndom Sample Consensus 알고리즘은 여러 point중에서 inlier를 가장 많이 가지는 모델을 찾는 알고리즘입니다.</p>
+<ul>
+  <li>Iterative 방법</li>
+  <li>각 반복에서 points의 subset(집합)을 랜덤하게 고름</li>
+  <li>모델에 point를 적용</li>
+  <li>가장 많은 inliers를 가지는 모델을 선택</li>
+</ul>
+<p align="center"><img src="/assets/img/sensorfusion/RANSAC_LINE.gif" /></p>
+
+<p><br /></p>
+<h3 id="ransac-for-line">RANSAC for Line</h3>
+<p>RANSAC을 Lines에서 적용하는 방법에 대해서 소개합니다.</p>
+<ul>
+  <li>각각 반복에서 2개의 점을 선택</li>
+  <li>두 개의 점을 지나는 선을 그림</li>
+  <li>그린 선과 모든 점들의 거리를 계산하고 distance tolerance 이내에 있는 점들은 inlier</li>
+</ul>
+
+<ol>
+  <li>두 점을 선택</li>
+  <li>선의 방정식을 구함</li>
+  <li>나머지 점들과 선의 거리들을 계산</li>
+  <li>거리들을 모아서 크기가 가장 작은 선을 선택</li>
+</ol>
+<p><img src="/assets/img/sensorfusion/RANSAC_LINE.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+<h3 id="ransac-for-plane">RANSAC for Plane</h3>
+<p><img src="/assets/img/sensorfusion/RANSAC_PLANE.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+<h3 id="ransac-simulation-results">RANSAC Simulation Results</h3>
+<p>in Line</p>
+<p><img src="/assets/img/sensorfusion/RANSAC_RESULT.JPG" width="50%" height="50%" /></p>
+<p>in Plane</p>
+<p><img src="/assets/img/sensorfusion/Ransac3D.jpg" width="50%" height="50%" /></p>
+
+<p><br /><br /><br /><br /><br /><br /></p>
+
+<hr />
+<h3 id="단어">단어</h3>
+<p>Fairly : 꽤 <br />
+Straightforward : 직설적인, 간단한, 복잡하지 않은 <br />
+Segmentation : 분할 <br />
+Associate : 연관짓다 <br />
+Parentheses : 괄호 <br />
+Elicit : 끌어내다 <br />
+Indices : index의 복수, 색인 지수 <br />
+Stub : 몽땅, 꽁초, 남는 부분 <br />
+Declaration : 선언 <br />
+Handy : 편리하게, 편리한 <br />
+Encourage : 격려하다 <br />
+Film Up : 촬영하다 <br />
+Consensus : 의견일치, 합의 <br />
+Prep : 준비하다 <br />
+flavor : 맛, 맛이 나다, 풍미를 더하다 <br />
+Prependicular : 전치(전치 몇주 할 때) <br />
+Perpendicular : 수직의, 수직적인, 수직 <br />
+Trigonometry : 삼각법 <br />
+Numerator : 분자 <br />
+Denominator : 분모 <br />
+Magnitude : 크기, 규모 <br />
+Hill : 언덕 <br />
+in terms of : ~측면에서, ~면에서 \</p>
+

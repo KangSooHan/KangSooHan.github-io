@@ -1,0 +1,108 @@
+<h2 id="opencv">OpenCV</h2>
+
+<p><br /></p>
+<h3 id="matrix-datatype">Matrix Datatype</h3>
+<p>Opencv는 기본 데이터 형식 cv::Mat datatype에 이미지를 저장하고 조작합니다. 이 형태는 다양한 차원의 숫자를 처리할 수 있으며 raster scan order이라 불리는 방식으로 정렬되어 저장됩니다. 2D image인 grayscale image의 경우 데이터가 행으로 구성되고 각 행이 차례대로 등장합니다. 3D인 RGB의 경우 평면으로 배열이 되어있으며, 각 평면은 한 줄씩 채워지고 평면이 차례대로 채워집니다.</p>
+<p align="center"><img src="/assets/img/sensorfusion/Raster_Scan.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+<h3 id="manipulating-matrices">Manipulating Matrices</h3>
+
+<p><br /></p>
+<h4 id="fixed-pixel-type">Fixed Pixel Type</h4>
+<ul>
+  <li>CV_8UC1 : 8-bit unsigned integer : uchar(0~255)</li>
+  <li>CV_8UC3 : 8-bit signed integer : uchar with 3-D</li>
+  <li>CV_8SC1 : 8-bit signed integer : schar(-128~127)</li>
+  <li>CV_16UC1 : 16-bit unsigned integer : ushort(0~65535)</li>
+  <li>CV_16SC1 : 16-bit signed integer : short(-32768~32767)</li>
+  <li>CV_32SC1 : 32-bit signed integer : int(-21…~21…)</li>
+  <li>CV_32FC1 : 32-bit floating-point number : float(-FLT_MAX~FLT_MAX)</li>
+  <li>CV_64FC1 : 64-bit floating-point number : double(-DBL_MAX~DBL_MAX)</li>
+</ul>
+
+<p><br /></p>
+<h4 id="create-matrix">Create Matrix</h4>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">createMatrix</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">nrows</span> <span class="o">=</span> <span class="mi">480</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">640</span><span class="p">;</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">m1_8u</span><span class="p">;</span>
+
+    <span class="c1">// Create 1D uchar(0~255) with size (480, 640) Matrix</span>
+    <span class="n">m1_8u</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">CV_8UC1</span><span class="p">);</span>
+    <span class="n">m1_8u</span><span class="p">.</span><span class="n">setTo</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Scalar</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>             <span class="c1">// White Screen</span>
+
+    <span class="c1">// Create 3D uchar(0~255) with size (480, 640 Matrix)</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">m3_8u</span><span class="p">;</span>
+    <span class="n">m3_8u</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">CV_8UC3</span><span class="p">);</span>    <span class="c1">// three-channel matrix with 8bit unsigned elements</span>
+    <span class="n">m3_8u</span><span class="p">.</span><span class="n">setTo</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Scalar</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>     <span class="c1">// Blue Screen(BGR types)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<h4 id="change-pixels">Change Pixels</h4>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">changePixels</span><span class="p">(){</span>
+    <span class="c1">// create matrix</span>
+    <span class="kt">int</span> <span class="n">nrows</span> <span class="o">=</span> <span class="mi">480</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">640</span><span class="p">;</span>
+    <span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">m1_8u</span><span class="p">;</span>
+    <span class="n">m1_8u</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">CV_8UC1</span><span class="p">);</span> <span class="c1">// two-channel matrix with 8bit unsigned elements</span>
+    <span class="n">m1_8u</span><span class="p">.</span><span class="n">setTo</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Scalar</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>          <span class="c1">//black</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">230</span><span class="p">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">250</span><span class="p">;</span> <span class="n">r</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// STUDENT TASK : loop over all columns and set matrix elements to 255</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">c</span><span class="o">&lt;</span><span class="n">ncols</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">){</span>     <span class="c1">// loop over all columns</span>
+            <span class="n">m1_8u</span><span class="p">.</span><span class="n">at</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>    <span class="c1">// set r, c elements to 255</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /><br /><br /></p>
+
+<hr />
+<h3 id="function">Function</h3>
+
+<p><br /></p>
+<h3 id="cvmatcreate">cv::Mat::create</h3>
+<ol>
+  <li>create(int rows, int cols, int types) : rows * cols 이미지를 types(Fixed Pixel Type) 형태로 생성</li>
+  <li>create(int size, int types) : size * size 이미지를 types(Fixed Pixel Type) 형태로 생성</li>
+  <li>create(int dim, int* size, int types) : size크기의 배열을 ndims의 크기로 생성(ex 200, arr[200<em>200] -&gt; 200</em>200 이미지)</li>
+  <li>create(std::vector&lt;int&gt;&amp; sizes, int types) : vector 형태의 배열을 types 형태의 이미지로 생성</li>
+</ol>
+
+<p><br /></p>
+<h3 id="cvmatsetto">cv::Mat::setTo</h3>
+<p>setTo(inputArray value, inputArray mask) : Matrix의 mask 영역을 value로 설정</p>
+
+<p><br /></p>
+<h3 id="cvnamedwindow---highguihpp">cv::namedWindow -&gt; highgui.hpp</h3>
+<p>namedWindow(const string &amp;winname, int flags) : winname이름의 types 형태 윈도우를 생성</p>
+
+<p><br /></p>
+<h3 id="cvimshow---highguihpp">cv::imshow -&gt; highgui.hpp</h3>
+<p>imshow(const string &amp;winname, InputArray mat) : matrix를 winname이름의 윈도우에 Display</p>
+
+<p><br /><br /><br /></p>
+
+<hr />
+<h3 id="library">Library</h3>
+
+<p><br /></p>
+<h4 id="opencv2corecorehpp">opencv2/core/core.hpp</h4>
+<p>코어 모듈은 기본적인 object types나 함수를 포함하고 있습니다.</p>
+
+<p><br /></p>
+<h4 id="opencv2highguihighguihpp">opencv2/highgui/highgui.hpp</h4>
+<p>highgui 모듈은 유저의 입력이나 display를 사용할 수 있는 UI 함수를 포함하고 있습니다. 자주 사용하는 cv::imshow가 여기 속해있습니다.</p>
+
+<p><br /></p>
+<h4 id="opencv2imgprocimgprochpp">opencv2/imgproc/imgproc.hpp</h4>
+<p>imgproc 모듈은 image transformations(filtering, geometric transformation, feature detection, tracking과 같은) 함수를 포함하고 있습니다.</p>
+
+<h4 id="opencv2features2dfeatures2dhpp">opencv2/features2d/features2d.hpp</h4>
+<p>feature2d 모듈은 detection, describing, matching keypoints과 같은 함수를 포함하고 있습니다.</p>
+
+<p><br /><br /><br /><br /><br /></p>
+
+<hr />
+<h3 id="단어">단어</h3>

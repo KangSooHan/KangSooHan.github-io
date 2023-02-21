@@ -1,0 +1,73 @@
+<h2 id="code-review">Code Review</h2>
+<p>지금까지 우리는 Lidar Obstacle Detection을 하기 위해 달려 왔고 크게 4가지를 배웠습니다. 이번 포스트에서는 이 함수들에 관한 code Review 및 Refactoring을 하도록 하겠습니다.</p>
+<ol>
+  <li>Point Cloud Segmentation(RANSAC)</li>
+  <li>Point Cloud Clustering(KD-Tree)</li>
+  <li>Point Cloud Clustering(Euclidean Clustering)</li>
+  <li>Point Cloud Downsampling &amp; Filtering(Voxel Grid)</li>
+  <li>Point Cloud Downsampling &amp; Filtering(Region of Interest)</li>
+</ol>
+
+<p><br /></p>
+<h3 id="1-point-cloud-segmentationransac">1. Point Cloud Segmentation(RANSAC)</h3>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Ransac</span><span class="p">(</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span><span class="o">&gt;::</span><span class="n">Ptr</span> <span class="n">cloud</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxIterations</span><span class="p">,</span> <span class="kt">float</span> <span class="n">distanceTol</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// cloudSize to get random index</span>
+    <span class="kt">int</span> <span class="n">cloudSize</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">maxIterations</span><span class="o">--</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">inliers</span><span class="p">;</span>
+
+        <span class="c1">// randomly sample subset</span>
+        <span class="c1">// select two points.(Line Ransac)</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">inliers</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="n">cloudSize</span><span class="p">);</span>
+
+        <span class="c1">// set cant contain same key</span>
+        <span class="c1">// if inliers size is not two select same key in random sample</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">inliers</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">!=</span><span class="mi">2</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+
+        <span class="c1">// take out two point that are in the form of pcl::PointXYZ format</span>
+        <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">inliers</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+        <span class="n">pcl</span><span class="o">::</span><span class="n">PointXYZ</span> <span class="n">point1</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">-&gt;</span><span class="n">points</span><span class="p">[</span><span class="o">*</span><span class="n">it</span><span class="o">++</span><span class="p">],</span> <span class="n">point2</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">-&gt;</span><span class="n">points</span><span class="p">[</span><span class="o">*</span><span class="n">it</span><span class="p">];</span>
+
+
+        <span class="c1">// make line AX+BY+C = 0</span>
+        <span class="kt">float</span> <span class="n">A</span> <span class="o">=</span> <span class="n">point1</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">point2</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">B</span> <span class="o">=</span> <span class="n">point2</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">point1</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">C</span> <span class="o">=</span> <span class="n">point1</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="n">point2</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">point2</span><span class="p">.</span><span class="n">x</span><span class="o">*</span><span class="n">point1</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+
+        <span class="c1">// iterate all points</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">nIndex</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">nIndex</span> <span class="o">&lt;</span> <span class="n">cloudSize</span><span class="p">;</span> <span class="o">++</span><span class="n">nIndex</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// skip select subset points</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">inliers</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">nIndex</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+
+            <span class="c1">// calculate distance</span>
+            <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">cloud</span><span class="o">-&gt;</span><span class="n">points</span><span class="p">[</span><span class="n">nIndex</span><span class="p">].</span><span class="n">x</span> <span class="o">+</span> <span class="n">B</span><span class="o">*</span><span class="n">cloud</span><span class="o">-&gt;</span><span class="n">points</span><span class="p">[</span><span class="n">nIndex</span><span class="p">].</span><span class="n">y</span> <span class="o">+</span> <span class="n">C</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">A</span><span class="o">+</span><span class="n">B</span><span class="o">*</span><span class="n">B</span><span class="p">);</span>
+
+            <span class="c1">// if distance &lt; distanceTol</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">d</span> <span class="o">&lt;=</span> <span class="n">distanceTol</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// it is inliers</span>
+                <span class="n">inliers</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">nIndex</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// want to extract plain(biggest one)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">inliersResult</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">inliers</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">inliersResult</span> <span class="o">=</span> <span class="n">inliers</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">inliersResult</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><a href="/2023/01/SensorFusion_05.html">참조</a><br />
+<a href="https://github.com/KangSooHan/SensorFusion/blob/main/SFND_Lidar_Obstacle_Detection/src/quiz/ransac/ransac2d.cpp"> github </a></p>
+
+<p><br /></p>
+<h3 id="2-point-cloud-clusterkd-tree">2. Point Cloud Cluster(KD-Tree)</h3>
+

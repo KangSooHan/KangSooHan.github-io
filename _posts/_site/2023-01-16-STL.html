@@ -1,0 +1,68 @@
+<h2 id="sequence-containers">Sequence Containers</h2>
+<p>데이터를 순차적으로 저장하는 자료 구조입니다. 구현이 단순하고 가벼우며 빠릅니다. 대표적으로 Vector(Arrray), Deque, List가 있습니다.</p>
+
+<p><br /></p>
+<h3 id="vectorarray">Vector(Array)</h3>
+<p>메모리 상에서 데이터가 연속적으로 위치하는 배열입니다. 지금까지 흔하게 사용했던 배열들과 유사하지만 배열의 크기를 알 수 있고 변하지 않는다면 array를 동적인 크기를 원한다면 vector를 선택하면 됩니다. std::vector는 포인터 세 개로 구현이 되어 있습니다.</p>
+<ol>
+  <li>할당된 배열의 시작 주소를 가리키는 포인터</li>
+  <li>다음 데이터가 삽입될 위치를 가리키는 포인터</li>
+  <li>배열의 끝 주소를 가리키는 포인터</li>
+</ol>
+
+<p><img src="/assets/img/algorithm/Vector.jpg" width="50%" height="50%" /></p>
+
+<p><br /></p>
+<h3 id="deque">Deque</h3>
+<p>저장 공간의 앞, 뒤에 데이터를 빠르게 넣고 뺄 수 있는 Double-Ended QUEue(DEQUE)입니다. deque는 여러개의 버퍼에 데이터를 나눠서 저장합니다. Deque는 Vector에 비해서 앞뒤로 삽입 및 삭제가 빨라 유리해 보이지만 차이가 있습니다. Vector는 요소들이 메모리에 연속적으로 존재하는 것이 보장되지만, Deque는 요소들이 연속적인 것이 보장되지 않습니다. 따라서 배열과 관련된 라이브러리를 사용해야 할 때나 공간지역성을 고려해야 하는 상황에서는 deque가 불리한 점이 있습니다.
+<img src="/assets/img/algorithm/Deque.jpg" /></p>
+
+<p><br /></p>
+<h3 id="list">List</h3>
+<p>흔하게 파이썬에서 알고 있는 리스트입니다. Linked list라고도 불리고 Container의 어느 위치든 O(1)(근사)에 데이터를 삽입하거나 삭제할 수 있지만 Indexing할 때 O(1)에 접근은 불가능합니다. std::list 형태는 Linked list중에서도 Doubly_Linked List이고, std::forward_list는 Singly-Linked List입니다. Singly Linked List는 Doubly Linked List에 비해 맨 뒤에 데이터를 삽입하는게 빠르거나 iterator 자신을 삭제하지 못하는 등 기능이 제한됩니다. 하지만 포인터를 하나 덜 가지기 때문에 연산이 빠르고 메모리가 적게 사용됩니다.
+<img src="/assets/img/algorithm/List.jpg" /></p>
+
+<p><br /></p>
+
+<hr />
+<h2 id="associative-containers">Associative Containers</h2>
+<p>데이터를 정렬된 상태로 유지하는 자료구조입니다. Red-Black Tree(RB-Tree)를 기반으로 하고 데이터의 추가/삭제/접근의 시간복잡도가 O(logN)입니다. 하지만 자료구조의 특성상 연산에 붙는 상수가 크고 메모리가 많이 필요하기 때문에 주의가 필요합니다.</p>
+
+<p><br /></p>
+<h3 id="set">Set</h3>
+<p>RB-Tree는 BST의 일종으로 어떤 key 값을 기준으로 데이터를 저장합니다. std::set은 데이터 자체를 key로 사용하고, std::map은 (key, value)쌍을 받아서 사용합니다. 단순히 데이터를 정렬 상태로 유지하고 싶다면 std::set을 (key, value) 데이터 쌍을 key 기준으로 정렬하고 싶다면 std::map을 사용하면 됩니다. (Key 값의 중복이 허용되지 않습니다.)</p>
+
+<p><br /></p>
+<h3 id="multiset">MultiSet</h3>
+<p>Key값의 중복을 허용하지 않는 Set과 다르게 MultiSet은 Key값의 중복을 허용합니다. 다만 시간 복잡도의 주의가 매우 필요한 편입니다. Multiset은 같은 key를 모두 세고, 모두 접근하는 형식이기 때문에 O(logN + key 데이터 수) 만큼의 시간이 듭니다.</p>
+
+<p><br /></p>
+
+<hr />
+<h2 id="unordered-associative-containers">Unordered Associative Containers</h2>
+<p>해시 값을 사용해 데이터를 저장하는 자료구조입니다. 대부분의 경우 데이터의 추가/삭제/접근이 O(1)이므로 Associative Container보다 효율적입니다. 하지만 데이터를 정렬된 상태로 유지해야 하거나 해시 충돌이 걱정되는 상황이라면 Associative Container를 사용하는 것이 좋습니다.</p>
+
+<p><br /></p>
+<h3 id="unordered_set">Unordered_set</h3>
+<p>Data를 중복 없이 저장하고 싶고, 순서가 상관없을 때 사용할 수 있습니다. <br />
+데이터를 여러 개의 Bucket에 나누어 저장하고, 주어진 key의 해시 값과 bucket 크기의 나머지 연산을 통해 어떤 버킷에 들어갈 지 정합니다. 이 때문에 다른 key값이여도 동일한 bucket에 들어갈 수 있습니다. 이를 해시 충돌이라고 하며 각 Bucket을 linked list로 쌍을 저장하여 해결할 수 있습니다. 최악의 시간 복잡도는 O(N) (모든 데이터가 하나의 버킷 &amp; linked list 순회)입니다. std::unordered_set 혹은 Unordered_multiset 형태로 std::unordered_multiset으로 사용할 수 있습니다.</p>
+
+<p><br /></p>
+
+<hr />
+
+<h2 id="etc">ETC…</h2>
+
+<p><br /></p>
+<h3 id="stack">Stack</h3>
+<p>LIFO(Last-In, First-Out) 형태의 자료구조인 Stack입니다. std::stack을 통해 사용할 수 있습니다.</p>
+
+<p><br /></p>
+<h3 id="queue">Queue</h3>
+<p>FIFO(First-In, First-Out) 형태의 자료구조인 Queue입니다. std::queue을 통해 사용할 수 있습니다.</p>
+
+<p><img src="/assets/img/algorithm/Stack_Queue.jpg" width="40%" height="40%" /></p>
+
+<p><br /></p>
+<h3 id="priority-queue매우중요">Priority-Queue(매우중요!!!)</h3>
+<p>Max heap 형태로 유지되는 container입니다. 데이터가 완전하게 정렬된 상태는 아니지만 최대 혹은 최솟값을 빠르게 찾을 수 있습니다. 연속적으로 데이터의 최댓값 또는 최솟값만 필요할 때 매우 효율적이게 동작합니다.</p>

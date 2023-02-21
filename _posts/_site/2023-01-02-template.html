@@ -1,0 +1,41 @@
+<h2 id="template">Template?</h2>
+<p>Template는 cpp에서 generic programing의 기초입니다. cpp에서는 프로그래머가 명시적으로 변수를 선언하거나 컴파일러에서 추론하는 특정 형식을 가진 변수를 필요로 합니다. 그러나 데이터 구조 및 알고리즘은 어떤 형식이든 동일하게 동작합니다. 이 때, Template를 사용하면 클래스 또는 함수의 연산을 정의할 수 있으며, 사용자가 해당 작업을 수행할 형식을 지정할 수 있습니다.\</p>
+
+<ul>
+  <li>함수가 호출되면 컴파일러는 모든 인스턴스를 사용자가 지정하거나 추론하는 구체적인 형식 인수로 바꿔줌(T -&gt; int, char, e etc..)</li>
+  <li>컴파일러가 템플릿에서 클래스 또는 함수를 생성하는 프로세스를 template instace라고 함(minimum&lt;int&gt;는 minimum&lt;T&gt;의 instace화)</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// typename : 매개 변수 형식의 자리 표시자를 의미</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="n">T</span> <span class="nf">minimum</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">lhs</span> <span class="o">&lt;</span> <span class="n">rhs</span> <span class="o">?</span> <span class="n">lhs</span> <span class="o">:</span> <span class="n">rhs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// typename... 줄임표 연산자 사용 가능</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="o">...</span> <span class="nc">Arguments</span><span class="p">&gt;</span> <span class="k">class</span> <span class="nc">vtclass</span><span class="p">;</span>
+<span class="n">vtclass</span><span class="o">&lt;&gt;</span> <span class="n">vt1</span><span class="p">;</span>
+<span class="n">vtclass</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vt2</span><span class="p">;</span>
+<span class="n">vtclass</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;</span> <span class="n">vt3</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="k">class</span> <span class="nc">Arr</span><span class="p">&gt;</span>
+<span class="n">T</span> <span class="n">t</span><span class="p">;</span>
+<span class="n">Arr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span> <span class="n">n</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">B</span><span class="p">;</span>
+<span class="c1">// 에러 발생!! non-type template pyrameter 는 double이 될 수 없다.</span>
+<span class="n">B</span><span class="o">&lt;</span><span class="mf">2.5</span><span class="o">&gt;</span> <span class="n">b3</span><span class="p">;</span>
+
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">PointT</span><span class="p">&gt;</span>
+<span class="k">typename</span> <span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">PointT</span><span class="o">&gt;::</span><span class="n">Ptr</span> <span class="n">ProcessPointClouds</span><span class="o">&lt;</span><span class="n">PointT</span><span class="o">&gt;::</span><span class="n">FilterCloud</span><span class="p">(</span><span class="k">typename</span> <span class="n">pcl</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&lt;</span><span class="n">PointT</span><span class="o">&gt;::</span><span class="n">Ptr</span> <span class="n">cloud</span><span class="p">,</span> <span class="kt">float</span> <span class="n">filterRes</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4f</span> <span class="n">minPoint</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4f</span> <span class="n">maxPoint</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p><br /><br /><br /><br /><br /><br /></p>
+
+<hr />
+<h3 id="단어">단어</h3>
+<p>generic : 일반적인 \</p>

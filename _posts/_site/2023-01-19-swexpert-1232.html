@@ -1,0 +1,108 @@
+<p>문제 링크 : <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV141176AIwCFAYD">https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV141176AIwCFAYD</a></p>
+
+<p><br /></p>
+<h3 id="to-solve">To Solve</h3>
+<p>이 문제는 Tree에 대해서 학습하기 위한 기본 문제 중 하나입니다. <br />
+이 문제를 풀기 위해서 Tree를 구성하였습니다. <br />
+사칙연산을 계산하기 위해선 왼-중-오 순인 inorder(중위순회)를 구현했습니다.</p>
+
+<p><br /><br /></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span>
+<span class="k">struct</span> <span class="nc">Node</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">Node</span> <span class="n">node_pool</span><span class="p">[</span><span class="mi">1001</span><span class="p">];</span>
+
+<span class="n">Node</span><span class="o">*</span> <span class="n">new_node</span><span class="p">(</span><span class="kt">int</span> <span class="n">node_num</span><span class="p">,</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
+        <span class="n">node_pool</span><span class="p">[</span><span class="n">node_num</span><span class="p">].</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">node_pool</span><span class="p">[</span><span class="n">node_num</span><span class="p">].</span><span class="n">left</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="n">node_pool</span><span class="p">[</span><span class="n">node_num</span><span class="p">].</span><span class="n">right</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">node_num</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">BST</span><span class="p">{</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+
+<span class="nl">public:</span>
+    <span class="n">BST</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node_num</span><span class="p">,</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Node</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">(</span><span class="n">node_num</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="n">right</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">node_num</span><span class="p">,</span> <span class="kt">char</span> <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+    <span class="p">{</span>
+        <span class="n">Node</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">(</span><span class="n">node_num</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">calculate</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">traversal_rec</span><span class="p">(</span><span class="o">&amp;</span><span class="n">node_pool</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">traversal_rec</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">node</span><span class="p">)</span> <span class="k">const</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">)</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">atoi</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">;</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">traversal_rec</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">traversal_rec</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'*'</span><span class="p">)</span> <span class="k">return</span> <span class="n">left</span> <span class="o">*</span> <span class="n">right</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'/'</span><span class="p">)</span> <span class="k">return</span> <span class="n">left</span> <span class="o">/</span> <span class="n">right</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'+'</span><span class="p">)</span> <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'-'</span><span class="p">)</span> <span class="k">return</span> <span class="n">left</span> <span class="o">-</span> <span class="n">right</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">BST</span> <span class="n">bst</span> <span class="p">{};</span>
+
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">freopen</span><span class="p">(</span><span class="s">"input.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">test</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">test</span><span class="o">&lt;=</span><span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">test</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">bst</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">N</span><span class="p">;</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">N</span><span class="p">);</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">idx</span><span class="p">;</span>
+            <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+            <span class="n">scanf</span><span class="p">(</span><span class="s">"%d%s"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">idx</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">bst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">;</span>
+                <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">left</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">right</span><span class="p">);</span>
+                <span class="n">bst</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">printf</span><span class="p">(</span><span class="s">"#%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">bst</span><span class="p">.</span><span class="n">calculate</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<p><br />
+<a href="https://github.com/KangSooHan/algorithm/blob/main/SWExpert/TREE/1232/main.cpp">Code</a></p>
